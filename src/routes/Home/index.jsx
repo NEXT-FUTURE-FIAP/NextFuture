@@ -1,8 +1,14 @@
 
+// CSS
 import { MainHome } from "./styleHome";
+// links
+import { Link } from "react-router-dom";
+import Game from "../Game";
+// imagens
 import Background from "../../assets/bc_img.png"
 import Car from "../../assets/car.png"
 import Circuit from "../../assets/Circuit.png"
+import Controle from "../../assets/Controle.png"
 
 export default function Home(){
 
@@ -11,14 +17,19 @@ export default function Home(){
         <>
             <MainHome>
                 <img src={Background} alt="" />
+                <Link className="btn" to="/game">
+                    <button className="game"><img src={Controle} alt="" />GAME</button>
+                </Link>
                 <section className="car">
                     <p className="txt_car">Viva a emoção da Fórmula E: onde a velocidade encontra a paixão!
-                        <button className="btn_sign">
-                            <p>ACOMPANHE</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
-                            </svg>
-                        </button>
+                       <a href="https://www.fiaformulae.com/en" target="blank">
+                            <button className="btn_sign">
+                                <p>ACOMPANHE</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                                    <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
+                                </svg>
+                            </button>
+                        </a>
                         </p>
                     <img src={Car} alt="" />
                 </section>

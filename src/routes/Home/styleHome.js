@@ -7,6 +7,42 @@ export const MainHome = styled.main`
     flex-direction: column;
     font-family: "Rajdhani", sans-serif;
 
+    .btn{
+        position: absolute;
+        z-index: 3;
+        margin-left: 2%;
+        margin-top: 2%;
+        width: 110px;
+    }
+
+    .game{
+        background-color: transparent;
+        border-style: none;
+        cursor: pointer;
+        color: #00C0F9;
+        font-family: "Rajdhani", sans-serif;
+        font-weight: 700;
+        font-size: large;
+        transition: transform 0.3s ease;
+    }
+
+    .game:hover{
+        border-radius: 20px;
+        transform: translateX(10px);
+        background-color: #66187a;
+        color: white;
+    }
+
+    .game img{
+        width: 35px;
+        margin-right: 5%;
+    }
+
+    a{
+        text-decoration: none;
+    }
+
+
     .car{
         display: flex;
         color: #00C0F9;
@@ -64,7 +100,6 @@ export const MainHome = styled.main`
     .podioList{
         flex-direction: column;
     }
-
 
     .line{
         height: 300px;
@@ -131,7 +166,7 @@ export const MainHome = styled.main`
     }
 
     .date button{
-        margin-top: 48%;
+        margin-top: 40%;
         margin-left: 40%;
         font-family: "Rajdhani", sans-serif;
         border-radius: 5px;
@@ -143,4 +178,122 @@ export const MainHome = styled.main`
         color: white;
         font-weight: bold;
     }
+    /* breakpoint tablet */
+    @media (max-width: 850px) {
+        .txt_car{
+            width: 60%;
+            margin-left: 10%;
+            font-size: xx-large;
+        }
+        .raceInfo{
+            display: flex;
+            flex-direction: column;
+        }
+        .titulo{
+            margin-left: 17%;
+            margin-bottom: 2%;
+        }
+        .podio{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .line{
+            height: 330px;
+            width: 5px;
+            background-color: #00C0F9;
+            margin-left: 1%;
+        }
+        .first{
+            width: 65vw;
+        }
+        .second{
+            width: 65vw;
+        }
+        .third{
+            width: 65vw;
+        }
+        .calendar{
+            margin-top: 10%;
+            justify-content: center;
+            width: 100%;
+            margin-right: 0%;
+        }
+    }
+    /* breakpoint celular */
+    @media (max-width: 480px) {
+        .game{
+            font-size: small;
+        }
+        .game img{
+            width: 20px;
+        }
+        .txt_car{
+            width: 100%;
+            font-size: medium;
+            margin-left: 8%;
+        }
+        .btn_sign{
+            width: 90px;
+            height: 30px;
+            font-size: x-small;
+        }
+        .btn_sign p{
+            margin-top: 8%;
+        }
+        .btn_sign svg{
+            margin-top: 2%;
+            width: 15px;
+        }
+        .titulo{
+            font-size: medium;
+            margin-left: 8%;
+        }
+        .podio{
+            width: 100%;
+        }
+        .line{
+            height: 31vh;
+            width: 2px;
+        }
+        .first{
+            width: 75vw;
+            height: 8vh;
+        }
+        .second{
+            width: 75vw;
+            height: 8vh;
+        }
+        .third{
+            width: 75vw;
+            height: 8vh;
+            margin-bottom: 10%;
+        }
+        .raceInfo{
+            display: flex;
+            flex-direction: column;
+        }
+        .calendar{
+            display: flex;
+            margin-right: 0%;
+            padding: 2%;
+        }
+        .circuito_img{
+            width: 250px;
+        }
+        .date{
+            background-color: #66187a;
+            height: 140px;
+            font-size: small;
+            border-radius: 0px 10px 10px 0px;
+            padding: 5px;
+        }
+        .date button{
+            margin-top: 7%;
+            margin-left: 40%;
+            font-size: x-small;
+            height: 2vh;
+        }
+    }
+
 `
