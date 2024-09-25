@@ -74,6 +74,7 @@ export const FootFooter = styled.footer`
 
     .background{
         height: 21vh;
+        width:100%;
     }
     .linha{
         height: 150px;
