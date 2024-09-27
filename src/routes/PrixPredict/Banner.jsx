@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Banner from '../../assets/banner-prixpredict.png'
+import bannerImage from '../../assets/banner-prixpredict.png'
  
 const BannerContainer = styled.div`
   width: 100%;
@@ -8,7 +8,7 @@ const BannerContainer = styled.div`
  
 const BannerImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 30%;
   display: block;
   object-fit: cover;
 `;
@@ -16,7 +16,7 @@ const BannerImage = styled.img`
 const Banner = () => {
   return (
     <BannerContainer>
-      <BannerImage src={Banner} alt="Banner" />
+      <BannerImage src={bannerImage} alt="Banner" />
     </BannerContainer>
   );
 }

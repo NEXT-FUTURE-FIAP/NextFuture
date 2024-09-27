@@ -6,19 +6,19 @@ export const MainPrix = styled.main`
 
     .titulo{
         color: aliceblue;
-        text-align: center;
+        text-align: left;
         font-family: "Rajdhani", sans-serif;
+        ;
         
     }
-    .banner{
-        width: 100%; 
-        height: auto; 
-        overflow: hidden; 
     
-    }
     .txt_prix{
         color: aliceblue;
         font-family: "Rajdhani", sans-serif;
+    }
+
+    .prix_titulo{
+        background-color: ;
     }
     
     
