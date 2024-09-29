@@ -3,7 +3,6 @@
 import { MainHome } from "./styleHome";
 // links
 import { Link } from "react-router-dom";
-import Game from "../Game";
 // imagens
 import Background from "../../assets/bc_img.png"
 import Car from "../../assets/car.png"
