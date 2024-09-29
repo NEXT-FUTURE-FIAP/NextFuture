@@ -39,7 +39,7 @@ export default function Home(){
                         <div className="line"></div>
                         <div className="podioList">
                             <div className="first">
-                                <p>teste</p>
+                              <h1>1°</h1>
                             </div>
                             <div className="second"></div>
                             <div className="third"></div>
@@ -54,7 +54,7 @@ export default function Home(){
                             <h2>Circuito de Puebla</h2>
                             <p>dd/mm</p>
                             <p>00:00</p>
-                            <button>Mais informações</button>
+                            <button><a href="https://www.fiaformulae.com/en/results?season=84467676-4d5d-4c97-ae07-0b7520bb95ea&race=d1551077-a122-4a70-894c-941345831ec4&tab=qualifying" target="_blank">MAIS INFORMAÇÕES</a></button>
                         </div>
                     </section>
                 </section>

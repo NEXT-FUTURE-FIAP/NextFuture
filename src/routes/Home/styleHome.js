@@ -29,7 +29,7 @@ export const MainHome = styled.main`
     .game:hover{
         border-radius: 20px;
         transform: translateX(10px);
-        background-color: #66187a;
+        background-color: #DC00FE;
         color: white;
     }
 
@@ -171,12 +171,17 @@ export const MainHome = styled.main`
         font-family: "Rajdhani", sans-serif;
         border-radius: 5px;
         border-style: none;
-        height: 10%;
+        min-height: 10%;
         width: 60%;
         cursor: pointer;
         background-color: #00C0F9;
         color: white;
         font-weight: bold;
+        text-decoration: none;
+    }
+
+    .date button a{
+       color: white;
     }
     /* breakpoint tablet */
     @media (max-width: 850px) {

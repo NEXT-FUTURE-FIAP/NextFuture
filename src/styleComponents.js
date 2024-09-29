@@ -9,7 +9,7 @@ export const NavMenu = styled.nav`
     justify-content: space-between;
     align-content: center;
     
-    img{
+    .logo{
         height: 60px;
     }
 
@@ -28,6 +28,11 @@ export const NavMenu = styled.nav`
 
     a:hover{
         color: #DC00FE;
+    }
+
+    .icon{
+        align-self: center;
+        width: 20px;
     }
 
     /* breakpoint tablet */
@@ -160,10 +165,11 @@ export const FootFooter = styled.footer`
         font-weight: 600;
     }
 
+
     /* breakpoint tablet */
     @media (max-width: 850px){
         .background{
-            height: 8vh;
+            height: 10vh;
         }
         .linha{
             height: 90px;
@@ -212,3 +218,55 @@ export const FootFooter = styled.footer`
     }
     
 `
+
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.733);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  a{
+    text-decoration: none;
+  }
+
+  p{
+    width: 70%;
+  }
+
+  strong{
+    color: #DC00FE;
+  }
+
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .close-btn {
+    position: absolute;
+    background-color: transparent;
+    padding: 10px 20px;
+    border: none;
+    margin-bottom: 40%;
+    margin-left: 50%;
+    cursor: pointer;
+  }
+
+  .close-btn img{
+    width: 30px;
+    height: 30px;
+  }
+
+  .close-btn img:hover {
+    border-radius: 50%;
+    background-color: #180f57;
+  }
+`;
