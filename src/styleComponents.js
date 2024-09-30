@@ -70,7 +70,7 @@ export const NavMenu = styled.nav`
 export const FootFooter = styled.footer`
     width: 100%;
     background-color: #180f57;
-    margin-top: 15%;
+    margin-top: 10%;
 
     .footer{
         display: flex;

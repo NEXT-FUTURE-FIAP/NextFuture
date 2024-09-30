@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect} from "react"
 import {useNavigate, Link} from 'react-router-dom'
+import { SecLogin } from './styleLogon'
 
 const Login =()=>{
 
@@ -62,59 +63,61 @@ const Login =()=>{
     },[])
 
     return(
-        <section className="container">
-            <div className="container-login">
-            <div className="login">
+        <SecLogin>
+            <section className="container">
+                <div className="container-login">
+                <div className="login">
 
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <span className="titulo-login">Faça seu Login</span>
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <span className="titulo-login">FAÇA SEU LOGIN</span>
 
-                    <div className="w-input">
-                            <input
-                                type="text"
-                                className="input-form"
-                                id="usuario"
-                                ref={usuario}                 
-                            />
-                            <span placeholder="usuario"></span>
-                    </div>
+                        <div className="w-input">
+                                <input
+                                    type="text"
+                                    className="input-form"
+                                    id="usuario"
+                                    ref={usuario}                 
+                                />
+                                <span placeholder="usuario"></span>
+                        </div>
 
 
-                    <div className="w-input">
-                            <input
-                                type="password"
-                                className="input-form"
-                                id="senha"
-                                ref={senha}                 
-                            />
-                            <span placeholder="senha"></span>
-                    </div>
+                        <div className="w-input">
+                                <input
+                                    type="password"
+                                    className="input-form"
+                                    id="senha"
+                                    ref={senha}                 
+                                />
+                                <span placeholder="senha"></span>
+                        </div>
 
-                    <div className="login-btn">
-                        <button type="submit" className="login-form-btn">Login</button>
+                        <div className="login-btn">
+                            <button type="submit" className="login-form-btn">Login</button>
 
-                    </div>
+                        </div>
 
-                    {/*uteis */}
+                        {/*uteis */}
 
-                    <ul className="uteis">
-                        <li>
-                            <span className="texto1">Esqueceu sua senha?</span>
-                        </li>
-                        <li>
-                            <span className="texto1">Não possui Conta?</span>
-                           <Link to="/cadastro">
-                            Criar
-                           </Link>
-                        </li>
+                        <ul className="uteis">
+                            <li>
+                                <span className="texto1">Esqueceu sua senha?</span>
+                            </li>
+                            <li>
+                                <span className="texto1">Não possui Conta?</span>
+                            <Link to="/cadastro">
+                                Criar
+                            </Link>
+                            </li>
 
-                    </ul>
+                        </ul>
 
-                </form>
-            </div>
-            <img src="" alt="logo"/>
-            </div>
-        </section>
+                    </form>
+                </div>
+                </div>
+            </section>
+        </SecLogin>
+        
     )
 }
 export default Login
