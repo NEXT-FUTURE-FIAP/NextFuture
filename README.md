@@ -48,7 +48,7 @@ npm run dev
 npx json-server --watch db.json --port 5000
 ```
 # Estrutura
-```
+
 src/
 │
 ├── assets/
@@ -85,7 +85,7 @@ src/
 ├── main.jsx
 └── styleComponents.js
 
-```
+
 
 #### Próximas atualizacões
 **1.** Atualizações em Tempo Real: Informações ao vivo durante os eventos de corrida.<br>
