@@ -3,10 +3,95 @@
 # VISÃO GERAL
 <p> Site informativo dedicado ao mundo das corridas, com um foco especial em destacar eventos e corredores de destaque. Este site oferece uma plataforma onde os entusiastas de corridas podem encontrar informações sobre as próximas corridas, visualizar pódios e acessar conteúdos relacionados a competições e jogos. Através de uma interface intuitiva e visualmente atraente, o site visa proporcionar uma experiência envolvente e informativa para seus usuários. </p>
 
-### Próximas atualizacões
+## Funcionalidades
+- Página Inicial: Apresenta as informações gerais sobre a Fórmula E.
+- Palpites: Área onde os usuários podem fazer previsões sobre as corridas.
+- Corridas: Seção com informações sobre corridas passadas e futuras.
+- Game: Um jogo interativo relacionado à Fórmula E.
+- Login/Cadastro: Permite o cadastro de novos usuários e login para acesso a funcionalidades restritas.
+
+### pré-requisitos
+- Node.js
+- npm ou yarn
+
+
+### Dependências
+```
+  "dependencies": {
+      "json-server": "^1.0.0-beta.2", //Simula uma API RESTful para gerenciamento de dados locais durante o desenvolvimento.
+      "react": "^18.3.1",  //Biblioteca JavaScript para a criação de interfaces de usuário.
+      "react-dom": "^18.3.1",
+      "react-icons": "^5.3.0",
+      "react-router-dom": "^6.26.2",//Gerenciamento de rotas no front-end para navegação no site.
+      "styled-components": "^6.1.13"//Para estilização dos componentes de forma dinâmica e moderna.
+  }
+```
+
+### Passos para executar
+1. Clone o repositório:
+```
+git clone https://github.com/seu-usuario/seu-repositorio.git
+```
+2. Instale as dependências:
+```
+npm install
+```
+3. Inicie o projeto:
+```
+npm run dev
+```
+
+### Simulação API
+1. Adicione um arquivo db.json na raiz do projeto com os dados que deseja simular.
+2. Inicie o json-server:
+```
+npx json-server --watch db.json --port 5000
+```
+# Estrutura
+```
+src/
+│
+├── assets/
+│   └── imagens, ícones e outros arquivos estáticos
+│
+├── components/
+│   └── Componentes reutilizáveis para a aplicação
+│
+├── data/
+│
+├── routes/
+│   ├── Error/
+│   │   └── index.jsx
+│   ├── Game/
+│   │   └── index.jsx
+│   ├── Home/
+│   │   ├── index.jsx
+│   │   └── styleHome.js
+│   ├── Login/
+│   │   ├── CadastroUsuario.jsx
+│   │   ├── Login.jsx
+│   │   └── styleLogon.js
+│   ├── PrixPredict/
+│   │   ├── Banner.jsx
+│   │   ├── index.jsx
+│   │   ├── stylePrix.js
+│   │   └── tag.jsx
+│   └── Racing/
+│       ├── index.jsx
+│       └── styleRace.js
+│
+├── App.jsx
+├── global-style.js
+├── main.jsx
+└── styleComponents.js
+
+```
+
+#### Próximas atualizacões
 **1.** Atualizações em Tempo Real: Informações ao vivo durante os eventos de corrida.<br>
 **2.** Melhora no game idle
 <br> <br>
+
 ##### Tecnologias
 <a href="https://www.google.com/search?q=html" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/HTML-orange?style=for-the-badge&logo=HTML5&logoColor=orange&labelColor=black"></a>
 <a href="https://www.google.com/search?q=css" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/CSS-61DBFB?style=for-the-badge&logo=CSS3&logoColor=61DBFB&labelColor=black"></a>
