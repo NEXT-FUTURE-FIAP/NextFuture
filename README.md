@@ -3,11 +3,6 @@
 # VISÃO GERAL
 <p> Site informativo dedicado ao mundo das corridas, com um foco especial em destacar eventos e corredores de destaque. Este site oferece uma plataforma onde os entusiastas de corridas podem encontrar informações sobre as próximas corridas, visualizar pódios e acessar conteúdos relacionados a competições e jogos. Através de uma interface intuitiva e visualmente atraente, o site visa proporcionar uma experiência envolvente e informativa para seus usuários. </p>
 
-## OBJETIVOS DO PROJETO
-- **Informar os Usuários:** Prover informações atualizadas sobre corridas, incluindo detalhes de eventos passados e futuros.
-- **Destacar Corredores:** Exibir os corredores que se destacam nas competições, com uma seção dedicada aos três primeiros colocados.
-- **Engajar com Conteúdos Adicionais:** Oferecer acesso a jogos e conteúdos externos relacionados a corridas para popularizar a Formula E.
-- **Facilitar a Navegação:** Garantir que os usuários possam navegar facilmente pelo site, encontrando rapidamente as informações que procuram.
 ### Próximas atualizacões
 **1.** Atualizações em Tempo Real: Informações ao vivo durante os eventos de corrida.<br>
 **2.** Melhora no game idle
@@ -16,7 +11,10 @@
 <a href="https://www.google.com/search?q=html" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/HTML-orange?style=for-the-badge&logo=HTML5&logoColor=orange&labelColor=black"></a>
 <a href="https://www.google.com/search?q=css" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/CSS-61DBFB?style=for-the-badge&logo=CSS3&logoColor=61DBFB&labelColor=black"></a>
 <a href="https://www.google.com/search?q=javascript" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=JavaScript&logoColor=yellow&labelColor=black"></a>
-<br> <br>
+<a href="https://www.google.com/search?q=Node.js" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/Node.js-green?style=for-the-badge&logo=node.js&labelColor=black"></a>
+<a href="https://www.google.com/search?q=React" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/React-blue?style=for-the-badge&logo=react&labelColor=black"></a>+
+<a href="https://www.google.com/search?q=Vite" target="_blank" style="margin-right:10px"><img src="https://img.shields.io/badge/Vite-purple?style=for-the-badge&logo=vite&labelColor=black"></a>
+
 
 ### PARCEIROS
 <div style="display: flex; justify-content: space-between; align-items: center;">
