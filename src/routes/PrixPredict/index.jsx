@@ -38,64 +38,6 @@ export default function PrixPredict() {
 
         <button className="view-full-list">Ver lista completa</button>
 
-        <section className="como_funciona_container">
-
-          <h2 className="como_funciona_titulo">Tem dúvidas de como funciona o PrixPredict:</h2>
-
-          {/* Card 1 */}
-          <div className={`card transparent-card ${expandedCard === 1 ? 'expanded' : ''}`} onClick={() => toggleCard(1)}>
-            <div className="cardTitle"><strong>Escolha quanto quer apostar:</strong></div>
-            {expandedCard === 1 && (
-              <div className="cardContent">
-                Decida quantos ePoints deseja apostar. Esses pontos funcionam como sua moeda dentro do PrixPredict.
-              </div>
-            )}
-          </div>
-
-          {/* Card 2 */}
-          <div className={`card transparent-card ${expandedCard === 2 ? 'expanded' : ''}`} onClick={() => toggleCard(2)}>
-            <div className="cardTitle"><strong>Selecione uma categoria de aposta:</strong></div>
-            {expandedCard === 2 && (
-              <div className="cardContent">
-                <ul>
-                  <li><strong>Pódio:</strong> Aposte em quem terminará no pódio (top 3).</li>
-                  <li><strong>Ultrapassagem:</strong> Tente prever se um piloto específico fará mais ultrapassagens.</li>
-                  <li><strong>Vencedor:</strong> Aponte quem você acha que vai vencer a corrida.</li>
-                  <li><strong>Pit Stop:</strong> Tente acertar quem fará o pit stop mais rápido ou quantos pit stops um piloto fará.</li>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* Card 3 */}
-          <div className={`card transparent-card ${expandedCard === 3 ? 'expanded' : ''}`} onClick={() => toggleCard(3)}>
-            <div className="cardTitle"><strong>Entenda as odds:</strong></div>
-            {expandedCard === 3 && (
-              <div className="cardContent">
-                As odds são calculadas com base nas chances de determinado evento acontecer. Quanto maior o risco, maior o possível retorno dos seus ePoints.
-              </div>
-            )}
-          </div>
-
-          {/* Card 4 */}
-          <div className={`card transparent-card ${expandedCard === 4 ? 'expanded' : ''}`} onClick={() => toggleCard(4)}>
-            <div className="cardTitle"><strong>Aposte sem combinações:</strong></div>
-            {expandedCard === 4 && (
-              <div className="cardContent">
-                No PrixPredict, você só pode fazer uma aposta por vez.
-              </div>
-            )}
-          </div>
-
-          {/* Card 5 */}
-          <div className={`card transparent-card ${expandedCard === 5 ? 'expanded' : ''}`} onClick={() => toggleCard(5)}>
-            <div className="cardTitle"><strong>Exemplo:</strong></div>
-            {expandedCard === 5 && (
-              <div className="cardContent">
-                Se você tem 1000 ePoints e aposta 200 ePoints que o piloto "X" vai vencer, e as odds estão em 2.5, você receberá 500 ePoints se acertar (200 x 2.5).
-              </div>
-            )}
-          </div>
 
           {/* Cards das equipes */}
           <h1 className="predictions_title">Faça seus predicts:</h1>
@@ -170,7 +112,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS ABT CUPRA</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -182,7 +124,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS Avalanche Andretti</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -194,7 +136,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS DS Penske</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -206,7 +148,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS Envision Racing</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -218,7 +160,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS Mahindra Racing</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -230,7 +172,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS Maserati MSG Racing</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -242,7 +184,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS Neom McLaren</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -254,7 +196,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS NIO 333</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -266,7 +208,7 @@ export default function PrixPredict() {
     <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
+      <h3>PREDICTS Nissan</h3>
       <p>Porsche<br />para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
       <button className="yes">sim 3.90x</button>
@@ -289,6 +231,64 @@ export default function PrixPredict() {
   {/* Continue adicionando cards para as outras equipes da Fórmula E */}
 </section>
 
+        <section className="como_funciona_container">
+
+          <h2 className="como_funciona_titulo">Tem dúvidas de como funciona o PrixPredict:</h2>
+
+          {/* Card 1 */}
+          <div className={`card transparent-card ${expandedCard === 1 ? 'expanded' : ''}`} onClick={() => toggleCard(1)}>
+            <div className="cardTitle"><strong>Escolha quanto quer apostar:</strong></div>
+            {expandedCard === 1 && (
+              <div className="cardContent">
+                Decida quantos ePoints deseja apostar. Esses pontos funcionam como sua moeda dentro do PrixPredict.
+              </div>
+            )}
+          </div>
+
+          {/* Card 2 */}
+          <div className={`card transparent-card ${expandedCard === 2 ? 'expanded' : ''}`} onClick={() => toggleCard(2)}>
+            <div className="cardTitle"><strong>Selecione uma categoria de aposta:</strong></div>
+            {expandedCard === 2 && (
+              <div className="cardContent">
+                <ul>
+                  <li><strong>Pódio:</strong> Aposte em quem terminará no pódio (top 3).</li>
+                  <li><strong>Ultrapassagem:</strong> Tente prever se um piloto específico fará mais ultrapassagens.</li>
+                  <li><strong>Vencedor:</strong> Aponte quem você acha que vai vencer a corrida.</li>
+                  <li><strong>Pit Stop:</strong> Tente acertar quem fará o pit stop mais rápido ou quantos pit stops um piloto fará.</li>
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Card 3 */}
+          <div className={`card transparent-card ${expandedCard === 3 ? 'expanded' : ''}`} onClick={() => toggleCard(3)}>
+            <div className="cardTitle"><strong>Entenda as odds:</strong></div>
+            {expandedCard === 3 && (
+              <div className="cardContent">
+                As odds são calculadas com base nas chances de determinado evento acontecer. Quanto maior o risco, maior o possível retorno dos seus ePoints.
+              </div>
+            )}
+          </div>
+
+          {/* Card 4 */}
+          <div className={`card transparent-card ${expandedCard === 4 ? 'expanded' : ''}`} onClick={() => toggleCard(4)}>
+            <div className="cardTitle"><strong>Aposte sem combinações:</strong></div>
+            {expandedCard === 4 && (
+              <div className="cardContent">
+                No PrixPredict, você só pode fazer uma aposta por vez.
+              </div>
+            )}
+          </div>
+
+          {/* Card 5 */}
+          <div className={`card transparent-card ${expandedCard === 5 ? 'expanded' : ''}`} onClick={() => toggleCard(5)}>
+            <div className="cardTitle"><strong>Exemplo:</strong></div>
+            {expandedCard === 5 && (
+              <div className="cardContent">
+                Se você tem 1000 ePoints e aposta 200 ePoints que o piloto "X" vai vencer, e as odds estão em 2.5, você receberá 500 ePoints se acertar (200 x 2.5).
+              </div>
+            )}
+          </div>
         </section>
       </MainPrix>
     </>
