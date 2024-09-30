@@ -38,12 +38,13 @@ export const SecLogin = styled.section`
     }
 
     .input-form {
+        font-family: 'Rajdhani', sans-serif;
         width: 100%;
         padding: 10px;
         border: none;
         border-radius: 5px;
-        background-color: #180f57;
-        color: white;
+        background-color: white;
+        color: #DC00FE;
         outline: none;
         font-size: 16px;
         box-shadow: 0 0 10px rgba(0, 192, 249, 0.3);
@@ -141,7 +142,7 @@ export const SecCad = styled.section`
 }
 
 input {
-    background-color: #180f57;
+    background-color: transparent;
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -195,6 +196,13 @@ a:hover {
 a svg {
     margin-left: 5px;
     font-size: 24px;
+}
+
+@media (max-width: 480px) {
+    .usuario {
+        width: 90%;
+    }
+
 }
 
 `;

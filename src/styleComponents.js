@@ -37,7 +37,7 @@ export const NavMenu = styled.nav`
 
     /* breakpoint tablet */
     @media (max-width: 850px) {
-        img{
+        .logo{
             height: 80px;
             margin: 10px;
         }
@@ -51,8 +51,8 @@ export const NavMenu = styled.nav`
     }
     /* breakpoint celular */
     @media (max-width: 480px) {
-        img{
-            height: 40px;
+        .logo{
+            height: 50px;
             margin: 10px;
         }
         .menu{
@@ -63,6 +63,10 @@ export const NavMenu = styled.nav`
             font-size: 12px;
             font-weight: 500;
             margin-right: 20px;
+        }
+
+        .icon{
+            height: 20px;
         }
     }
 `

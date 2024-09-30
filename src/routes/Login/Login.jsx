@@ -78,7 +78,7 @@ const Login =()=>{
                                     id="usuario"
                                     ref={usuario}                 
                                 />
-                                <span placeholder="usuario"></span>
+                                <span placeholder="usuario">user</span>
                         </div>
 
 
@@ -89,7 +89,7 @@ const Login =()=>{
                                     id="senha"
                                     ref={senha}                 
                                 />
-                                <span placeholder="senha"></span>
+                                <span placeholder="senha">password</span>
                         </div>
 
                         <div className="login-btn">
