@@ -48,7 +48,7 @@ npm run dev
 npx json-server --watch db.json --port 5000
 ```
 # Estrutura
-
+```
 src/
 │
 ├── assets/
@@ -84,7 +84,7 @@ src/
 ├── global-style.js
 ├── main.jsx
 └── styleComponents.js
-
+```
 
 
 #### Próximas atualizacões
