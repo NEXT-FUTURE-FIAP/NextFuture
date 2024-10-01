@@ -6,6 +6,7 @@ import Logo_Mercedes from '../../assets/Logo Mercedes.png'
 import Logo_Audi from '../../assets/Logo_da_Audi.png'
 import Logo_BMW from '../../assets/Logotipo_da_BMW.png'
 import Logo_Porshe from '../../assets/Porsche_Logo.webp'
+import Logo_Maserati from '../../assets/Logotio_Maserati.png'
 
 export default function PrixPredict() {
   const [expandedCard, setExpandedCard] = useState(null);  // Estado para controlar qual card está expandido
@@ -107,9 +108,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Abt Cupra">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+      <img src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS ABT CUPRA</h3>
@@ -119,9 +120,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Avalanche Andretti">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Avalanche Andretti</h3>
@@ -131,9 +132,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Penske">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS DS Penske</h3>
@@ -143,9 +144,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Envision Racing">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Envision Racing</h3>
@@ -155,9 +156,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Mahindra Racing">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Mahindra Racing</h3>
@@ -167,9 +168,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Msg Racing">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Maserati MSG Racing</h3>
@@ -179,9 +180,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="McLaren">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Neom McLaren</h3>
@@ -191,9 +192,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Nio">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS NIO 333</h3>
@@ -203,9 +204,9 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
+  <div className="team-card" data-team="Nissan">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Nissan</h3>
@@ -217,7 +218,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Porsche">
     <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
+    <img className='quebra' src="" alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Porsche</h3>
@@ -228,7 +229,7 @@ export default function PrixPredict() {
     </div>
   </div>
 
-  {/* Continue adicionando cards para as outras equipes da Fórmula E */}
+  
 </section>
 
         <section className="como_funciona_container">
