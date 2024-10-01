@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { ImCancelCircle } from "react-icons/im"
+import { SecCad } from "./styleLogon"
 
 const CadUsuarios =()=>{
 
@@ -76,8 +77,9 @@ const CadUsuarios =()=>{
      },[])
 
     return (
+        <SecCad>
         <section className="usuario">
-            <h1>Cadastro de usuários</h1>
+            <h1>SEJA BEM-VINDO</h1>
 
             <form onSubmit={handleSubmit}>
                 <input
@@ -105,6 +107,7 @@ const CadUsuarios =()=>{
             </form>
 
         </section>
+        </SecCad>
     )
 }
 export default CadUsuarios
