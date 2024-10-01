@@ -224,18 +224,7 @@ export default function PrixPredict() {
       <button className="no">não 1.80x</button>
     </div>
   </div>
-  <div className="team-card" data-team="Porsche">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
-    </div>
-  </div>
+
 
   
 </section>
