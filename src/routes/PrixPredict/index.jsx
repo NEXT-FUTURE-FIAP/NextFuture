@@ -2,11 +2,19 @@ import React, { useState } from 'react';  // Importando useState
 import { MainPrix } from './stylePrix';  // Importando o arquivo de estilo
 import Banner from '../PrixPredict/Banner';  // Importando o Banner
 import Logo_Jaguar from '../../assets/Logo_da_Jaguar_Racing.png'
-import Logo_Mercedes from '../../assets/Logo Mercedes.png'
+import Logo_Mercedes from '../../assets/Logo_Mercedes.png'
 import Logo_Audi from '../../assets/Logo_da_Audi.png'
 import Logo_BMW from '../../assets/Logotipo_da_BMW.png'
 import Logo_Porshe from '../../assets/Porsche_Logo.webp'
 import Logo_Maserati from '../../assets/Logotio_Maserati.png'
+import Logo_Avalanche from '../../assets/Logotipo_Avalanche.webp'
+import Logo_DS from '../../assets/Logotipo_DS.webp'
+import Logo_Mahindra from '../../assets/Logotipo_Mahindra_Racing.png'
+import Logo_McLaren from '../../assets/Logotipo_McLaren.png'
+import Logo_Nio from '../../assets/Logotipo_Nio.png'
+import Logo_Nissan from '../../assets/Logotipo_Nissan.png'
+import Logo_ABT from '../../assets/Logotipo_da_ABT.png'
+import Logo_Envision from '../../assets/Logotipo_Envision.png'
 
 export default function PrixPredict() {
   const [expandedCard, setExpandedCard] = useState(null);  // Estado para controlar qual card está expandido
@@ -110,7 +118,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Abt Cupra">
     <div className="team-logo">
-      <img src="" alt="" />
+      <img src={Logo_ABT} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS ABT CUPRA</h3>
@@ -122,7 +130,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Avalanche Andretti">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Avalanche} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Avalanche Andretti</h3>
@@ -134,7 +142,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Penske">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_DS} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS DS Penske</h3>
@@ -146,7 +154,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Envision Racing">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Envision} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Envision Racing</h3>
@@ -158,7 +166,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Mahindra Racing">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Mahindra} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Mahindra Racing</h3>
@@ -170,7 +178,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Msg Racing">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Maserati} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Maserati MSG Racing</h3>
@@ -182,7 +190,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="McLaren">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_McLaren} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Neom McLaren</h3>
@@ -194,7 +202,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Nio">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Nio} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS NIO 333</h3>
@@ -206,7 +214,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Nissan">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Nissan} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Nissan</h3>
@@ -218,7 +226,7 @@ export default function PrixPredict() {
   </div>
   <div className="team-card" data-team="Porsche">
     <div className="team-logo">
-    <img className='quebra' src="" alt="" />
+    <img className='quebra' src={Logo_Porshe} alt="" />
     </div>
     <div className="team-info">
       <h3>PREDICTS Porsche</h3>
