@@ -11,6 +11,7 @@ import Game from './routes/Game/index.jsx'
 import Error from './routes/Error/index.jsx'
 import Login from './routes/Login/Login.jsx'
 import CadUsuarios from './routes/Login/CadastroUsuario.jsx'
+import LoginGoogle from './routes/Login/LoginGoogle.jsx'
 
 
 
@@ -42,11 +43,13 @@ const router = createBrowserRouter([
         element:<Login/>,
       },
       {
-        path:'cadastro',
+        path:'/cadastro',
         element:<CadUsuarios/>,
+      },
+      {
+        path:'/logingoogle',
+        element:<LoginGoogle/>,
       }
-
-      
     ]
   }
 ])

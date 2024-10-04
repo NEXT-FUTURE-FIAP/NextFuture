@@ -108,6 +108,9 @@ const Login =()=>{
                             <Link to="/cadastro">
                                 Criar
                             </Link>
+                            <Link to="/logingoogle">
+                                Login com Google
+                            </Link>
                             </li>
 
                         </ul>
