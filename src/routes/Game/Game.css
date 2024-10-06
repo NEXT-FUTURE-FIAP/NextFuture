@@ -1,0 +1,55 @@
+html{
+    background-color: #498e4a;
+}
+
+#game-container {
+    position: relative;
+    text-align: center;
+
+}
+
+#game-canvas {
+    border: 5px #0044ff dotted ;
+    display: block;
+    margin: 0 auto;
+}
+
+#controls {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    background-color: rgba(33, 171, 130, 0.8); /* Fundo semi-transparente */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#points-container {
+    background-color: azure;
+}
+
+#pointsIcon {
+    width: 100px;
+    height: 100px;
+}
+
+#upgrade-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: aquamarine;
+    width: fit-content;
+    border-radius: 1rem;
+    margin-left: 4rem;
+}
+
+#upgrade-button:hover {
+    cursor: pointer;
+    background-color: #57c1e1;
+}
+
+#upgrade-button:active {
+    background-color: rgb(26, 79, 136);
+}

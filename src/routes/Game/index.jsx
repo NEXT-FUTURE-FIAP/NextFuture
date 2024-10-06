@@ -1,8 +1,47 @@
-export default function Game(){
+import React, { useEffect } from 'react';
+import './Game.css'; // Para estilos se necessário
 
-    return(
-        <>
-            <h1>GAME</h1>
-        </>
-    )
-}
+const Game = () => {
+    useEffect(() => {
+        // Carregar o script do jogo
+        const script = document.createElement('script');
+        script.src = 'script.js'; // Caminho relativo para o script na mesma pasta
+        script.async = true;
+        document.body.appendChild(script);
+
+        return () => {
+            // Remover o script ao desmontar o componente
+            document.body.removeChild(script);
+        };
+    }, []);
+
+    return (
+        <main>
+            <div id="game-container">
+                <canvas id="game-canvas" width="1486" height="849"></canvas>
+                <div id="controls">
+                    <div id="points-container">
+                        <p>
+                            Pontos: <span id="points">0</span>
+                            <img src="pontos.png" alt="Icone Pontos" id="pointsIcon" />
+                        </p>
+                    </div>
+                    <div id="upgrade-button" onClick={() => window.motorUpgrade()}>
+                        <p>Melhorar motor = <span id="motor">10</span></p>
+                    </div>
+                    <div id="upgrade-button" onClick={() => window.bateiraUpgrade()}>
+                        <p>Melhorar bateria = <span id="bateria">20</span></p>
+                    </div>
+                    <div id="upgrade-button" onClick={() => window.recargaUpgrade()}>
+                        <p>Melhorar recarga = <span id="recarga">200</span></p>
+                    </div>
+                    <div id="upgrade-button" onClick={() => window.mudarSkin()}>
+                        <p>Mudar aparência</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    );
+};
+
+export default Game;
