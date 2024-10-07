@@ -152,16 +152,23 @@ export const FootFooter = styled.footer`
         margin-bottom: 1%;
     }
 
-    .base img{
-        width: 30px;
-        margin-left: 15px;
-        cursor: pointer;
+    .social-icons{
+        display: flex;
+        margin-left: 2%;
+    }
+    
+    .social-link {
+    color: white; 
+    text-decoration: none; 
+    transition: color 0.3s; 
+    gap: 5px;
+    font-size: 20px; 
+}
+
+    .social-link:hover {
+        color: #DC00FE; 
     }
 
-    .icons{
-        display: flex;
-        margin-left: 1%;
-    }
 
     p{
         color: #00C0F9;

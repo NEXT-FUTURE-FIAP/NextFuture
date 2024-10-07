@@ -1,6 +1,6 @@
-import React, { useState } from 'react';  // Importando useState
-import { MainPrix } from './stylePrix';  // Importando o arquivo de estilo
-import Banner from '../PrixPredict/Banner';  // Importando o Banner
+import React, { useState } from 'react';  
+import { MainPrix } from './stylePrix';  
+import Banner from '../PrixPredict/Banner';  
 import Logo_Jaguar from '../../assets/Logo_da_Jaguar_Racing.png'
 import Logo_Mercedes from '../../assets/Logo_Mercedes.png'
 import Logo_Audi from '../../assets/Logo_da_Audi.png'
@@ -17,18 +17,20 @@ import Logo_ABT from '../../assets/Logotipo_da_ABT.png'
 import Logo_Envision from '../../assets/Logotipo_Envision.png'
 
 export default function PrixPredict() {
-  const [expandedCard, setExpandedCard] = useState(null);  // Estado para controlar qual card está expandido
+  const [expandedCard, setExpandedCard] = useState(null);
 
-  // Função para expandir ou contrair o card ao clicar
+
   const toggleCard = (cardIndex) => {
-    setExpandedCard(expandedCard === cardIndex ? null : cardIndex);  // Alterna entre expandido e contraído
+    setExpandedCard(expandedCard === cardIndex ? null : cardIndex);
   };
+
+
 
   return (
     <>
       <Banner />
       <MainPrix>
-        {/* <img className='quebra' src={Quebra} alt="" /> */}
+       
 
         <h1 className="podio_title">Conheça os melhores Players da Temporada:</h1>
 
@@ -58,10 +60,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Jaguar</h3>
-      <p>Jaguar<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.50x</button>
-      <button className="no">não 2.00x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
 
@@ -71,10 +75,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Mercedes</h3>
-      <p>Mercedes<br />para vencer a corrida:</p>
+      <p> vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 4.00x</button>
-      <button className="no">não 1.90x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
 
@@ -84,10 +90,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS BMW</h3>
-      <p>BMW<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.80x</button>
-      <button className="no">não 2.10x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
 
@@ -97,10 +105,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Audi</h3>
-      <p>Audi<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 4.50x</button>
-      <button className="no">não 1.70x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
 
@@ -110,10 +120,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Porsche</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Abt Cupra">
@@ -122,10 +134,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS ABT CUPRA</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Avalanche Andretti">
@@ -134,10 +148,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Avalanche Andretti</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Penske">
@@ -146,10 +162,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS DS Penske</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Envision Racing">
@@ -158,10 +176,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Envision Racing</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Mahindra Racing">
@@ -170,22 +190,30 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Mahindra Racing</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Msg Racing">
     <div className="team-logo">
+    <div className='maserati'>  
     <img className='quebra' src={Logo_Maserati} alt="" />
+    </div>
     </div>
     <div className="team-info">
       <h3>PREDICTS Maserati MSG Racing</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
+      <div className="bet-container">
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      </div>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="McLaren">
@@ -194,10 +222,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Neom McLaren</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Nio">
@@ -206,10 +236,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS NIO 333</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
   <div className="team-card" data-team="Nissan">
@@ -218,10 +250,12 @@ export default function PrixPredict() {
     </div>
     <div className="team-info">
       <h3>PREDICTS Nissan</h3>
-      <p>Porsche<br />para vencer a corrida:</p>
+      <p>para vencer a corrida:</p>
       <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <button className="yes">sim 3.90x</button>
-      <button className="no">não 1.80x</button>
+      <div className='btns'>
+        <button className="yes">sim 3.90x</button>
+        <button className="no">não 1.80x</button>
+      </div>
     </div>
   </div>
 
@@ -231,7 +265,7 @@ export default function PrixPredict() {
 
         <section className="como_funciona_container">
 
-          <h2 className="como_funciona_titulo">Tem dúvidas de como funciona o PrixPredict:</h2>
+          <h2 className="como_funciona_titulo">FAQ</h2>
 
           {/* Card 1 */}
           <div className={`card transparent-card ${expandedCard === 1 ? 'expanded' : ''}`} onClick={() => toggleCard(1)}>

@@ -13,26 +13,32 @@ export const MainPrix = styled.main`
 
   .como_funciona_titulo {
     padding-bottom: 60px;
-    color: #00C0F9;
+    color: #00C0F9; /* Cor do texto */
     text-align: center;
     font-family: "Rajdhani", sans-serif;
     font-size: 3rem;
     margin-top: 2rem;
     letter-spacing: 2px;
+    text-shadow: 
+        0 0 5px rgba(0, 192, 249, 0.2),  
+        0 0 10px rgba(0, 192, 249, 0.2), 
+        0 0 15px rgba(0, 192, 249, 0.2),
+        0 0 20px rgba(0, 192, 249, 0.2), 
+        0 0 25px rgba(0, 192, 249, 0.2); 
   }
 
   .como_funciona_container {
-    width: 90%; /* Mudando para 90% para melhor responsividade */
-    max-width: 1200px; /* Limite de largura para grandes telas */
+    width: 80%; 
+    max-width: 1200px; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto; /* Centralizando o container */
+    margin: 0 auto; 
     margin-top: 3rem;
     padding: 2rem;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Aumentando a sombra */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); 
   }
 
   .card {
@@ -46,17 +52,29 @@ export const MainPrix = styled.main`
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Adicionando sombra ao card */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
   }
 
   .card:hover {
     transform: scale(1.03);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
+                0 0 10px rgba(0, 192, 249, 0.5),
+                0 0 20px rgba(0, 192, 249, 0.3); 
   }
 
   .cardTitle {
     font-family: "Rajdhani", sans-serif;
     color: #00C0F9;
-    font-size: 1.8rem; /* Aumentando o tamanho do título */
+    font-size: 1.8rem; 
+  }
+
+  .cardTitle:hover{
+    text-shadow: 
+        0 0 5px rgba(0, 192, 249, 0.2),  
+        0 0 10px rgba(0, 192, 249, 0.2), 
+        0 0 15px rgba(0, 192, 249, 0.2),
+        0 0 20px rgba(0, 192, 249, 0.2), 
+        0 0 25px rgba(0, 192, 249, 0.2); 
   }
 
   .cardContent {
@@ -135,60 +153,117 @@ export const MainPrix = styled.main`
   }
 
   .predictions {
-    margin-top: 70px;
+    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
   }
 
   .team-card {
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+    margin-top: 2%;
+    margin-bottom: 1%;
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     padding: 15px;
     width: 250px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
+                0 0 10px rgba(220, 0, 254, 0.5),
+                0 0 20px rgba(220, 0, 254, 0.3); 
+    transition: transform 0.2s, box-shadow 0.2s ease;
     
     &:hover {
       transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 
+                  0 0 15px rgba(220, 0, 254, 0.7), 
+                  0 0 30px rgba(220, 0, 254, 0.5); 
     }
-  }
+}
 
-  .team-logo img {
-    max-width: 100%;
-    border-radius: 10px;
-  }
+.team-logo img {
+    margin: 2%;
+    width: 50%;
+}
 
-  .team-info {
+.maserati {
+    width: 40%;
+}
+
+.team-info {
     text-align: center;
-    margin-top: 10px;
-  }
+}
 
-  .bet-amount {
+.bet-amount {
     width: 80%;
     padding: 8px;
-    margin-bottom: 10px;
+    margin-top: 8%;
+    margin-bottom: 5%;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+}
 
-  .yes, .no {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-  }
+.btns{
+  display: flex;
+}
 
-  .yes {
-    background-color: #4CAF50;
-  }
+.yes, .no {
+        box-sizing: border-box;
+        appearance: none;
+        text-align: center;
+        background-color: transparent;
+        border-radius: 0.6em;
+        align-self: center;
+        line-height: 1;
+        margin: 2%;
+        text-decoration: none;
+        text-align: center;
+        padding: 3%;
 
-  .no {
-    background-color: #f44336;
-  }
+        &:hover,
+        &:focus {
+            color: #00C0F9;
+            outline: 0;
+        }
+}
+
+.yes {
+        width: 50%;
+        height: 10%;
+        cursor: pointer;
+        font-family: "Rajdhani", sans-serif;
+        font-size: medium;
+        font-weight: bold;
+        background-color: transparent;
+        border-style: none;
+        border-color: #4CAF50;
+        color: #fff;
+        box-shadow: 0 0 40px 40px #4CAF50 inset, 0 0 0 0 #4CAF50;
+        transition: all 150ms ease-in-out;
+        
+        &:hover {
+            color: #1B5E20;
+            box-shadow: 0 0 10px 0 #4CAF50 inset, 0 0 10px 4px #4CAF50;
+        }
+}
+.no {
+        width: 50%;
+        height: 10%;
+        cursor: pointer;
+        font-family: "Rajdhani", sans-serif;
+        font-size: medium;
+        font-weight: bold;
+        background-color: transparent;
+        border-style: none;
+        border-color: #f44336;
+        color: #fff;
+        box-shadow: 0 0 40px 40px #f44336 inset, 0 0 0 0 #f44336;
+        transition: all 150ms ease-in-out;
+        
+        &:hover {
+            color: #B71C1C;
+            box-shadow: 0 0 10px 0 #f44336 inset, 0 0 10px 4px #f44336;
+        }
+}
 
   .predictions_title {
     margin-top: 80px;
