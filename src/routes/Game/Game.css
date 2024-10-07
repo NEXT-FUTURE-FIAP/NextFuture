@@ -1,15 +1,16 @@
-html{
-    background-color: #498e4a;
+html {
+    background-color: transparent;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #game-container {
+    margin-top: 300px;
     position: relative;
     text-align: center;
-
 }
 
 #game-canvas {
-    border: 5px #0044ff dotted ;
+    border: 5px #0044ff dotted;
     display: block;
     margin: 0 auto;
 }
@@ -22,13 +23,13 @@ html{
     align-items: center;
     text-align: center;
     width: 50%;
-    background-color: rgba(33, 171, 130, 0.8); /* Fundo semi-transparente */
+    background-color: transparent;
     border-radius: 10px;
     padding: 10px;
 }
 
 #points-container {
-    background-color: azure;
+    background-color: transparent;
 }
 
 #pointsIcon {
@@ -37,19 +38,30 @@ html{
 }
 
 #upgrade-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: aquamarine;
-    width: fit-content;
-    border-radius: 1rem;
-    margin-left: 4rem;
+    background: linear-gradient(145deg, #07e4a2, #0967e0); 
+    border: none;
+    border-radius: 10px; 
+    color: white; 
+    cursor: pointer; 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    padding: 15px 30px; 
+    margin: 15px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
+                inset 0 0 5px rgba(255, 255, 255, 0.3); 
+    transition: all 0.3s ease; 
 }
 
+
 #upgrade-button:hover {
-    cursor: pointer;
-    background-color: #57c1e1;
+    background: linear-gradient(145deg, #210252, #476ed8); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 
+    inset 0 0 15px rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px); 
 }
 
 #upgrade-button:active {
-    background-color: rgb(26, 79, 136);
+    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.5),
+    inset -5px -5px 5px rgba(255, 255, 255, 0.2);
+    transform: translateY(2px); 
 }
