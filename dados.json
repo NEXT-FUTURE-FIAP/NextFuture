@@ -1,5 +1,10 @@
 {
   "usuarios": [
-
+    {
+      "id": "3ef0",
+      "usuario": "normaluser",
+      "senha": "1234567",
+      "points": 0
+    }
   ]
 }

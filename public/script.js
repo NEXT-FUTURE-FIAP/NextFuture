@@ -4,12 +4,9 @@
 if (typeof window.gameInitialized === "undefined") {
     window.gameInitialized = true; // Marca o jogo como inicializado
 
+
     const pointsElement = document.getElementById('points');
-    const motorElement = document.getElementById('motor');
-    const bateriaElement = document.getElementById('bateria');
-    const recargaElement = document.getElementById('recarga');
-    const upgradeButton = document.getElementById('upgrade-button');
-    const mudarCarSkin = document.getElementById('skin');
+    
 
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
@@ -61,6 +58,10 @@ if (typeof window.gameInitialized === "undefined") {
         ctx.drawImage(carImg, -car.width / 2, -car.height / 2, car.width, car.height);
         ctx.restore();
     }
+    window.point ={
+        points: car.points
+    }
+
 
     function drawTrack() {
         ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);

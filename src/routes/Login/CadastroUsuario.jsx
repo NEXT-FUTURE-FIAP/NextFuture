@@ -12,7 +12,8 @@ const CadUsuarios =()=>{
      const [usuarios,setUsuarios]= useState({
         id,
         usuario:'',
-        senha:''
+        senha:'',
+        points:''
      });
 
 
