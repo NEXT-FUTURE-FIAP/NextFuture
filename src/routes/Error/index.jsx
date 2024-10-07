@@ -1,8 +1,10 @@
+import errorImg from "../../assets/error.png";
+
 export default function Error(){
 
     return(
         <>
-            <h1>404, deu erro</h1>
+            <img src={errorImg} alt="" />
         </>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';  
+import { Link } from 'react-router-dom';
 import { MainPrix } from './stylePrix';  
 import Banner from '../PrixPredict/Banner';  
 import Logo_Jaguar from '../../assets/Logo_da_Jaguar_Racing.png'
@@ -53,6 +54,9 @@ export default function PrixPredict() {
           {/* Cards das equipes */}
           <h1 className="predictions_title">Faça seus predicts:</h1>
           <section className="predictions">
+          <Link to="/graficos">
+            <button>Estatísticas</button>
+          </Link>  
             
   <div className="team-card" data-team="Jaguar">
     <div className="team-logo">
