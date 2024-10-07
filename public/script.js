@@ -1,10 +1,10 @@
-// gameScript.js
+// // gameScript.js
 
 
 if (typeof window.gameInitialized === "undefined") {
     window.gameInitialized = true; // Marca o jogo como inicializado
-
-
+    
+    const usuarioAtual = localStorage.getItem("usuario")
     const pointsElement = document.getElementById('points');
     
 
@@ -20,8 +20,6 @@ if (typeof window.gameInitialized === "undefined") {
         'carro3.png'
     ];
 
-    let currentCarImageIndex = 0;
-
     // Ajuste as coordenadas dos pontos do caminho (path) para porcentagens
     const path = [
         { x: 0.99, y: 0.89 },  // Ponto inicial (parte de baixo à direita)
@@ -30,7 +28,9 @@ if (typeof window.gameInitialized === "undefined") {
         { x: 0.955, y: 0.001 },  // Mover-se para a direita na parte superior
         { x: 0.955, y: 0.89 },   // Descer pelo lado direito
     ];
-
+    
+    
+    let currentCarImageIndex = 0;
     let car = {
         x: canvas.width * 0.54,
         y: canvas.height * 0.89,
@@ -61,6 +61,30 @@ if (typeof window.gameInitialized === "undefined") {
     window.point ={
         points: car.points
     }
+
+    fetch('/dados.json')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erro ao carregar o arquivo JSON');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // 3. Encontrar o usuário no JSON usando o nome salvo no localStorage
+      const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
+
+      if (usuario) {
+        // Aqui você pode fazer algo com o usuário, como atualizar os pontos
+         // Exemplo de incremento de pontos
+        car.points = usuario.points
+        console.log('Pontos atualizados:', usuario.points);
+      } else {
+        alert('Usuário não encontrado');
+      }
+    })
+    .catch((error) => {
+      console.error('Erro:', error);
+    });
 
 
     function drawTrack() {
@@ -172,6 +196,7 @@ if (typeof window.gameInitialized === "undefined") {
 
     // Função principal para atualizar o jogo
     function updateGame() {
+        
         if (!pause) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawTrack();
@@ -183,6 +208,7 @@ if (typeof window.gameInitialized === "undefined") {
 
     // Iniciar o jogo quando a imagem da pista estiver carregada
     trackImg.onload = () => {
+        // car.points = 
         updateGame();
     };
 }

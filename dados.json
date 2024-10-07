@@ -4,7 +4,13 @@
       "id": "3ef0",
       "usuario": "normaluser",
       "senha": "1234567",
-      "points": 0
+      "points": 2097.5
+    },
+    {
+      "id": "2109",
+      "usuario": "cidade",
+      "senha": "12345678",
+      "points": ""
     }
   ]
 }

@@ -15,7 +15,7 @@ const Game = () => {
         // Verificar se o usuário foi encontrado
         if (data.length > 0) {
             const user = data[0]; // Pega o primeiro usuário encontrado com o nome
-            user.points = newPoints;
+            user.points = newPoints || user.points;
 
             // Fazer a requisição PUT para atualizar o usuário
             await fetch(`http://localhost:5000/usuarios/${user.id}`, {
@@ -26,9 +26,9 @@ const Game = () => {
                 body: JSON.stringify(user),
             });
 
-            console.log(`Pontos atualizados para o usuário ${userName}: ${newPoints}`);
+            // console.log(`Pontos atualizados para o usuário ${userName}: ${user.points}`);
         } else {
-            console.error('Usuário não encontrado');
+            alert('Usuário não encontrado');
         }
     } catch (error) {
         console.error('Erro ao atualizar pontos no JSON:', error);
