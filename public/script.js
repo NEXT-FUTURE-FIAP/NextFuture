@@ -4,7 +4,7 @@
 if (typeof window.gameInitialized === "undefined") {
     window.gameInitialized = true; // Marca o jogo como inicializado
     
-    const usuarioAtual = localStorage.getItem("usuario")
+    const usuarioAtual = localStorage.getItem("usuario");
     const pointsElement = document.getElementById('points');
     
 
@@ -76,7 +76,13 @@ if (typeof window.gameInitialized === "undefined") {
       if (usuario) {
         // Aqui você pode fazer algo com o usuário, como atualizar os pontos
          // Exemplo de incremento de pontos
-        car.points = usuario.points
+         if (usuario.points === ""){
+            usuario.points = 0
+            car.points = usuario.points
+         }else{
+            car.points = usuario.points
+         }
+
         console.log('Pontos atualizados:', usuario.points);
       } else {
         alert('Usuário não encontrado');

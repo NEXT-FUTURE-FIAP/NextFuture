@@ -13,7 +13,7 @@ const CadUsuarios =()=>{
         id,
         usuario:'',
         senha:'',
-        points:''
+        points:0
      });
 
 
