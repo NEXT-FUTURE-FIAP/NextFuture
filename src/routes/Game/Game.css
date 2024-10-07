@@ -30,11 +30,31 @@ html {
 
 #points-container {
     background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    font-size: 24px; 
+    color: white; 
+    margin-bottom: 20px; 
+    transition: transform 0.2s; 
+    overflow: hidden; 
+}
+
+#points-container:hover {
+    transform: scale(1.05); 
 }
 
 #pointsIcon {
-    width: 100px;
-    height: 100px;
+    width: 100px; 
+    height: 100px; 
+    margin-left: 10px; 
+    transition: transform 0.2s; 
+    overflow: hidden;
+}
+
+#pointsIcon:hover {
+    transform: rotate(20deg); 
+    overflow: hidden;
 }
 
 #upgrade-button {
@@ -51,7 +71,6 @@ html {
                 inset 0 0 5px rgba(255, 255, 255, 0.3); 
     transition: all 0.3s ease; 
 }
-
 
 #upgrade-button:hover {
     background: linear-gradient(145deg, #210252, #476ed8); 
