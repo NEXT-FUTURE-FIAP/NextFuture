@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rastreamento de Carro em Tempo Real</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=chave_google_api"></script>
+    <script>
+      let map;
+      let marker;
+
+      function initMap(lat, lng) {
+        const initialPosition = { lat: lat, lng: lng };
+
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: initialPosition,
+          zoom: 15,
+        });
+
+        marker = new google.maps.Marker({
+          position: initialPosition,
+          map: map,
+          title: "Carro em movimento",
+        });
+      }
+
+      // Atualiza a posição do carro com base na nova latitude e longitude
+      function updateCarPosition(lat, lng) {
+        const newPosition = { lat: lat, lng: lng };
+
+        if (!map) {
+          // Inicializa o mapa na primeira vez que as coordenadas são recebidas
+          initMap(lat, lng);
+        } else {
+          marker.setPosition(newPosition);
+          map.setCenter(newPosition);
+        }
+      }
+
+      // Função para buscar a latitude do FIWARE
+      function fetchLatitude() {
+        const myHeaders = new Headers();
+        myHeaders.append("fiware-service", "smart");
+        myHeaders.append("fiware-servicepath", "/");
+        myHeaders.append("accept", "application/json");
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+        };
+
+        return fetch("http://id_do_servidor:1026/v2/entities/urn:ngsi-ld:next_gps/attrs/Latitude", requestOptions)
+          .then((response) => response.json()) // Parse the response as JSON
+          .then((data) => {
+            // Assumindo que a latitude está dentro de um campo 'value'
+            return data.value;
+          })
+          .catch((error) => {
+            console.error("Erro ao buscar a latitude:", error);
+            return null;
+          });
+      }
+
+      // Função para buscar a longitude do FIWARE (similar à latitude)
+      function fetchLongitude() {
+        const myHeaders = new Headers();
+        myHeaders.append("fiware-service", "smart");
+        myHeaders.append("fiware-servicepath", "/");
+        myHeaders.append("accept", "application/json");
+
+        const requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow"
+        };
+// 
+        return fetch("http://id_do_servidor:1026/v2/entities/urn:ngsi-ld:next_gps/attrs/Longitude", requestOptions)
+          .then((response) => response.json()) // Parse the response as JSON
+          .then((data) => {
+            // Assumindo que a longitude está dentro de um campo 'value'
+            return data.value;
+          })
+          .catch((error) => {
+            console.error("Erro ao buscar a longitude:", error);
+            return null;
+          });
+      }
+
+      // Atualiza a cada 2 segundos
+      setInterval(async function() {
+        try {
+          const lat = await fetchLatitude(); // Busca a nova latitude
+          const lng = await fetchLongitude(); // Busca a nova longitude
+          
+          if (lat !== null && lng !== null) {
+            updateCarPosition(lat, lng);
+          }
+        } catch (error) {
+          console.error("Erro ao atualizar a posição:", error);
+        }
+      }, 2000);
+    </script>
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
