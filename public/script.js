@@ -1,7 +1,7 @@
 if (typeof window.gameInitialized === "undefined") {
     window.gameInitialized = true; // Marca o jogo como inicializado
-    
-    const usuarioAtual = localStorage.getItem("usuario")
+
+    const usuarioAtual = localStorage.getItem("usuario");
     const pointsElement = document.getElementById('points');
 
     const canvas = document.getElementById('game-canvas');
@@ -86,34 +86,150 @@ if (typeof window.gameInitialized === "undefined") {
         ctx.drawImage(carImg, -car.width / 2, -car.height / 2, car.width, car.height);
         ctx.restore();
     }
-    window.point ={
-        points: car.points
+
+    window.point = {
+        points: car.points,
+    };
+    function formatNumber(value) {
+        if (value >= 1e9) {
+            return (value / 1e9).toFixed(1) + 'B';  // Bilhões
+        } else if (value >= 1e6) {
+            return (value / 1e6).toFixed(1) + 'M';  // Milhões
+        } else if (value >= 1e3) {
+            return (value / 1e3).toFixed(1) + 'K';  // Milhares
+        } else {
+            return value.toFixed(2);  // Mantém o número como está
+        }
     }
+    
 
-    fetch('/dados.json')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o arquivo JSON');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // 3. Encontrar o usuário no JSON usando o nome salvo no localStorage
-      const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
-
-      if (usuario) {
-        // Aqui você pode fazer algo com o usuário, como atualizar os pontos
-         // Exemplo de incremento de pontos
-        car.points = usuario.points
-        console.log('Pontos atualizados:', usuario.points);
-      } else {
-        alert('Usuário não encontrado');
-      }
-    })
-    .catch((error) => {
-      console.error('Erro:', error);
-    });
-
+    // Função para carregar o usuário do JSON
+    function loadUserData() {
+        return fetch('/dados.json')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição: ' + response.status);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
+                if (usuario) {
+                    // Carregar pontos e upgrades
+                    car.points = usuario.points || 0;
+    
+                    // Carregar os upgrades salvos ou iniciar com valores padrão
+                    window.up.motor = usuario.upgrades?.motor || 0;
+                    window.up.battery = usuario.upgrades?.battery || 0;
+                    window.up.efficiency = usuario.upgrades?.efficiency || 0;
+                    window.up.recharge = usuario.upgrades?.recharge || 0;
+    
+                    // Aplicar upgrades ao status do carro:
+                    // 1. Atualizar velocidade do carro com base nos upgrades de motor
+                    car.speed += window.up.motor; // Exemplo: cada upgrade de motor aumenta a velocidade
+                    
+                    // 2. Atualizar a capacidade máxima da battery com base nos upgrades de battery
+                    car.battery += window.up.battery;
+                    car.maxbattery = car.battery 
+                    
+                    // 3. Atualizar a eficiência da battery com base nos upgrades de eficiência
+                    car.efficiency *= Math.pow(1.2, window.up.efficiency); // Aumenta a eficiência da battery
+                    
+                    // 4. Atualizar o tempo de recharge com base nos upgrades de recharge
+                    recharge *= Math.pow(0.95, window.up.recharge); // Reduz o tempo de recharge
+    
+                    // Ajustar os preços dos upgrades com base nos valores já comprados
+                    up_price.motorPrice *= Math.pow(1.15, window.up.motor);
+                    up_price.batteryPrice *= Math.pow(1.20, window.up.battery);
+                    up_price.efficiencyPrice *= Math.pow(1.20, window.up.efficiency);
+                    up_price.rechargePrice *= Math.pow(1.15, window.up.recharge);
+    
+                    // Atualizar os elementos da interface
+                    document.getElementById('motor').innerText = formatNumber(up_price.motorPrice);
+                    document.getElementById('battery').innerText = formatNumber(up_price.batteryPrice);
+                    // document.getElementById('efficiency').innerText = up_price.efficiencyPrice.formatNumber(2);
+                    document.getElementById('recharge').innerText = formatNumber(up_price.rechargePrice);
+    
+                    pointsElement.innerText = formatNumber(car.points); // Atualiza o elemento HTML com os pontos
+    
+                    console.log('Dados carregados:', usuario);
+                } else {
+                    console.error('Usuário não encontrado, iniciando com valores padrão.');
+                }
+            })
+            .catch((error) => {
+                console.error('Erro ao carregar dados do usuário:', error);
+            });
+    }
+    // Função para salvar dados do usuário no JSON
+    function saveUserData() {
+        // Primeiro, buscar o usuário atual no servidor
+        fetch(`http://localhost:5000/usuarios?usuario=${usuarioAtual}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    // Se o usuário existir, atualize os dados
+                    const usuario = data[0];  // Como o servidor retorna uma array, o primeiro item é o usuário encontrado
+    
+                    // Atualizar os dados de pontos e upgrades
+                    usuario.points = car.points;
+                    usuario.upgrades = window.up;
+    
+                    // Fazer a requisição PUT para atualizar o usuário no servidor
+                    fetch(`http://localhost:5000/usuarios/${usuario.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usuario)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao salvar dados do usuário');
+                        }
+                        return response.json();
+                    })
+                    // .then(updatedUser => {
+                    //     console.log('Dados do usuário atualizados com sucesso:', updatedUser);
+                    // })
+                    .catch(error => {
+                        console.error('Erro ao salvar dados do usuário:', error);
+                    });
+    
+                } else {
+                    // Se o usuário não existir, criar um novo usuário
+                    const newUser = {
+                        usuario: usuarioAtual,
+                        points: car.points,
+                        upgrades: window.up
+                    };
+    
+                    // Fazer a requisição POST para criar o novo usuário
+                    fetch('http://localhost:5000/usuarios', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(newUser)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao criar novo usuário');
+                        }
+                        return response.json();
+                    })
+                    .then(createdUser => {
+                        console.log('Novo usuário criado com sucesso:', createdUser);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao criar novo usuário:', error);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados do usuário:', error);
+            });
+    }
 
     function drawTrack() {
         ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
