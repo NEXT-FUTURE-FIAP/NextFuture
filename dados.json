@@ -4,7 +4,16 @@
       "id": "3ef0",
       "usuario": "normaluser",
       "senha": "1234567",
-      "points": 2097.5
+      "points": 1077874026.8552818,
+      "upgrades": {
+        "battery": 12,
+        "efficiency": 0,
+        "motor": 18,
+        "power": 0,
+        "recharge": 72,
+        "timeOff": 0,
+        "track": 0
+      }
     },
     {
       "id": "2109",

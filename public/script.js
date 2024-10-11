@@ -1,12 +1,8 @@
-// // gameScript.js
-
-
 if (typeof window.gameInitialized === "undefined") {
     window.gameInitialized = true; // Marca o jogo como inicializado
-    
-    const usuarioAtual = localStorage.getItem("usuario")
+
+    const usuarioAtual = localStorage.getItem("usuario");
     const pointsElement = document.getElementById('points');
-    
 
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
@@ -28,23 +24,55 @@ if (typeof window.gameInitialized === "undefined") {
         { x: 0.955, y: 0.001 },  // Mover-se para a direita na parte superior
         { x: 0.955, y: 0.89 },   // Descer pelo lado direito
     ];
-    
-    
+
     let currentCarImageIndex = 0;
+    let up_price = {
+        motorPrice: 10,
+        efficiencyPrice: 20,
+        batteryPrice: 20,
+        rechargePrice: 200,
+        timeOffPrice: 200,
+        trackPrice: 2000
+    };
+
+    window.up = {
+        battery: 0,
+        efficiency: 0,
+        motor: 0,
+        power: 0,
+        recharge: 0,
+        timeOff: 0,
+        track: 0,
+    };
+
     let car = {
         x: canvas.width * 0.54,
         y: canvas.height * 0.89,
         width: 50,
         height: 100,
         speed: 10,
-        points: 2000,
+        points: 0, // Inicializado para 0
         laps: 0,
-        motorPreco: 10,
-        bateriaPreco: 20,
-        battery: 2.5,
+        battery: 1.5,
+        efficiency: 1,
         maxbattery: 2.5,
         direction: 3 // Começa voltado para baixo
     };
+    if (typeof window.lastSavedPoints === "undefined") {
+        window.lastSavedPoints = 0;  // Inicializa com 0 se ainda não foi definido
+    }
+
+    if (typeof window.lastSavedUpgrades === "undefined") {
+        window.lastSavedUpgrades = JSON.stringify({
+            battery: 0,
+            efficiency: 0,
+            motor: 0,
+            power: 0,
+            recharge: 0,
+            timeOff: 0,
+            track: 0,
+        }); // Inicializa com o estado inicial dos upgrades
+    }
 
     let pause = false;
     let recharge = 5000;
@@ -58,57 +86,170 @@ if (typeof window.gameInitialized === "undefined") {
         ctx.drawImage(carImg, -car.width / 2, -car.height / 2, car.width, car.height);
         ctx.restore();
     }
-    window.point ={
-        points: car.points
+
+    window.point = {
+        points: car.points,
+    };
+    function formatNumber(value) {
+        if (value >= 1e9) {
+            return (value / 1e9).toFixed(1) + 'B';  // Bilhões
+        } else if (value >= 1e6) {
+            return (value / 1e6).toFixed(1) + 'M';  // Milhões
+        } else if (value >= 1e3) {
+            return (value / 1e3).toFixed(1) + 'K';  // Milhares
+        } else {
+            return value.toFixed(2);  // Mantém o número como está
+        }
     }
+    
 
-    fetch('/dados.json')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Erro ao carregar o arquivo JSON');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // 3. Encontrar o usuário no JSON usando o nome salvo no localStorage
-      const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
-
-      if (usuario) {
-        // Aqui você pode fazer algo com o usuário, como atualizar os pontos
-         // Exemplo de incremento de pontos
-        car.points = usuario.points
-        console.log('Pontos atualizados:', usuario.points);
-      } else {
-        alert('Usuário não encontrado');
-      }
-    })
-    .catch((error) => {
-      console.error('Erro:', error);
-    });
-
+    // Função para carregar o usuário do JSON
+    function loadUserData() {
+        return fetch('/dados.json')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição: ' + response.status);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
+                if (usuario) {
+                    // Carregar pontos e upgrades
+                    car.points = usuario.points || 0;
+    
+                    // Carregar os upgrades salvos ou iniciar com valores padrão
+                    window.up.motor = usuario.upgrades?.motor || 0;
+                    window.up.battery = usuario.upgrades?.battery || 0;
+                    window.up.efficiency = usuario.upgrades?.efficiency || 0;
+                    window.up.recharge = usuario.upgrades?.recharge || 0;
+    
+                    // Aplicar upgrades ao status do carro:
+                    // 1. Atualizar velocidade do carro com base nos upgrades de motor
+                    car.speed += window.up.motor; // Exemplo: cada upgrade de motor aumenta a velocidade
+                    
+                    // 2. Atualizar a capacidade máxima da battery com base nos upgrades de battery
+                    car.battery += window.up.battery;
+                    car.maxbattery = car.battery 
+                    
+                    // 3. Atualizar a eficiência da battery com base nos upgrades de eficiência
+                    car.efficiency *= Math.pow(1.2, window.up.efficiency); // Aumenta a eficiência da battery
+                    
+                    // 4. Atualizar o tempo de recharge com base nos upgrades de recharge
+                    recharge *= Math.pow(0.95, window.up.recharge); // Reduz o tempo de recharge
+    
+                    // Ajustar os preços dos upgrades com base nos valores já comprados
+                    up_price.motorPrice *= Math.pow(1.15, window.up.motor);
+                    up_price.batteryPrice *= Math.pow(1.20, window.up.battery);
+                    up_price.efficiencyPrice *= Math.pow(1.20, window.up.efficiency);
+                    up_price.rechargePrice *= Math.pow(1.15, window.up.recharge);
+    
+                    // Atualizar os elementos da interface
+                    document.getElementById('motor').innerText = formatNumber(up_price.motorPrice);
+                    document.getElementById('battery').innerText = formatNumber(up_price.batteryPrice);
+                    // document.getElementById('efficiency').innerText = up_price.efficiencyPrice.formatNumber(2);
+                    document.getElementById('recharge').innerText = formatNumber(up_price.rechargePrice);
+    
+                    pointsElement.innerText = formatNumber(car.points); // Atualiza o elemento HTML com os pontos
+    
+                    console.log('Dados carregados:', usuario);
+                } else {
+                    console.error('Usuário não encontrado, iniciando com valores padrão.');
+                }
+            })
+            .catch((error) => {
+                console.error('Erro ao carregar dados do usuário:', error);
+            });
+    }
+    // Função para salvar dados do usuário no JSON
+    function saveUserData() {
+        // Primeiro, buscar o usuário atual no servidor
+        fetch(`http://localhost:5000/usuarios?usuario=${usuarioAtual}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    // Se o usuário existir, atualize os dados
+                    const usuario = data[0];  // Como o servidor retorna uma array, o primeiro item é o usuário encontrado
+    
+                    // Atualizar os dados de pontos e upgrades
+                    usuario.points = car.points;
+                    usuario.upgrades = window.up;
+    
+                    // Fazer a requisição PUT para atualizar o usuário no servidor
+                    fetch(`http://localhost:5000/usuarios/${usuario.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usuario)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao salvar dados do usuário');
+                        }
+                        return response.json();
+                    })
+                    // .then(updatedUser => {
+                    //     console.log('Dados do usuário atualizados com sucesso:', updatedUser);
+                    // })
+                    .catch(error => {
+                        console.error('Erro ao salvar dados do usuário:', error);
+                    });
+    
+                } else {
+                    // Se o usuário não existir, criar um novo usuário
+                    const newUser = {
+                        usuario: usuarioAtual,
+                        points: car.points,
+                        upgrades: window.up
+                    };
+    
+                    // Fazer a requisição POST para criar o novo usuário
+                    fetch('http://localhost:5000/usuarios', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(newUser)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao criar novo usuário');
+                        }
+                        return response.json();
+                    })
+                    .then(createdUser => {
+                        console.log('Novo usuário criado com sucesso:', createdUser);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao criar novo usuário:', error);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar dados do usuário:', error);
+            });
+    }
 
     function drawTrack() {
         ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
     }
-    
-    
-    function pos(){
-        // Coordenadas do ponto alvo atual, ajustadas para a largura e altura do canvas
+
+    function pos() {
         const target = {
             x: path[currentTargetIndex].x * canvas.width,
             y: path[currentTargetIndex].y * canvas.height,
         };
-        
-        // Cálculo da direção do movimento
+
         const dx = target.x - car.x;
         const dy = target.y - car.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-    
-        return [target, dx, dy, distance]
+
+        return [target, dx, dy, distance];
     }
-    
-    function move(){
-        let [target, dx, dy, distance] = pos()
+
+    function move() {
+        let [target, dx, dy, distance] = pos();
         if (distance < car.speed) {
             car.x = target.x;
             car.y = target.y;
@@ -116,8 +257,7 @@ if (typeof window.gameInitialized === "undefined") {
             if (currentTargetIndex >= path.length) {
                 currentTargetIndex = 1; // Reinicia o caminho (ignora o ponto inicial)
             }
-    
-            // Atualiza a direção do carro baseado no movimento
+
             const nextTarget = {
                 x: path[currentTargetIndex].x * canvas.width,
                 y: path[currentTargetIndex].y * canvas.height,
@@ -135,80 +275,105 @@ if (typeof window.gameInitialized === "undefined") {
             car.x += (dx / distance) * car.speed;
             car.y += (dy / distance) * car.speed;
         }
-    
-        // Usar uma margem de erro ao comparar posições (10 pixels de margem)
-        if (Math.abs(car.x - canvas.width * 0.54) < 10 && Math.abs(car.y - canvas.height * 0.9) < 10 ) {
-            car.points+=0.5
-            car.battery-=0.5
-            pointsElement.innerText = car.points.toFixed(2);
-            if (car.battery== 0){
-                pitStop()
+
+        if (Math.abs(car.x - canvas.width * 0.54) < 10 && Math.abs(car.y - canvas.height * 0.9) < 10) {
+            car.points += 0.5;
+            car.battery -= 0.5;
+            pointsElement.innerText = formatNumber(car.points);
+            if (car.battery === 0) {
+                pitStop();
             }
         }
-        lastX = car.x;
-    
-    
     }
 
     function pitStop() {
         pause = true;
         setTimeout(() => {
-            car.battery = car.maxbattery;
+            car.battery = car.maxbattery * car.efficiency;
             pause = false;  // Despausa o carro
         }, recharge);
     }
+    function upgrade(stat, priceKey, upgradeEffect) {
+        const price = up_price[priceKey];
+        
+        if (car.points >= price) {
+            car.points -= price;
+            window.up[stat] += 1;
+            up_price[priceKey] *= 1.20; // Multiplica o preço para a próxima compra
+            document.getElementById(stat).innerText = formatNumber(up_price[priceKey]);
+            document.getElementById('points').innerText = formatNumber(car.points);
+            
+            upgradeEffect(); // Executa o efeito específico do upgrade
+            saveUserData(); // Salva os dados após uma compra
+        }
+    }
 
     function motorUpgrade() {
-        if (car.points >= car.motorPreco) {
-            car.points -= car.motorPreco;
+        upgrade('motor', 'motorPrice', () => {
             car.speed += 1;
-            car.motorPreco *= 1.15;
-            document.getElementById('motor').innerText = car.motorPreco.toFixed(2);
-            document.getElementById('points').innerText = car.points.toFixed(2);
-        }
+        });
     }
-
-    function bateiraUpgrade() {
-        if (car.points >= car.bateriaPreco) {
-            car.points -= car.bateriaPreco;
+    
+    function batteryUpgrade() {
+        upgrade('battery', 'batteryPrice', () => {
             car.battery += 1;
-            car.maxbattery = car.battery;
-            car.bateriaPreco *= 1.20;
-            document.getElementById('bateria').innerText = car.bateriaPreco.toFixed(2);
-            document.getElementById('points').innerText = car.points.toFixed(2);
-        }
+            car.maxbattery = car.battery; // Atualiza o valor máximo da battery
+        });
     }
+    
+    function rechargeUpgrade() {
+        upgrade('recharge', 'rechargePrice', () => {
+            recharge *= 0.95; // Reduz o tempo de recharge
 
-    function recargaUpgrade() {
-        const posto = { recargaPreco: 200 };
-        if (car.points >= posto.recargaPreco) {
-            car.points -= posto.recargaPreco;
-            recharge *= 0.95;
-            posto.recargaPreco *= 1.15;
-            document.getElementById('recarga').innerText = posto.recargaPreco.toFixed(2);
-            document.getElementById('points').innerText = car.points.toFixed(2);
-        }
+        });
     }
+    
 
     function mudarSkin() {
         currentCarImageIndex = (currentCarImageIndex + 1) % carImages.length;
     }
-
+    function money(){
+        car.points +=10000000
+    }
     // Função principal para atualizar o jogo
+    let saveTimer;
+    let saveInterval = 100; 
     function updateGame() {
-        
+        console.log(recharge)
         if (!pause) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawTrack();
             move();
         }
-        drawCar();
+        if (car.points !== window.lastSavedPoints || JSON.stringify(window.up) !== window.lastSavedUpgrades) {
+            window.lastSavedPoints = car.points;  // Atualiza os últimos pontos salvos
+            window.lastSavedUpgrades = JSON.stringify(window.up);  // Atualiza os últimos upgrades salvos
+
+            // Se já houver um timer ativo, limpa-o antes de criar um novo
+            if (saveTimer) {
+                clearTimeout(saveTimer);
+            }
+
+            // Define um novo timer para salvar os dados após o intervalo
+            saveTimer = setTimeout(() => {
+                saveUserData();
+            }, saveInterval);
+        }
+        drawCar()
+
         requestAnimationFrame(updateGame);
     }
 
     // Iniciar o jogo quando a imagem da pista estiver carregada
     trackImg.onload = () => {
-        // car.points = 
+        loadUserData()
         updateGame();
     };
+    // Adicionando os event listeners para os botões de upgrade
+
+    // Salvar os dados automaticamente antes de sair da página
+    window.addEventListener('beforeunload', () => {
+        saveUserData();
+    });
 }
+
