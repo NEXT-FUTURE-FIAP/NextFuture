@@ -3,12 +3,12 @@
     {
       "id": "3ef0",
       "usuario": "normaluser",
-      "senha": "1234567",
-      "points": 1077851316.258099,
+      "logoutTime": "2024-10-13T19:53:31.143Z",
+      "points": 83.5,
       "upgrades": {
         "battery": 0,
         "efficiency": 0,
-        "motor": 2,
+        "motor": 0,
         "powerUpgrade": 0,
         "recharge": 0,
         "timeOff": 0,
@@ -36,11 +36,11 @@
     {
       "id": "47c3",
       "usuario": null,
-      "points": 100000007,
+      "points": 17,
       "upgrades": {
         "battery": 0,
         "efficiency": 0,
-        "motor": 0,
+        "motor": 1,
         "powerUpgrade": 0,
         "recharge": 0,
         "timeOff": 0,

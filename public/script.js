@@ -48,7 +48,7 @@ if (typeof window.gameInitialized === "undefined") {
         batteryPrice: 20,
         rechargePrice: 200,
         timeOffPrice: 200,
-        trackPrice: 2000,
+        trackPrice: 0,
         powerUpgradePrice:5000,
         powerReUpgradePrice:4000,
         powerTeUpgradePrice:3000
@@ -128,6 +128,19 @@ if (typeof window.gameInitialized === "undefined") {
                 if (usuario) {
                     // Carregar pontos e upgrades
                     car.points = usuario.points || 0;
+
+
+                    const lastLogoutTime = new Date(localStorage.getItem('lastLogoutTime'));
+                    const currentTime = new Date();
+                    const timeElapsed = (currentTime - lastLogoutTime) / 1000; // em segundos
+    
+                    // Calcule pontos offline e adicione aos pontos atuais
+                    const offlinePoints = calculateOfflinePoints(timeElapsed);
+                    // car.points += offlinePoints;
+                    console.log(`Tempo offline: ${timeElapsed} segundos.`);
+                    console.log(`Pontos ganhos enquanto estava offline: ${formatNumber(offlinePoints)}`);
+
+
                     const upgradeKeys = Object.keys(usuario.upgrades); // Pega as chaves de usuario.upgrades
 
                     // Atualizar valores de window.up
@@ -177,6 +190,10 @@ if (typeof window.gameInitialized === "undefined") {
                     // Atualizar os dados de pontos e upgrades
                     usuario.points = car.points;
                     usuario.upgrades = window.up;
+                    usuario.logoutTime = new Date().toISOString();
+                     // Captura a data e hora atual
+                    localStorage.setItem('lastLogoutTime', usuario.logoutTime);
+
 
     
                     // Fazer a requisição PUT para atualizar o usuário no servidor
@@ -199,12 +216,14 @@ if (typeof window.gameInitialized === "undefined") {
                     .catch(error => {
                         console.error('Erro ao salvar dados do usuário:', error);
                     });
+
     
                 } else {
                     // Se o usuário não existir, criar um novo usuário
                     const newUser = {
                         usuario: usuarioAtual,
                         points: car.points,
+                        logoutTime:logoutTime,
                         upgrades: window.up
                     };
     
@@ -233,12 +252,13 @@ if (typeof window.gameInitialized === "undefined") {
             .catch(error => {
                 console.error('Erro ao buscar dados do usuário:', error);
             });
-    }
+             // Salva no localStorage
 
-    function drawTrack() {
-        ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
-    }
-
+        
+            // Se você tiver um backend, você pode enviar essa informação:
+            
+        }
+        
     function pos() {
         const target = {
             x: path[currentTargetIndex].x * canvas.width,
@@ -251,6 +271,51 @@ if (typeof window.gameInitialized === "undefined") {
 
         return [target, dx, dy, distance];
     }
+
+    function calculateOfflinePoints(timeElapsed) {
+        // Define os valores de pontuação por nível de pista
+        const pointsPerLap = {
+            1: 1,
+            2: 2,
+            3: 4
+        };
+    
+        // Consumo de bateria por volta baseado na eficiência
+        const batteryConsumptionPerLap = 1 / car.efficiency;
+        console.log("batteryConsumptionPerLap =", batteryConsumptionPerLap)
+    
+        // Calcula quantas voltas são possíveis com uma carga completa
+        const lapsPerCharge = car.maxbattery / batteryConsumptionPerLap;
+        console.log("lapsPerCharge =", lapsPerCharge)
+
+        let [target, dx, dy, distance] = pos();
+
+        // Tempo necessário para completar uma volta (em segundos)
+        // console.log(totalDistance)
+        const timePerLap = (distance/10)  / car.speed; // Ajuste de tempo baseado na largura e velocidade
+        console.log("timePerLap =", timePerLap)
+        // Tempo total para esgotar a bateria (em segundos)
+        const timeToDeplete = lapsPerCharge * timePerLap;
+        console.log("timeToDeplete =", timeToDeplete)
+        // Tempo total de uma corrida até uma recarga completa (em segundos)
+        const totalCycleTime = timeToDeplete + (recharge / 1000);
+        console.log("totalCycleTime =", totalCycleTime)
+        // Pontos ganhos por ciclo completo
+        const pointsPerCycle = lapsPerCharge * pointsPerLap[track.track];
+        console.log("pointsPerCycle =", pointsPerCycle)
+        // Pontos por segundo
+        const pointsPerSecond = pointsPerCycle / totalCycleTime;
+        console.log("pointsPerSecond =", pointsPerSecond)
+        // Calcula quantos pontos seriam ganhos durante o tempo offline
+        const pointsEarnedOffline = pointsPerSecond * timeElapsed;
+        console.log("pointsEarnedOffline =", pointsEarnedOffline)
+        return pointsEarnedOffline;
+    }
+    
+    function drawTrack() {
+        ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
+    }
+
 
     function move() {
         let [target, dx, dy, distance] = pos();
@@ -281,12 +346,29 @@ if (typeof window.gameInitialized === "undefined") {
         }
 
         if (Math.abs(car.x - canvas.width * 0.54) < 10 && Math.abs(car.y - canvas.height * 0.9) < 10) {
-            car.points += 0.5;
-            car.battery -= 0.5;
-            pointsElement.innerText = formatNumber(car.points);
-            if (car.battery === 0) {
-                pitStop();
-            }
+            if(track.track == 1)    
+                car.points += 0.5;
+                car.battery -= 0.5;
+                pointsElement.innerText = formatNumber(car.points);
+                if (car.battery === 0) {
+                    pitStop();
+                }
+            if(track.track ==2 ){
+                car.points += 1;
+                car.battery -= 0.5;
+                pointsElement.innerText = formatNumber(car.points);
+                if (car.battery === 0) {
+                    pitStop();
+                }
+                }
+            if(track.track == 3){
+                car.points += 2;
+                car.battery -= 0.5;
+                pointsElement.innerText = formatNumber(car.points);
+                if (car.battery === 0) {
+                    pitStop();
+                }
+            }    
 
         }
     }
@@ -327,59 +409,59 @@ if (typeof window.gameInitialized === "undefined") {
     }
 
  // Função upgrade geral (mesma lógica)
-function upgrade(stat, priceKey) {
-    const price = up_price[priceKey];
+    function upgrade(stat, priceKey) {
+        const price = up_price[priceKey];
 
-    if (car.points >= price) {
-        car.points -= price; // Deduz os pontos
-        window.up[stat] += 1; // Incrementa o nível do upgrade
-        up_price[priceKey] *= 1.20; // Aumenta o preço para o próximo upgrade
-        document.getElementById(stat).innerText = formatNumber(up_price[priceKey]);
-        document.getElementById('points').innerText = formatNumber(car.points);
-        
-        upgradeEffect(stat); // Aplica o efeito específico do upgrade
-        saveUserData(); // Salva os dados atualizados
+        if (car.points >= price) {
+            car.points -= price; // Deduz os pontos
+            window.up[stat] += 1; // Incrementa o nível do upgrade
+            up_price[priceKey] *= 1.20; // Aumenta o preço para o próximo upgrade
+            document.getElementById(stat).innerText = formatNumber(up_price[priceKey]);
+            document.getElementById('points').innerText = formatNumber(car.points);
+            
+            upgradeEffect(stat); // Aplica o efeito específico do upgrade
+            saveUserData(); // Salva os dados atualizados
+        }
     }
-}
 
 
-// Função upgradeEffect (permanecendo a mesma)
-function upgradeEffect(upgradeKey) {
-    switch (upgradeKey) {
-        case 'motor':
-            car.speed += 1;
-            break;
-        case 'battery':
-            car.battery += 1;
-            car.maxbattery = car.battery;
-            break;
-        case 'efficiency':
-            car.efficiency *= Math.pow(1.2, window.up.efficiency);
-            break;
-        case 'recharge':
-            recharge *= 0.95;
-            break;
-        case 'track':
-            track.track += 1;
-            up_price.trackPrice *= 1.6667;
-            document.getElementById("track").innerText = formatNumber(up_price.trackPrice);
-            break;
-        case 'timeOff':
-            track.timeOff += 1;
-            break;
-        case 'powerUpgrade':
-            car.power *= 1.1;
-            break;
-        case 'powerTeUpgrade':
-            powerTime *= 1.1;
-            break;
-        case 'powerReUpgrade':
-            powerRecharge *= 0.975;
-            break;
-        default:
-            console.log(`Upgrade não reconhecido: ${upgradeKey}`);
+    // Função upgradeEffect (permanecendo a mesma)
+    function upgradeEffect(upgradeKey) {
+        switch (upgradeKey) {
+            case 'motor':
+                car.speed += 1;
+                break;
+            case 'battery':
+                car.battery += 1;
+                car.maxbattery = car.battery;
+                break;
+            case 'efficiency':
+                car.efficiency *= Math.pow(1.2, window.up.efficiency);
+                break;
+            case 'recharge':
+                recharge *= 0.95;
+                break;
+            case 'track':
+                track.track += 1;
+                up_price.trackPrice *= 1.6667;
+                document.getElementById("track").innerText = formatNumber(up_price.trackPrice);
+                break;
+            case 'timeOff':
+                track.timeOff += 1;
+                break;
+            case 'powerUpgrade':
+                car.power *= 1.1;
+                break;
+            case 'powerTeUpgrade':
+                powerTime *= 1.1;
+                break;
+            case 'powerReUpgrade':
+                powerRecharge *= 0.975;
+                break;
+            default:
+                console.log(`Upgrade não reconhecido: ${upgradeKey}`);
+        }
     }
-}
 
     function mudarSkin() {
         currentCarImageIndex = (currentCarImageIndex + 1) % carImages.length;
@@ -388,16 +470,18 @@ function upgradeEffect(upgradeKey) {
         turbo()
     }
     function money(){
-        car.points +=10000000
+        car.points +=10000
     }
     function stat0(){
         window.up = window.up*0
+        car.points =0
+        track.track = 0
     }
     // Função principal para atualizar o jogo
     let saveTimer;
     let saveInterval = 100; 
     function updateGame() {
-        console.log(car.speed)
+        console.log(track.track)
         // console.log(powerTime)
         // console.log(powerRecharge)
         if (!pause) {
@@ -436,5 +520,3 @@ function upgradeEffect(upgradeKey) {
         saveUserData();
     });
 }
-
-
