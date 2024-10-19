@@ -23,6 +23,7 @@ export default function PrixPredict() {
   const toggleCard = (cardIndex) => {
     setExpandedCard(expandedCard === cardIndex ? null : cardIndex);
   };
+  localStorage.removeItem('gameStarted') 
 
 
 

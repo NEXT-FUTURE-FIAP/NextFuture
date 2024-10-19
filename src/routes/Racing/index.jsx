@@ -5,6 +5,7 @@ import countriesData from '../../data/countries.json'
 import Parceiro from '../../assets/parceiro.png'
 
 export default function Racing() {
+  localStorage.removeItem('gameStarted') 
 
     return (
       <MainRace>

@@ -3,6 +3,7 @@ import {useNavigate, Link} from 'react-router-dom'
 import { SecLogin } from './styleLogon'
 
 const Login =()=>{
+    localStorage.removeItem('gameStarted') 
 
     //Hook-useRef pega a referencia de um componente ou elemento do DOM
     const usuario = useRef();

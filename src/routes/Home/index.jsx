@@ -9,6 +9,7 @@ import Controle from "../../assets/controle.png"
 
 export default function Home() {
     // const getUsuario = localStorage.getItem("usuario")
+    localStorage.removeItem('gameStarted') 
 
     return (
         <>

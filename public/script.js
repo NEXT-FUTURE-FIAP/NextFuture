@@ -150,11 +150,18 @@ if (typeof window.gameInitialized === "undefined") {
                     
                     // Ajustar os preços dos upgrades com base nos valores já comprados
                     upgradeKeys.forEach(key => {
+                        console.log("aki", key);
                         const priceKey = `${key}Price`; // Gera o nome da chave de preço correspondente
                         if (up_price[priceKey]) {
                             up_price[priceKey] *= Math.pow(1.20, window.up[key]);
-                            document.getElementById(`${key}`).innerText = formatNumber(up_price[priceKey]);
-
+                            
+                            // Verifica se o elemento com o ID existe antes de tentar acessar innerText
+                            const element = document.getElementById(`${key}`);
+                            if (element) {
+                                element.innerText = formatNumber(up_price[priceKey]);
+                            } else {
+                                console.warn(`Elemento com o ID ${key} não encontrado`);
+                            }
                         }
                     });
                     
@@ -408,7 +415,6 @@ if (typeof window.gameInitialized === "undefined") {
         }
     }
 
- // Função upgrade geral (mesma lógica)
     function upgrade(stat, priceKey) {
         const price = up_price[priceKey];
 
@@ -518,5 +524,7 @@ if (typeof window.gameInitialized === "undefined") {
     // Salvar os dados automaticamente antes de sair da página
     window.addEventListener('beforeunload', () => {
         saveUserData();
+        
+        
     });
 }
