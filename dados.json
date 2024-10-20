@@ -4,16 +4,17 @@
       "id": "3ef0",
       "usuario": "normaluser",
       "senha": "1234567",
-      "points": 1077874063.3552818,
+      "points": 15889.462881254774,
       "upgrades": {
-        "battery": 12,
-        "efficiency": 0,
-        "motor": 18,
-        "power": 0,
-        "recharge": 72,
+        "battery": 0,
+        "efficiency": 1,
+        "motor": 1,
+        "powerUpgrade": 0,
+        "recharge": 0,
         "timeOff": 0,
         "track": 0
-      }
+      },
+      "logoutTime": "2024-10-20T18:58:27.803Z"
     },
     {
       "id": "2109",
