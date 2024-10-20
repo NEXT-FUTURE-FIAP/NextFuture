@@ -96,13 +96,13 @@ const CadUsuarios =()=>{
                     type="password"
                     name="senha"
                     value={usuarios.senha}
-                    placeholder="Digite sua senha"
+                    placeholder="Crie sua senha"
                     /* o onChange é utili em situações que é necessários reagir a cada alteração do input */
                     onChange={handleChange}
                 />
 
                 <button type="submit">Cadastrar</button>
-                <Link to="/">
+                <Link to="/login">
                  <ImCancelCircle />
                 </Link>
             </form>
