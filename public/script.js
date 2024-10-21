@@ -18,36 +18,17 @@ if (typeof window.gameInitialized === "undefined") {
 
     // Ajuste as coordenadas dos pontos do caminho (path) para porcentagens
     const path = [
-        { x: 0.99, y: 0.89 },  // Ponto inicial (parte de baixo à direita)
-        { x: 0.013, y: 0.89 },  // Mover-se para a esquerda na parte inferior
-        { x: 0.013, y: 0.001 }, // Subir pelo lado esquerdo
-        { x: 0.955, y: 0.001 },  // Mover-se para a direita na parte superior
-        { x: 0.955, y: 0.89 },   // Descer pelo lado direito
+        { x: 0.99, y: 0.87 },  // Ponto inicial (parte de baixo à direita)
+        { x: 0.013, y: 0.87 },  // Mover-se para a esquerda na parte inferior
+        { x: 0.013, y: -0.025 }, // Subir pelo lado esquerdo
+        { x: 0.955, y: -0.025 },  // Mover-se para a direita na parte superior
+        { x: 0.955, y: 0.87 },   // Descer pelo lado direito
     ];
-
+    
     let currentCarImageIndex = 0;
-    let up_price = {
-        motorPrice: 10,
-        efficiencyPrice: 20,
-        batteryPrice: 20,
-        rechargePrice: 200,
-        timeOffPrice: 200,
-        trackPrice: 2000
-    };
-
-    window.up = {
-        battery: 0,
-        efficiency: 0,
-        motor: 0,
-        power: 0,
-        recharge: 0,
-        timeOff: 0,
-        track: 0,
-    };
-
     let car = {
         x: canvas.width * 0.54,
-        y: canvas.height * 0.89,
+        y: canvas.height * 0.87,
         width: 50,
         height: 100,
         speed: 10,
@@ -56,8 +37,39 @@ if (typeof window.gameInitialized === "undefined") {
         battery: 1.5,
         efficiency: 1,
         maxbattery: 2.5,
+        powerOn:false,
+        power:1.1,
+        rechargingPower:false,
         direction: 3 // Começa voltado para baixo
     };
+    let up_price = {
+        motorPrice: 10,
+        efficiencyPrice: 20,
+        batteryPrice: 20,
+        rechargePrice: 200,
+        timeOffPrice: 200,
+        trackPrice: 0,
+        powerUpgradePrice:5000,
+        powerReUpgradePrice:4000,
+        powerTeUpgradePrice:3000
+    };
+
+    window.up = {
+        battery: 0,
+        efficiency: 0,
+        motor: 0,
+        powerUpgrade: 0,
+        recharge: 0,
+        timeOff: 0,
+        track: 0,
+    };
+
+    let track = {
+        track:1,
+        timeOff:24
+
+    }
+
     if (typeof window.lastSavedPoints === "undefined") {
         window.lastSavedPoints = 0;  // Inicializa com 0 se ainda não foi definido
     }
@@ -76,20 +88,28 @@ if (typeof window.gameInitialized === "undefined") {
 
     let pause = false;
     let recharge = 5000;
+    let powerRecharge = 25000
+    let powerTime = 5000
     let currentTargetIndex = 1;
     function drawCar() {
         const carImg = new Image();
         carImg.src = carImages[currentCarImageIndex]; // Carrega a imagem do carro
+
+        // Proporção do carro em relação ao canvas
+        const carWidth = canvas.width * 0.035;  // 10% da largura do canvas
+        const carHeight = canvas.height * 0.15;  // 5% da altura do canvas
+
         ctx.save();
-        ctx.translate(car.x + car.width / 2, car.y + car.height / 2);
+        // // Atualiza a posição do carro baseado na nova largura/altura
+        // const carX = car.x * canvas.width; // posição x proporcional ao canvas
+        // const carY = car.y * canvas.height; // posição y proporcional ao canvas
+        
+        ctx.translate(car.x + carWidth / 2, car.y + carHeight / 2);
         ctx.rotate(car.direction * Math.PI / 2);
-        ctx.drawImage(carImg, -car.width / 2, -car.height / 2, car.width, car.height);
+        ctx.drawImage(carImg, -carWidth / 2, -carHeight / 2, carWidth, carHeight);
         ctx.restore();
     }
 
-    window.point = {
-        points: car.points,
-    };
     function formatNumber(value) {
         if (value >= 1e9) {
             return (value / 1e9).toFixed(1) + 'B';  // Bilhões
@@ -114,41 +134,56 @@ if (typeof window.gameInitialized === "undefined") {
             })
             .then((data) => {
                 const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
-                if (usuario) {
+                
+                if (usuario.upgrades) {
                     // Carregar pontos e upgrades
                     car.points = usuario.points || 0;
+
+
+                    const lastLogoutTime = new Date(localStorage.getItem('lastLogoutTime'));
+                    const currentTime = new Date();
+                    const timeElapsed = (currentTime - lastLogoutTime) / 1000; // em segundos
     
-                    // Carregar os upgrades salvos ou iniciar com valores padrão
-                    window.up.motor = usuario.upgrades?.motor || 0;
-                    window.up.battery = usuario.upgrades?.battery || 0;
-                    window.up.efficiency = usuario.upgrades?.efficiency || 0;
-                    window.up.recharge = usuario.upgrades?.recharge || 0;
+                    // Calcule pontos offline e adicione aos pontos atuais
+                    const offlinePoints = calculateOfflinePoints(timeElapsed);
+                    // car.points += offlinePoints;
+                    console.log(`Tempo offline: ${timeElapsed} segundos.`);
+                    console.log(`Pontos ganhos enquanto estava offline: ${formatNumber(offlinePoints)}`);
+
+
+                    try{
+                        const upgradeKeys = Object.keys(usuario.upgrades); // Pega as chaves de usuario.upgrades
+
+                    // Atualizar valores de window.up
+                        upgradeKeys.forEach(key => {
+                            window.up[key] = usuario.upgrades[key] || 0;
+                        });
+                        
+                        // Ajustar os preços dos upgrades com base nos valores já comprados
+                        upgradeKeys.forEach(key => {
+                            console.log("aki", key);
+                            const priceKey = `${key}Price`; // Gera o nome da chave de preço correspondente
+                            if (up_price[priceKey]) {
+                                up_price[priceKey] *= Math.pow(1.20, window.up[key]);
+                                
+                                // Verifica se o elemento com o ID existe antes de tentar acessar innerText
+                                const element = document.getElementById(`${key}`);
+                                if (element) {
+                                    element.innerText = formatNumber(up_price[priceKey]);
+                                } else {
+                                    console.warn(`Elemento com o ID ${key} não encontrado`);
+                                }
+                            }
+                        });
+                        
+                    upgradeKeys.forEach(upgradeKey => {
+                        for (let i = 0; i < window.up[upgradeKey]; i++) {
+                            upgradeEffect(upgradeKey); // Aplica o efeito acumulado para cada nível de upgrade
+                        }
+                    });} catch(error){
+                        console.error(error);
+                    }
     
-                    // Aplicar upgrades ao status do carro:
-                    // 1. Atualizar velocidade do carro com base nos upgrades de motor
-                    car.speed += window.up.motor; // Exemplo: cada upgrade de motor aumenta a velocidade
-                    
-                    // 2. Atualizar a capacidade máxima da battery com base nos upgrades de battery
-                    car.battery += window.up.battery;
-                    car.maxbattery = car.battery 
-                    
-                    // 3. Atualizar a eficiência da battery com base nos upgrades de eficiência
-                    car.efficiency *= Math.pow(1.2, window.up.efficiency); // Aumenta a eficiência da battery
-                    
-                    // 4. Atualizar o tempo de recharge com base nos upgrades de recharge
-                    recharge *= Math.pow(0.95, window.up.recharge); // Reduz o tempo de recharge
-    
-                    // Ajustar os preços dos upgrades com base nos valores já comprados
-                    up_price.motorPrice *= Math.pow(1.15, window.up.motor);
-                    up_price.batteryPrice *= Math.pow(1.20, window.up.battery);
-                    up_price.efficiencyPrice *= Math.pow(1.20, window.up.efficiency);
-                    up_price.rechargePrice *= Math.pow(1.15, window.up.recharge);
-    
-                    // Atualizar os elementos da interface
-                    document.getElementById('motor').innerText = formatNumber(up_price.motorPrice);
-                    document.getElementById('battery').innerText = formatNumber(up_price.batteryPrice);
-                    // document.getElementById('efficiency').innerText = up_price.efficiencyPrice.formatNumber(2);
-                    document.getElementById('recharge').innerText = formatNumber(up_price.rechargePrice);
     
                     pointsElement.innerText = formatNumber(car.points); // Atualiza o elemento HTML com os pontos
     
@@ -159,11 +194,13 @@ if (typeof window.gameInitialized === "undefined") {
             })
             .catch((error) => {
                 console.error('Erro ao carregar dados do usuário:', error);
+                
             });
     }
     // Função para salvar dados do usuário no JSON
     function saveUserData() {
         // Primeiro, buscar o usuário atual no servidor
+        // console.log(usuarioAtual)
         fetch(`http://localhost:5000/usuarios?usuario=${usuarioAtual}`)
             .then(response => response.json())
             .then(data => {
@@ -174,6 +211,11 @@ if (typeof window.gameInitialized === "undefined") {
                     // Atualizar os dados de pontos e upgrades
                     usuario.points = car.points;
                     usuario.upgrades = window.up;
+                    usuario.logoutTime = new Date().toISOString();
+                     // Captura a data e hora atual
+                    localStorage.setItem('lastLogoutTime', usuario.logoutTime);
+
+
     
                     // Fazer a requisição PUT para atualizar o usuário no servidor
                     fetch(`http://localhost:5000/usuarios/${usuario.id}`, {
@@ -195,12 +237,14 @@ if (typeof window.gameInitialized === "undefined") {
                     .catch(error => {
                         console.error('Erro ao salvar dados do usuário:', error);
                     });
+
     
                 } else {
                     // Se o usuário não existir, criar um novo usuário
                     const newUser = {
                         usuario: usuarioAtual,
                         points: car.points,
+                        logoutTime:logoutTime,
                         upgrades: window.up
                     };
     
@@ -229,35 +273,86 @@ if (typeof window.gameInitialized === "undefined") {
             .catch(error => {
                 console.error('Erro ao buscar dados do usuário:', error);
             });
-    }
+             // Salva no localStorage
 
-    function drawTrack() {
-        ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
-    }
-
+        
+            // Se você tiver um backend, você pode enviar essa informação:
+            
+        }
+        
     function pos() {
         const target = {
             x: path[currentTargetIndex].x * canvas.width,
             y: path[currentTargetIndex].y * canvas.height,
         };
 
-        const dx = target.x - car.x;
-        const dy = target.y - car.y;
+        const dx = (target.x - car.x)*0.54;
+        const dy = (target.y - car.y)*0.87;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         return [target, dx, dy, distance];
     }
 
+    function calculateOfflinePoints(timeElapsed) {
+        // Define os valores de pontuação por nível de pista
+        const pointsPerLap = {
+            1: 1,
+            2: 2,
+            3: 4
+        };
+    
+        // Consumo de bateria por volta baseado na eficiência
+        const batteryConsumptionPerLap = 1 / car.efficiency;
+        console.log("batteryConsumptionPerLap =", batteryConsumptionPerLap)
+    
+        // Calcula quantas voltas são possíveis com uma carga completa
+        const lapsPerCharge = car.maxbattery / batteryConsumptionPerLap;
+        console.log("lapsPerCharge =", lapsPerCharge)
+
+        let [target, dx, dy, distance] = pos();
+
+        // Tempo necessário para completar uma volta (em segundos)
+        // console.log(totalDistance)
+        const timePerLap = (distance/10)  / car.speed; // Ajuste de tempo baseado na largura e velocidade
+        console.log("timePerLap =", timePerLap)
+        // Tempo total para esgotar a bateria (em segundos)
+        const timeToDeplete = lapsPerCharge * timePerLap;
+        console.log("timeToDeplete =", timeToDeplete)
+        // Tempo total de uma corrida até uma recarga completa (em segundos)
+        const totalCycleTime = timeToDeplete + (recharge / 1000);
+        console.log("totalCycleTime =", totalCycleTime)
+        // Pontos ganhos por ciclo completo
+        const pointsPerCycle = lapsPerCharge * pointsPerLap[track.track];
+        console.log("pointsPerCycle =", pointsPerCycle)
+        // Pontos por segundo
+        const pointsPerSecond = pointsPerCycle / totalCycleTime;
+        console.log("pointsPerSecond =", pointsPerSecond)
+        // Calcula quantos pontos seriam ganhos durante o tempo offline
+        const pointsEarnedOffline = pointsPerSecond * timeElapsed;
+        console.log("pointsEarnedOffline =", pointsEarnedOffline)
+        return pointsEarnedOffline;
+    }
+    
+    function drawTrack() {
+        ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
+    }
+
+    function getZoomFactor() {
+        return canvas.width / canvas.width; // Ajuste conforme a implementação
+    }
     function move() {
         let [target, dx, dy, distance] = pos();
-        if (distance < car.speed) {
+        // Normaliza a velocidade com base na largura do canvas
+        const normalizedSpeed = car.speed * (canvas.width / 1250);
+    
+        if (distance < normalizedSpeed) {
             car.x = target.x;
             car.y = target.y;
             currentTargetIndex++;
             if (currentTargetIndex >= path.length) {
                 currentTargetIndex = 1; // Reinicia o caminho (ignora o ponto inicial)
             }
-
+    
             const nextTarget = {
                 x: path[currentTargetIndex].x * canvas.width,
                 y: path[currentTargetIndex].y * canvas.height,
@@ -272,17 +367,37 @@ if (typeof window.gameInitialized === "undefined") {
                 car.direction = 3; // Left
             }
         } else {
-            car.x += (dx / distance) * car.speed;
-            car.y += (dy / distance) * car.speed;
+            car.x += (dx / distance) * normalizedSpeed;
+            car.y += (dy / distance) * normalizedSpeed;
         }
-
-        if (Math.abs(car.x - canvas.width * 0.54) < 10 && Math.abs(car.y - canvas.height * 0.9) < 10) {
-            car.points += 0.5;
-            car.battery -= 0.5;
-            pointsElement.innerText = formatNumber(car.points);
-            if (car.battery === 0) {
-                pitStop();
+    
+        // Ampliar a área de detecção para garantir que os pontos sejam contabilizados
+        const detectionRadius = car.speed; // Define uma área ao redor do ponto de verificação
+        if (Math.abs(car.x - canvas.width * 0.54) < detectionRadius && 
+            Math.abs(car.y - canvas.height * 0.87) < detectionRadius) {
+            if (track.track == 1)    
+                car.points += 0.5;
+                car.battery -= 0.5;
+                pointsElement.innerText = formatNumber(car.points);
+                if (car.battery <= 0) {
+                    pitStop();
+                }
+            if (track.track == 2) {
+                car.points += 1;
+                car.battery -= 0.5;
+                pointsElement.innerText = formatNumber(car.points);
+                if (car.battery <= 0) {
+                    pitStop();
+                }
             }
+            if (track.track == 3) {
+                car.points += 2;
+                car.battery -= 0.5;
+                pointsElement.innerText = formatNumber(car.points);
+                if (car.battery <= 0) {
+                    pitStop();
+                }
+            }    
         }
     }
 
@@ -293,53 +408,109 @@ if (typeof window.gameInitialized === "undefined") {
             pause = false;  // Despausa o carro
         }, recharge);
     }
-    function upgrade(stat, priceKey, upgradeEffect) {
-        const price = up_price[priceKey];
-        
-        if (car.points >= price) {
-            car.points -= price;
-            window.up[stat] += 1;
-            up_price[priceKey] *= 1.20; // Multiplica o preço para a próxima compra
-            document.getElementById(stat).innerText = formatNumber(up_price[priceKey]);
-            document.getElementById('points').innerText = formatNumber(car.points);
-            
-            upgradeEffect(); // Executa o efeito específico do upgrade
-            saveUserData(); // Salva os dados após uma compra
+    function turbo() {
+        // console.log(car.powerOn)
+        // console.log(car.rechargingPower)
+        if (!car.powerOn && !car.rechargingPower) {  // Impede ativar o turbo se já estiver ligado
+            car.powerOn = true;
+            car.rechargingPower = true
+            console.log(car.speed)
+    
+            // Armazena a velocidade original do carro
+            const originalSpeed = car.speed;
+    
+            // Aumenta a velocidade do carro instantaneamente
+            car.speed = car.speed * car.power;
+    
+            // Restaura a velocidade original após o tempo definido
+            setTimeout(() => {
+                car.speed = originalSpeed;  // Restaura a velocidade original
+                car.powerOn = false;  // Desativa o turbo
+                console.log("Turbo desativado. Velocidade restaurada:", car.speed);
+
+                setTimeout(() => {
+                    car.rechargingPower = false;  // Recarga concluída, turbo pode ser usado novamente
+                    console.log("Turbo recarregado e pronto para uso.");
+                }, powerRecharge); 
+            }, powerTime);
         }
     }
 
-    function motorUpgrade() {
-        upgrade('motor', 'motorPrice', () => {
-            car.speed += 1;
-        });
-    }
-    
-    function batteryUpgrade() {
-        upgrade('battery', 'batteryPrice', () => {
-            car.battery += 1;
-            car.maxbattery = car.battery; // Atualiza o valor máximo da battery
-        });
-    }
-    
-    function rechargeUpgrade() {
-        upgrade('recharge', 'rechargePrice', () => {
-            recharge *= 0.95; // Reduz o tempo de recharge
+    function upgrade(stat, priceKey) {
+        const price = up_price[priceKey];
 
-        });
+        if (car.points >= price) {
+            car.points -= price; // Deduz os pontos
+            window.up[stat] += 1; // Incrementa o nível do upgrade
+            up_price[priceKey] *= 1.20; // Aumenta o preço para o próximo upgrade
+            document.getElementById(stat).innerText = formatNumber(up_price[priceKey]);
+            document.getElementById('points').innerText = formatNumber(car.points);
+            
+            upgradeEffect(stat); // Aplica o efeito específico do upgrade
+            saveUserData(); // Salva os dados atualizados
+        }
     }
-    
+
+
+    // Função upgradeEffect (permanecendo a mesma)
+    function upgradeEffect(upgradeKey) {
+        switch (upgradeKey) {
+            case 'motor':
+                car.speed += 4;
+                break;
+            case 'battery':
+                car.battery += 1;
+                car.maxbattery = car.battery;
+                break;
+            case 'efficiency':
+                car.efficiency *= Math.pow(1.2, window.up.efficiency);
+                break;
+            case 'recharge':
+                recharge *= 0.95;
+                break;
+            case 'track':
+                track.track += 1;
+                up_price.trackPrice *= 1.6667;
+                document.getElementById("track").innerText = formatNumber(up_price.trackPrice);
+                break;
+            case 'timeOff':
+                track.timeOff += 1;
+                break;
+            case 'powerUpgrade':
+                car.power *= 1.1;
+                break;
+            case 'powerTeUpgrade':
+                powerTime *= 1.1;
+                break;
+            case 'powerReUpgrade':
+                powerRecharge *= 0.975;
+                break;
+            default:
+                console.log(`Upgrade não reconhecido: ${upgradeKey}`);
+        }
+    }
 
     function mudarSkin() {
         currentCarImageIndex = (currentCarImageIndex + 1) % carImages.length;
     }
+    function power() {
+        turbo()
+    }
     function money(){
         car.points +=10000000
+    }
+    function stat0(){
+        window.up = window.up*0
+        car.points =0
+        track.track = 0
     }
     // Função principal para atualizar o jogo
     let saveTimer;
     let saveInterval = 100; 
     function updateGame() {
-        console.log(recharge)
+        console.log(track.track)
+        // console.log(powerTime)
+        // console.log(powerRecharge)
         if (!pause) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawTrack();
@@ -374,6 +545,7 @@ if (typeof window.gameInitialized === "undefined") {
     // Salvar os dados automaticamente antes de sair da página
     window.addEventListener('beforeunload', () => {
         saveUserData();
+        
+        
     });
 }
-
