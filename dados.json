@@ -33,6 +33,18 @@
       "usuario": "minhapomba",
       "senha": "696969",
       "points": 0.5
+    },
+    {
+      "id": "b771",
+      "usuario": "Admin",
+      "senha": "12345",
+      "points": 0.5
+    },
+    {
+      "id": "de5d",
+      "usuario": "minhapomba",
+      "senha": "696969",
+      "points": 0.5
     }
   ]
 }
