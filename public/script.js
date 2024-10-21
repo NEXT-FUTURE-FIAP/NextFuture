@@ -342,11 +342,10 @@ if (typeof window.gameInitialized === "undefined") {
     }
     function move() {
         let [target, dx, dy, distance] = pos();
-        let zoomFactor = getZoomFactor(); // Função para obter o fator de zoom atual
-        let stepSize = car.speed / zoomFactor; // Ajusta a velocidade conforme o zoo
+        // Normaliza a velocidade com base na largura do canvas
+        const normalizedSpeed = car.speed * (canvas.width / 1250);
     
-        if (distance < stepSize) {
-            // Se o carro está próximo o suficiente do ponto de verificação
+        if (distance < normalizedSpeed) {
             car.x = target.x;
             car.y = target.y;
             currentTargetIndex++;
@@ -354,24 +353,22 @@ if (typeof window.gameInitialized === "undefined") {
                 currentTargetIndex = 1; // Reinicia o caminho (ignora o ponto inicial)
             }
     
-            // Atualizar direção com base no próximo ponto
             const nextTarget = {
                 x: path[currentTargetIndex].x * canvas.width,
                 y: path[currentTargetIndex].y * canvas.height,
             };
             if (nextTarget.y < car.y) {
-                car.direction = 0; // Cima
+                car.direction = 0; // Up
             } else if (nextTarget.x > car.x) {
-                car.direction = 1; // Direita
+                car.direction = 1; // Right
             } else if (nextTarget.y > car.y) {
-                car.direction = 2; // Baixo
+                car.direction = 2; // Down
             } else if (nextTarget.x < car.x) {
-                car.direction = 3; // Esquerda
+                car.direction = 3; // Left
             }
         } else {
-            // Movimentar o carro na direção do próximo ponto
-            car.x += (dx / distance) * stepSize;
-            car.y += (dy / distance) * stepSize;
+            car.x += (dx / distance) * normalizedSpeed;
+            car.y += (dy / distance) * normalizedSpeed;
         }
     
         // Ampliar a área de detecção para garantir que os pontos sejam contabilizados
