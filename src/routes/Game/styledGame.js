@@ -1,19 +1,18 @@
-html {
-    background-color: transparent;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
+import styled from "styled-components";
 
-#bannerimg{
+export const MainGame = styled.main`
+
+.bannerimg{
     width: 100%;
 }
 
-#game-container {
+.game-container {
     margin-top: 300px;
     position: relative;
     text-align: center;
 }
 
-#game-canvas {
+.game-canvas {
     width: 90vw;  /* 90% da largura da viewport */
     height: 80vh; /* 40% da altura da viewport */
     border: 1px solid #000; /* Para visualizar os limites */
@@ -22,7 +21,7 @@ html {
   }
   
 
-#controls {
+.controls {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -36,7 +35,7 @@ html {
 
 }
 
-#points-container {
+.points-container {
     background-color: transparent;
     display: flex;
     align-items: center;
@@ -48,12 +47,12 @@ html {
     overflow: hidden; 
 }
 
-#points-container:hover {
+.points-container:hover {
     transform: scale(1.05);
      
 }
 
-#pointsIcon {
+.pointsIcon {
     width: 50px; 
     height: 50px; 
     margin-left: 10px; 
@@ -62,12 +61,12 @@ html {
     margin: 5%;
 }
 
-#pointsIcon:hover {
+.pointsIcon:hover {
     transform: rotate(20deg); 
     overflow: hidden;
 }
 
-#upgrade-button {
+.upgrade-button {
     background: linear-gradient(145deg, #07e4a2, #0967e0); 
     border: none;
     border-radius: 10px; 
@@ -82,15 +81,19 @@ html {
     transition: all 0.3s ease; 
 }
 
-#upgrade-button:hover {
+.upgrade-button:hover {
     background: linear-gradient(145deg, #210252, #476ed8); 
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 
     inset 0 0 15px rgba(255, 255, 255, 0.4);
     transform: translateY(-4px); 
 }
 
-#upgrade-button:active {
+.upgrade-button:active {
     box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.5),
     inset -5px -5px 5px rgba(255, 255, 255, 0.2);
     transform: translateY(2px); 
 }
+
+
+
+`
