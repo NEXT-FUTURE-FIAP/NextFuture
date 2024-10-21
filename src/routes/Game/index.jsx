@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Game.css'; // Para estilos se necessário
-import BannerGame from "../../assets/background_game.png"
+import BannerGame from "../../assets/bGame.png"
 
 const Game = () => {
   
@@ -18,7 +18,7 @@ const Game = () => {
 
   return (
     <main>
-      
+      <img id='bannerimg' src={BannerGame} alt="" />
       <div id="game-container">
         <canvas id="game-canvas" width="1486" height="849"></canvas>
         <div id="controls">

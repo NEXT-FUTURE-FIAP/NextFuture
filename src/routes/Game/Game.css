@@ -3,6 +3,10 @@ html {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+#bannerimg{
+    width: 100%;
+}
+
 #game-container {
     margin-top: 300px;
     position: relative;
