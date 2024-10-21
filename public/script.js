@@ -18,17 +18,17 @@ if (typeof window.gameInitialized === "undefined") {
 
     // Ajuste as coordenadas dos pontos do caminho (path) para porcentagens
     const path = [
-        { x: 0.99, y: 0.89 },  // Ponto inicial (parte de baixo à direita)
-        { x: 0.013, y: 0.89 },  // Mover-se para a esquerda na parte inferior
-        { x: 0.013, y: 0.001 }, // Subir pelo lado esquerdo
-        { x: 0.955, y: 0.001 },  // Mover-se para a direita na parte superior
-        { x: 0.955, y: 0.89 },   // Descer pelo lado direito
+        { x: 0.99, y: 0.87 },  // Ponto inicial (parte de baixo à direita)
+        { x: 0.013, y: 0.87 },  // Mover-se para a esquerda na parte inferior
+        { x: 0.013, y: -0.025 }, // Subir pelo lado esquerdo
+        { x: 0.955, y: -0.025 },  // Mover-se para a direita na parte superior
+        { x: 0.955, y: 0.87 },   // Descer pelo lado direito
     ];
     
     let currentCarImageIndex = 0;
     let car = {
         x: canvas.width * 0.54,
-        y: canvas.height * 0.89,
+        y: canvas.height * 0.87,
         width: 50,
         height: 100,
         speed: 10,
@@ -94,10 +94,19 @@ if (typeof window.gameInitialized === "undefined") {
     function drawCar() {
         const carImg = new Image();
         carImg.src = carImages[currentCarImageIndex]; // Carrega a imagem do carro
+
+        // Proporção do carro em relação ao canvas
+        const carWidth = canvas.width * 0.035;  // 10% da largura do canvas
+        const carHeight = canvas.height * 0.15;  // 5% da altura do canvas
+
         ctx.save();
-        ctx.translate(car.x + car.width / 2, car.y + car.height / 2);
+        // // Atualiza a posição do carro baseado na nova largura/altura
+        // const carX = car.x * canvas.width; // posição x proporcional ao canvas
+        // const carY = car.y * canvas.height; // posição y proporcional ao canvas
+        
+        ctx.translate(car.x + carWidth / 2, car.y + carHeight / 2);
         ctx.rotate(car.direction * Math.PI / 2);
-        ctx.drawImage(carImg, -car.width / 2, -car.height / 2, car.width, car.height);
+        ctx.drawImage(carImg, -carWidth / 2, -carHeight / 2, carWidth, carHeight);
         ctx.restore();
     }
 
@@ -125,7 +134,8 @@ if (typeof window.gameInitialized === "undefined") {
             })
             .then((data) => {
                 const usuario = data.usuarios.find(user => user.usuario === usuarioAtual);
-                if (usuario) {
+                
+                if (usuario.upgrades) {
                     // Carregar pontos e upgrades
                     car.points = usuario.points || 0;
 
@@ -141,35 +151,38 @@ if (typeof window.gameInitialized === "undefined") {
                     console.log(`Pontos ganhos enquanto estava offline: ${formatNumber(offlinePoints)}`);
 
 
-                    const upgradeKeys = Object.keys(usuario.upgrades); // Pega as chaves de usuario.upgrades
+                    try{
+                        const upgradeKeys = Object.keys(usuario.upgrades); // Pega as chaves de usuario.upgrades
 
                     // Atualizar valores de window.up
-                    upgradeKeys.forEach(key => {
-                        window.up[key] = usuario.upgrades[key] || 0;
-                    });
-                    
-                    // Ajustar os preços dos upgrades com base nos valores já comprados
-                    upgradeKeys.forEach(key => {
-                        console.log("aki", key);
-                        const priceKey = `${key}Price`; // Gera o nome da chave de preço correspondente
-                        if (up_price[priceKey]) {
-                            up_price[priceKey] *= Math.pow(1.20, window.up[key]);
-                            
-                            // Verifica se o elemento com o ID existe antes de tentar acessar innerText
-                            const element = document.getElementById(`${key}`);
-                            if (element) {
-                                element.innerText = formatNumber(up_price[priceKey]);
-                            } else {
-                                console.warn(`Elemento com o ID ${key} não encontrado`);
+                        upgradeKeys.forEach(key => {
+                            window.up[key] = usuario.upgrades[key] || 0;
+                        });
+                        
+                        // Ajustar os preços dos upgrades com base nos valores já comprados
+                        upgradeKeys.forEach(key => {
+                            console.log("aki", key);
+                            const priceKey = `${key}Price`; // Gera o nome da chave de preço correspondente
+                            if (up_price[priceKey]) {
+                                up_price[priceKey] *= Math.pow(1.20, window.up[key]);
+                                
+                                // Verifica se o elemento com o ID existe antes de tentar acessar innerText
+                                const element = document.getElementById(`${key}`);
+                                if (element) {
+                                    element.innerText = formatNumber(up_price[priceKey]);
+                                } else {
+                                    console.warn(`Elemento com o ID ${key} não encontrado`);
+                                }
                             }
-                        }
-                    });
-                    
+                        });
+                        
                     upgradeKeys.forEach(upgradeKey => {
                         for (let i = 0; i < window.up[upgradeKey]; i++) {
                             upgradeEffect(upgradeKey); // Aplica o efeito acumulado para cada nível de upgrade
                         }
-                    });
+                    });} catch(error){
+                        console.error(error);
+                    }
     
     
                     pointsElement.innerText = formatNumber(car.points); // Atualiza o elemento HTML com os pontos
@@ -181,12 +194,13 @@ if (typeof window.gameInitialized === "undefined") {
             })
             .catch((error) => {
                 console.error('Erro ao carregar dados do usuário:', error);
+                
             });
     }
     // Função para salvar dados do usuário no JSON
     function saveUserData() {
         // Primeiro, buscar o usuário atual no servidor
-        
+        // console.log(usuarioAtual)
         fetch(`http://localhost:5000/usuarios?usuario=${usuarioAtual}`)
             .then(response => response.json())
             .then(data => {
@@ -272,8 +286,8 @@ if (typeof window.gameInitialized === "undefined") {
             y: path[currentTargetIndex].y * canvas.height,
         };
 
-        const dx = target.x - car.x;
-        const dy = target.y - car.y;
+        const dx = (target.x - car.x)*0.54;
+        const dy = (target.y - car.y)*0.87;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         return [target, dx, dy, distance];
@@ -323,60 +337,70 @@ if (typeof window.gameInitialized === "undefined") {
         ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
     }
 
-
+    function getZoomFactor() {
+        return canvas.width / canvas.width; // Ajuste conforme a implementação
+    }
     function move() {
         let [target, dx, dy, distance] = pos();
-        if (distance < car.speed) {
+        let zoomFactor = getZoomFactor(); // Função para obter o fator de zoom atual
+        let stepSize = car.speed / zoomFactor; // Ajusta a velocidade conforme o zoo
+    
+        if (distance < stepSize) {
+            // Se o carro está próximo o suficiente do ponto de verificação
             car.x = target.x;
             car.y = target.y;
             currentTargetIndex++;
             if (currentTargetIndex >= path.length) {
                 currentTargetIndex = 1; // Reinicia o caminho (ignora o ponto inicial)
             }
-
+    
+            // Atualizar direção com base no próximo ponto
             const nextTarget = {
                 x: path[currentTargetIndex].x * canvas.width,
                 y: path[currentTargetIndex].y * canvas.height,
             };
             if (nextTarget.y < car.y) {
-                car.direction = 0; // Up
+                car.direction = 0; // Cima
             } else if (nextTarget.x > car.x) {
-                car.direction = 1; // Right
+                car.direction = 1; // Direita
             } else if (nextTarget.y > car.y) {
-                car.direction = 2; // Down
+                car.direction = 2; // Baixo
             } else if (nextTarget.x < car.x) {
-                car.direction = 3; // Left
+                car.direction = 3; // Esquerda
             }
         } else {
-            car.x += (dx / distance) * car.speed;
-            car.y += (dy / distance) * car.speed;
+            // Movimentar o carro na direção do próximo ponto
+            car.x += (dx / distance) * stepSize;
+            car.y += (dy / distance) * stepSize;
         }
-
-        if (Math.abs(car.x - canvas.width * 0.54) < 10 && Math.abs(car.y - canvas.height * 0.9) < 10) {
-            if(track.track == 1)    
+    
+        // Ampliar a área de detecção para garantir que os pontos sejam contabilizados
+        const detectionRadius = car.speed; // Define uma área ao redor do ponto de verificação
+        if (Math.abs(car.x - canvas.width * 0.54) < detectionRadius && 
+            Math.abs(car.y - canvas.height * 0.87) < detectionRadius) {
+            if (track.track == 1)    
                 car.points += 0.5;
                 car.battery -= 0.5;
                 pointsElement.innerText = formatNumber(car.points);
-                if (car.battery === 0) {
+                if (car.battery <= 0) {
                     pitStop();
                 }
-            if(track.track ==2 ){
+            if (track.track == 2) {
                 car.points += 1;
                 car.battery -= 0.5;
                 pointsElement.innerText = formatNumber(car.points);
-                if (car.battery === 0) {
+                if (car.battery <= 0) {
                     pitStop();
                 }
-                }
-            if(track.track == 3){
+            }
+            if (track.track == 3) {
                 car.points += 2;
                 car.battery -= 0.5;
                 pointsElement.innerText = formatNumber(car.points);
-                if (car.battery === 0) {
+                if (car.battery <= 0) {
                     pitStop();
                 }
             }    
-
         }
     }
 
@@ -435,7 +459,7 @@ if (typeof window.gameInitialized === "undefined") {
     function upgradeEffect(upgradeKey) {
         switch (upgradeKey) {
             case 'motor':
-                car.speed += 1;
+                car.speed += 4;
                 break;
             case 'battery':
                 car.battery += 1;
@@ -476,7 +500,7 @@ if (typeof window.gameInitialized === "undefined") {
         turbo()
     }
     function money(){
-        car.points +=10000
+        car.points +=10000000
     }
     function stat0(){
         window.up = window.up*0

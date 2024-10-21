@@ -3,6 +3,7 @@
     {
       "id": "3ef0",
       "usuario": "normaluser",
+      "senha": "1234567",
       "logoutTime": "2024-10-19T00:41:22.484Z",
       "points": 15755.462881254774,
       "upgrades": {
@@ -19,7 +20,17 @@
       "id": "2109",
       "usuario": "cidade",
       "senha": "12345678",
-      "points": ""
+      "points": 0,
+      "upgrades": {
+        "battery": 0,
+        "efficiency": 0,
+        "motor": 0,
+        "powerUpgrade": 0,
+        "recharge": 0,
+        "timeOff": 0,
+        "track": 0
+      },
+      "logoutTime": "2024-10-21T00:19:32.315Z"
     },
     {
       "id": "b771",
@@ -28,24 +39,21 @@
       "points": 0.5
     },
     {
-      "id": "de5d",
-      "usuario": "minhapomba",
-      "senha": "696969",
-      "points": 0.5
-    },
-    {
-      "id": "47c3",
-      "usuario": null,
-      "points": 17,
+      "id": "44f3",
+      "usuario": "Geronimo augusto",
+      "email": "eduardinhoggsouza@gmail.com",
+      "senha": "",
+      "points": 9998510.600003147,
       "upgrades": {
         "battery": 0,
         "efficiency": 0,
-        "motor": 1,
+        "motor": 19,
         "powerUpgrade": 0,
         "recharge": 0,
         "timeOff": 0,
         "track": 0
-      }
+      },
+      "logoutTime": "2024-10-21T02:12:32.689Z"
     }
   ]
 }
