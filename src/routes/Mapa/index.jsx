@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { API_BASE_URL } from "../../config"; // Importa o endereço IP do config.js
+import { MainHome } from "../Home/styleHome";
 
 // Definir o cabeçalho para as requisições
 const myHeaders = new Headers();
@@ -71,6 +72,7 @@ function LiveTracker() {
 
   return (
     <div>
+      <MainHome>
       <h1>Rastreador ao Vivo</h1>
       {loading ? (
         <p>Mapa carregando...</p>
@@ -96,6 +98,9 @@ function LiveTracker() {
           </Marker>
         </MapContainer>
       )}
+
+
+      </MainHome>
     </div>
   );
 }
