@@ -13,13 +13,13 @@ export const MainGame = styled.main`
 }
 
 .game-canvas {
-    width: 90vw;  /* 90% da largura da viewport */
-    height: 80vh; /* 40% da altura da viewport */
-    border: 1px solid #000; /* Para visualizar os limites */
+    width: 90vw; /* Ocupa toda a largura da viewport */
+    height: auto; /* Mantém a proporção da altura */
+    max-height: 80vh; /* Limite de altura baseado na viewport */
+    border: 1px solid #000; /* Limite visual */
     display: block;
     margin: 0 auto; /* Centralizar */
-  }
-  
+}
 
 .controls {
     position: absolute;

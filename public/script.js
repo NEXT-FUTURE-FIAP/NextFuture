@@ -383,6 +383,16 @@ if (typeof window.gameInitialized === "undefined") {
         return pointsEarnedOffline;
     }
     
+    function adjustCanvasResolution() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+    
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+    
+        context.scale(dpr, dpr);
+    }
+
     function drawTrack() {
         ctx.drawImage(trackImg, 0, 0, canvas.width, canvas.height);
     }
@@ -617,8 +627,8 @@ if (typeof window.gameInitialized === "undefined") {
 
     // Salvar os dados automaticamente antes de sair da página
     window.addEventListener('beforeunload', () => {
-        saveUserData();
-        
-        
+        saveUserData()
     });
+    window.addEventListener('resize', adjustCanvasResolution);
+    adjustCanvasResolution();
 }
