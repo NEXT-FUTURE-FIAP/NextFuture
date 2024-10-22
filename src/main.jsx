@@ -12,6 +12,7 @@ import Error from './routes/Error/index.jsx'
 import Login from './routes/Login/Login.jsx'
 import CadUsuarios from './routes/Login/CadastroUsuario.jsx'
 import LiveTracker from './routes/Mapa/index.jsx'
+import LiveGraph from './routes/Grafico/Grafico.jsx'
 
 
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path:'/mapa',
         element:<LiveTracker/>,
+      },
+      {
+        path:'/graficos',
+        element:<LiveGraph/>,
       },
     ]
   }
