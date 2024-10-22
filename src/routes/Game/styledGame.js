@@ -13,53 +13,102 @@ export const MainGame = styled.main`
 }
 
 .game-canvas {
-    width: 90vw; /* Ocupa toda a largura da viewport */
-    height: auto; /* Mantém a proporção da altura */
-    max-height: 80vh; /* Limite de altura baseado na viewport */
-    border: 1px solid #000; /* Limite visual */
+    width: 90vw;  /* 90% da largura da viewport */
+    height: 80vh; /* 40% da altura da viewport */
     display: block;
     margin: 0 auto; /* Centralizar */
+  }
+  
+
+    .button{
+    position: absolute;
+    top: 5%;
+    left: 32%;
+    display:inline-block;
+    margin:20px;
+    padding: 10%;
+    overflow: hidden;
 }
 
-.controls {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    align-items: center;
-    text-align: center;
-    width: 30%;
-    background-color: transparent;
-    border-radius: 10px;
-    padding: 10px;
+.button a{
+  color:white;
+  font-family: "Rajdhani", sans-serif;
+  font-weight:bold;
+  font-style: italic;
+  font-size:36px;
+  text-align: center;
+  text-decoration:none;
+  background-color:#DC00FE;
+  display:block;
+  position:relative;
+  padding:20px 40px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+  -webkit-box-shadow:inset 0 1px 0 #5f106b, 0 10px 0 #5f106b;
+  -moz-box-shadow:inset 0 1px 0 #5f106b, 0 10px 0 #5f106b;
+  box-shadow:inset 0 1px 0 #5f106b, 0 10px 0#5f106b;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer; /* Indica que é clicável */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  filter: dropshadow(color=#000, offx=0px, offy=1px);
+  -webkit-box-shadow:inset 0 1px 0#5f106b, 0 10px 0 #5f106b;
+  -moz-box-shadow:inset 0 1px 0 #5f106b, 0 10px 0 #5f106b;
+  box-shadow:inset 0 0 0 #5f106b, 0 8px 0 #5f106b;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 10px;
+  border-radius: 5px;
 
+}
+
+.button a:active{
+  top:10px;
+  background-color:#DC00FE;
+  -webkit-box-shadow:inset 0 1px 0 #5f106b, inset 0 -3px 0 #5f106b;
+  -moz-box-shadow:inset 0 1px 0 #5f106b, inset 0 -3px 0 #5f106b;
+  box-shadow:inset 0 1px 0 #5f106b, inset 0 -3px 0 #5f106b;
+  text-shadow: 0px 0px 2px #e3e0e4;
+  box-shadow: 0 0 10px #e3e0e4, 0 0 20px #e3e0e4, 0 0 40px #e3e0e4;
+}
+
+.button:after{
+  content:"";
+  height:100%;
+  width:100%;
+  padding:4px;
+  position: absolute;
+  bottom:-15px;
+  left:-4px;
+  z-index:-1;
+  background-color:#2B1800;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .points-container {
-    background-color: transparent;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #000;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    font-size: 24px; 
-    color: white; 
-    margin-bottom: 20px; 
-    transition: transform 0.2s; 
-    overflow: hidden; 
-}
+    color: white;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: bold;
 
-.points-container:hover {
-    transform: scale(1.05);
-     
-}
-
-.pointsIcon {
-    width: 50px; 
-    height: 50px; 
-    margin-left: 10px; 
-    transition: transform 0.2s; 
-    overflow: hidden;
-    margin: 5%;
-}
+    img.pointsIcon {
+      width: 27px;
+      height: 27px;
+      margin-top: 10%;
+      margin-right: 2%;
+    }
+  }
 
 .pointsIcon:hover {
     transform: rotate(20deg); 
@@ -93,6 +142,88 @@ export const MainGame = styled.main`
     inset -5px -5px 5px rgba(255, 255, 255, 0.2);
     transform: translateY(2px); 
 }
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+svg { 
+  max-width: 100%;  
+}
+
+.cta {
+    display: flex;
+    margin: 2%;
+    position: absolute;
+    top: 30%;
+    padding: 10px 45px;
+    text-decoration: none;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 40px;
+    color: white;
+    background: #6225E6;
+    transition: 1s;
+    box-shadow: 6px 6px 0 black;
+    transform: skewX(-15deg);
+}
+
+.cta:focus {
+   outline: none; 
+}
+
+.cta:hover {
+    transition: 0.5s;
+    box-shadow: 10px 10px 0 #00C0F9;
+}
+
+.cta span:nth-child(2) {
+    transition: 0.5s;
+    margin-right: 0px;
+}
+
+.cta:hover  span:nth-child(2) {
+    transition: 0.5s;
+    margin-right: 30px;
+}
+
+
+  span:nth-child(2) {
+    width: 40px;
+    margin-left: 30px;
+    position: relative;
+    top: 12%;
+  }
+  
+
+path.one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+path.two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+
+.cta:hover path.one {
+    transform: translateX(0%);
+}
+
+.cta:hover path.two {
+    transform: translateX(0%);
+}
+
+@media (max-width: 480px) {
+
+    .game-canvas {
+    width: 100%;      /* Ajusta para 100% da largura da tela */
+    height: auto;     /* Altura automática para manter a proporção */
+    transform: rotate(180deg); /* Roda a imagem em 180 graus */
+  }
+
+}
+
 
 
 
