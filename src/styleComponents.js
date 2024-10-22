@@ -111,13 +111,13 @@ export const FootFooter = styled.footer`
         width: 100px;
         margin-left: 5%;
         margin-bottom: 4%;
+        padding: 5px;
         cursor: pointer;
         transition: transform 0.3s ease;
     }
 
     .logosFooter img:hover{
-        transform: translateY(-10px);
-    }
+        transform: translateY(-10px);    }
     
     .contato{
         display: flex;
@@ -154,6 +154,7 @@ export const FootFooter = styled.footer`
 
     .social-icons{
         display: flex;
+        justify-content: space-around;
         margin-left: 2%;
     }
     
@@ -162,6 +163,7 @@ export const FootFooter = styled.footer`
     text-decoration: none; 
     transition: color 0.3s; 
     gap: 5px;
+    padding: 4px;
     font-size: 20px; 
 }
 
