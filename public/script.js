@@ -7,8 +7,13 @@ if (typeof window.gameInitialized === "undefined") {
     const canvas = document.getElementById('game-canvas-id');
     const ctx = canvas.getContext('2d');
 
-    const trackImg = new Image();
-    trackImg.src = 'pista.png';  // Caminho da imagem da pista
+
+
+    const trackImges = [
+        'track1.png',
+        'track2.png',
+        'track3.png',
+    ]
 
     const carImages = [
         'carro.png',
@@ -17,22 +22,59 @@ if (typeof window.gameInitialized === "undefined") {
     ];
 
     // Ajuste as coordenadas dos pontos do caminho (path) para porcentagens
-    const path = [
-        { x: 0.99, y: 0.87 },  // Ponto inicial (parte de baixo à direita)
+    const path0 = [
+        { x: 0.54, y: 0.87 },
+        { x: 0.54, y: 0.87 },  // Ponto inicial (parte de baixo à direita)
         { x: 0.013, y: 0.87 },  // Mover-se para a esquerda na parte inferior
         { x: 0.013, y: -0.025 }, // Subir pelo lado esquerdo
         { x: 0.955, y: -0.025 },  // Mover-se para a direita na parte superior
         { x: 0.955, y: 0.87 },   // Descer pelo lado direito
     ];
+    const path1 = [
+        { x: 0.54, y: 0.87 },  // Ponto inicial (parte inferior)
+        { x: 0.015, y: 0.87 }, // Mover-se para a esquerda na parte inferior
+        { x: 0.015, y: -0.025 },  // Subir (primeiro movimento para cima)
+        { x: 0.329, y: -0.025 },   // Mover-se para a direita
+        { x: 0.329, y: 0.529 },  // Descer um pouco
+        { x: 0.635, y: 0.529 },   // Mover-se para a direita novamente
+        { x: 0.635, y: -0.025 },    // Subir mais
+        { x: 0.955, y: -0.025 },  // Mover-se para a direita na parte superior
+        { x: 0.955, y: 0.87 }, // Descer até o ponto final
+    ];
     
+    const path2 = [
+        { x: 0.54, y: 0.87 },  // Ponto inicial (parte inferior)
+        { x: 0.013, y: 0.87 },  // Mover-se para a esquerda na parte inferior
+        { x: 0.013, y: -0.025 },   // Subir na parte esquerda
+        { x: 0.15, y: -0.025 },    // Mover-se para a direita no topo da segunda curva
+        { x: 0.15, y: 0.53 },    // Descer de volta no meio
+        { x: 0.35, y: 0.53 },    // Descer de volta no meio
+        { x: 0.35, y: -0.025 },    // Descer de volta no meio
+        { x: 0.55, y: -0.025 },    // Descer de volta no meio
+        { x: 0.55, y: 0.53 },   // Mover-se para a direita
+        { x: 0.755, y: 0.53 },   // Mover-se para a direita
+        { x: 0.755, y: -0.025 },   // Subir novamente
+        { x: 0.955, y: -0.025 },   // Mover-se para a direita no topo
+        { x: 0.955, y: 0.87 },  // Descer até o ponto final
+    ];
+    
+
+    const paths = [
+        path0,
+        path1,
+        path2
+    ]
+    
+    let currentPath = path0
+    let currentTrackImageIndex = 0;
     let currentCarImageIndex = 0;
     let car = {
-        x: canvas.width * 0.54,
-        y: canvas.height * 0.87,
+        x: canvas.width *currentPath[0].x,
+        y: canvas.height*currentPath[0].y,
         width: 50,
         height: 100,
         speed: 10,
-        points: 0, // Inicializado para 0
+        points: 1000000000, // Inicializado para 0
         laps: 0,
         battery: 1.5,
         efficiency: 1,
@@ -48,7 +90,7 @@ if (typeof window.gameInitialized === "undefined") {
         batteryPrice: 20,
         rechargePrice: 200,
         timeOffPrice: 200,
-        trackPrice: 0,
+        trackPrice: 1000,
         powerUpgradePrice:5000,
         powerReUpgradePrice:4000,
         powerTeUpgradePrice:3000
@@ -62,6 +104,8 @@ if (typeof window.gameInitialized === "undefined") {
         recharge: 0,
         timeOff: 0,
         track: 0,
+        powerReUpgrade: 0,
+        powerTeUpgrade: 0
     };
 
     let track = {
@@ -86,11 +130,14 @@ if (typeof window.gameInitialized === "undefined") {
         }); // Inicializa com o estado inicial dos upgrades
     }
 
+    let gameRunning = false;
     let pause = false;
     let recharge = 5000;
     let powerRecharge = 25000
     let powerTime = 5000
     let currentTargetIndex = 1;
+    const trackImg = new Image();
+    trackImg.src = trackImges[currentTrackImageIndex]
     function drawCar() {
         const carImg = new Image();
         carImg.src = carImages[currentCarImageIndex]; // Carrega a imagem do carro
@@ -149,6 +196,8 @@ if (typeof window.gameInitialized === "undefined") {
                     // car.points += offlinePoints;
                     console.log(`Tempo offline: ${timeElapsed} segundos.`);
                     console.log(`Pontos ganhos enquanto estava offline: ${formatNumber(offlinePoints)}`);
+                    points= document.getElementById("points")
+                    points.innerHTML = formatNumber(car.points);
 
 
                     try{
@@ -161,10 +210,11 @@ if (typeof window.gameInitialized === "undefined") {
                         
                         // Ajustar os preços dos upgrades com base nos valores já comprados
                         upgradeKeys.forEach(key => {
-                            console.log("aki", key);
+                            
                             const priceKey = `${key}Price`; // Gera o nome da chave de preço correspondente
                             if (up_price[priceKey]) {
-                                up_price[priceKey] *= Math.pow(1.20, window.up[key]);
+                                up_price[priceKey] *= Math.pow(1.20,window.up[key] );
+                                console.log("foi chamado",up_price[priceKey])
                                 
                                 // Verifica se o elemento com o ID existe antes de tentar acessar innerText
                                 const element = document.getElementById(`${key}`);
@@ -282,8 +332,8 @@ if (typeof window.gameInitialized === "undefined") {
         
     function pos() {
         const target = {
-            x: path[currentTargetIndex].x * canvas.width,
-            y: path[currentTargetIndex].y * canvas.height,
+            x: currentPath[currentTargetIndex].x * canvas.width,
+            y: currentPath[currentTargetIndex].y * canvas.height,
         };
 
         const dx = (target.x - car.x)*0.54;
@@ -303,33 +353,33 @@ if (typeof window.gameInitialized === "undefined") {
     
         // Consumo de bateria por volta baseado na eficiência
         const batteryConsumptionPerLap = 1 / car.efficiency;
-        console.log("batteryConsumptionPerLap =", batteryConsumptionPerLap)
+        // console.log("batteryConsumptionPerLap =", batteryConsumptionPerLap)
     
         // Calcula quantas voltas são possíveis com uma carga completa
         const lapsPerCharge = car.maxbattery / batteryConsumptionPerLap;
-        console.log("lapsPerCharge =", lapsPerCharge)
+        // console.log("lapsPerCharge =", lapsPerCharge)
 
         let [target, dx, dy, distance] = pos();
 
         // Tempo necessário para completar uma volta (em segundos)
         // console.log(totalDistance)
         const timePerLap = (distance/10)  / car.speed; // Ajuste de tempo baseado na largura e velocidade
-        console.log("timePerLap =", timePerLap)
+        // console.log("timePerLap =", timePerLap)
         // Tempo total para esgotar a bateria (em segundos)
         const timeToDeplete = lapsPerCharge * timePerLap;
-        console.log("timeToDeplete =", timeToDeplete)
+        // console.log("timeToDeplete =", timeToDeplete)
         // Tempo total de uma corrida até uma recarga completa (em segundos)
         const totalCycleTime = timeToDeplete + (recharge / 1000);
-        console.log("totalCycleTime =", totalCycleTime)
+        // console.log("totalCycleTime =", totalCycleTime)
         // Pontos ganhos por ciclo completo
         const pointsPerCycle = lapsPerCharge * pointsPerLap[track.track];
-        console.log("pointsPerCycle =", pointsPerCycle)
+        // console.log("pointsPerCycle =", pointsPerCycle)
         // Pontos por segundo
         const pointsPerSecond = pointsPerCycle / totalCycleTime;
-        console.log("pointsPerSecond =", pointsPerSecond)
+        // console.log("pointsPerSecond =", pointsPerSecond)
         // Calcula quantos pontos seriam ganhos durante o tempo offline
         const pointsEarnedOffline = pointsPerSecond * timeElapsed;
-        console.log("pointsEarnedOffline =", pointsEarnedOffline)
+        // console.log("pointsEarnedOffline =", pointsEarnedOffline)
         return pointsEarnedOffline;
     }
     
@@ -349,13 +399,13 @@ if (typeof window.gameInitialized === "undefined") {
             car.x = target.x;
             car.y = target.y;
             currentTargetIndex++;
-            if (currentTargetIndex >= path.length) {
+            if (currentTargetIndex >= currentPath.length) {
                 currentTargetIndex = 1; // Reinicia o caminho (ignora o ponto inicial)
             }
     
             const nextTarget = {
-                x: path[currentTargetIndex].x * canvas.width,
-                y: path[currentTargetIndex].y * canvas.height,
+                x: currentPath[currentTargetIndex].x * canvas.width,
+                y: currentPath[currentTargetIndex].y * canvas.height,
             };
             if (nextTarget.y < car.y) {
                 car.direction = 0; // Up
@@ -490,8 +540,27 @@ if (typeof window.gameInitialized === "undefined") {
         }
     }
 
-    function mudarSkin() {
+    function changeSkin() {
         currentCarImageIndex = (currentCarImageIndex + 1) % carImages.length;
+    }
+    function changeTrack() {
+        // Mudar para a próxima imagem de pista
+        currentTrackImageIndex = (currentTrackImageIndex + 1) % trackImges.length;
+        trackImg.src = trackImges[currentTrackImageIndex];
+        currentPath = paths[currentTrackImageIndex]
+    
+        // Reiniciar o jogo
+        currentTargetIndex = 1; // Reiniciar o índice do caminho
+        car.x = canvas.width * 0.54; // Posição inicial do carro
+        car.y = canvas.height * 0.87;
+        car.direction = 3; // Direção inicial do carro (virado para baixo)
+        car.battery = car.maxbattery; // Reiniciar a bateria para o máximo
+
+        // Opcional: redefinir a pontuação, voltas ou outros estados, se necessário
+         // Redefinir pontos, se desejado
+        car.laps = 0; // Reiniciar o contador de voltas
+        pointsElement.innerText = formatNumber(car.points);
+
     }
     function power() {
         turbo()
@@ -508,7 +577,7 @@ if (typeof window.gameInitialized === "undefined") {
     let saveTimer;
     let saveInterval = 100; 
     function updateGame() {
-        console.log(track.track)
+        console.log(up_price.powerReUpgradePrice)
         // console.log(powerTime)
         // console.log(powerRecharge)
         if (!pause) {
@@ -537,9 +606,13 @@ if (typeof window.gameInitialized === "undefined") {
 
     // Iniciar o jogo quando a imagem da pista estiver carregada
     trackImg.onload = () => {
-        loadUserData()
-        updateGame();
+        if (!gameRunning) {
+            gameRunning = true;
+            loadUserData();
+            updateGame(); // Garante que o jogo seja atualizado apenas uma vez
+        }
     };
+
     // Adicionando os event listeners para os botões de upgrade
 
     // Salvar os dados automaticamente antes de sair da página
