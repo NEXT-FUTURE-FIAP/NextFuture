@@ -88,8 +88,11 @@ const Game = () => {
               <div className="upgrade-button" onClick={() => window.power()}>
                 <p>Turbo</p>
               </div>
-              <div className="upgrade-button" onClick={() => window.mudarSkin()}>
+              <div className="upgrade-button" onClick={() => window.changeSkin()}>
                 <p>Mudar aparência</p>
+              </div>
+              <div className="upgrade-button" onClick={() => window.changeTrack()}>
+                <p>Mudar pista</p>
               </div>
               <div className="upgrade-button" onClick={() => window.money()}>
                 <p>Muito ponto</p>
