@@ -27,7 +27,7 @@ export default function Home() {
             )} */}
                 <Link className="btn" to="/game">
                 <button className="game"><img src={Controle} alt="" />GAME</button>
-            </Link>
+                </Link>
                 <section className="car">
                     <p className="txt_car">Viva a emoção da Fórmula E: onde a velocidade encontra a paixão!
                         <a href="https://www.fiaformulae.com/en" target="blank">

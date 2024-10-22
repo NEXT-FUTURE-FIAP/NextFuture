@@ -52,7 +52,7 @@ const Game = () => {
                 <div className="button" onClick={() => window.power()}>
                     <a>TURBO</a>
                 </div>)}
-          </div>
+            </div>
           <div className="controls">
             {!isGameStarted && (
                 <div className="wrapper" onClick={handleStartGame}>

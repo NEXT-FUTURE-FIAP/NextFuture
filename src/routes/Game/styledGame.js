@@ -12,26 +12,32 @@ export const MainGame = styled.main`
     text-align: center;
 }
 
+.game {
+  position: relative; /* O contêiner .game controla a posição do canvas e do botão */
+}
+
 .game-canvas {
 
     width: 95vw; /* Ocupa toda a largura da viewport */
     height: auto; /* Mantém a proporção da altura */
     max-height: 95vh; /* Limite de altura baseado na viewport */
-    border: 1px solid #000; /* Limite visual */
     display: block;
     margin: 0 auto; /* Centralizar */
   }
   
 
-    .button{
-    position: absolute;
-    top: 25%;
-    left: 33%;
-    display:inline-block;
-    margin:20px;
-    padding: 10%;
-    overflow: hidden;
+  .button {
+    position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
+  top: 65%; /* Altere essa porcentagem para mudar a posição vertical do botão */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Garante que o botão fique completamente centralizado horizontalmente */
+  padding: 20px 40px;
+  width: max-content;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .button a{
   color:white;
@@ -85,7 +91,6 @@ export const MainGame = styled.main`
   bottom:-15px;
   left:-4px;
   z-index:-1;
-  background-color:#2B1800;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -217,23 +222,21 @@ path.two {
     transform: translateX(0%);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
 
     .game-canvas {
     width: 100%;      /* Ajusta para 100% da largura da tela */
     height: auto;     /* Altura automática para manter a proporção */
-    transform: rotate(180deg); /* Roda a imagem em 180 graus */
   }
 
   .button {
-      top: 2%; 
-      left: 24%; 
-      padding: 5%; 
-    }
+    position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
+  top: 50%; /* Altere essa porcentagem para mudar a posição vertical do botão */
+}
   
     .button a {
       font-size: 24px; 
-      padding: 15px 30px; 
+      padding: 10px 25px; 
     }
   
     .button:after {
