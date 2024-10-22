@@ -7,14 +7,17 @@ export const MainGame = styled.main`
 }
 
 .game-container {
-    margin-top: 300px;
+    margin-top: 100px;
     position: relative;
     text-align: center;
 }
 
 .game-canvas {
-    width: 90vw;  /* 90% da largura da viewport */
-    height: 80vh; /* 40% da altura da viewport */
+
+    width: 95vw; /* Ocupa toda a largura da viewport */
+    height: auto; /* Mantém a proporção da altura */
+    max-height: 95vh; /* Limite de altura baseado na viewport */
+    border: 1px solid #000; /* Limite visual */
     display: block;
     margin: 0 auto; /* Centralizar */
   }
@@ -22,8 +25,8 @@ export const MainGame = styled.main`
 
     .button{
     position: absolute;
-    top: 5%;
-    left: 32%;
+    top: 25%;
+    left: 33%;
     display:inline-block;
     margin:20px;
     padding: 10%;
@@ -90,8 +93,8 @@ export const MainGame = styled.main`
 
 .points-container {
     position: absolute;
-    top: 5%;
-    left: 10%;
+    top: 6%;
+    left: 7%;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 20px;
@@ -222,8 +225,23 @@ path.two {
     transform: rotate(180deg); /* Roda a imagem em 180 graus */
   }
 
+  .button {
+      top: 2%; 
+      left: 24%; 
+      padding: 5%; 
+    }
+  
+    .button a {
+      font-size: 24px; 
+      padding: 15px 30px; 
+    }
+  
+    .button:after {
+      bottom: -10px; 
+      left: -2px;
+    }
+  
 }
-
 
 
 

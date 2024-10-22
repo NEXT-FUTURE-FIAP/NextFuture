@@ -108,6 +108,9 @@ const Game = () => {
               <div className="upgrade-button" onClick={() => window.mudarSkin()}>
                 <p>Mudar aparência</p>
               </div>
+              <div className="upgrade-button" onClick={() => window.changeTrack()}>
+                <p>Mudar pista</p>
+              </div>
             </>
           )}
         </div>

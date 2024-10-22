@@ -43,19 +43,19 @@
       "usuario": "Geronimo augusto",
       "email": "eduardinhoggsouza@gmail.com",
       "senha": "",
-      "points": 1000000118.5,
+      "points": 21769773.479744315,
       "upgrades": {
         "battery": 0,
         "efficiency": 0,
         "motor": 0,
-        "powerUpgrade": 0,
+        "powerUpgrade": 58,
         "recharge": 0,
         "timeOff": 0,
         "track": 0,
         "powerReUpgrade": 0,
         "powerTeUpgrade": 0
       },
-      "logoutTime": "2024-10-22T01:18:05.276Z"
+      "logoutTime": "2024-10-22T01:58:54.672Z"
     }
   ]
 }
