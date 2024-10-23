@@ -59,7 +59,7 @@ export const SecLogin = styled.section`
     }
 
     input::placeholder {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(0, 0,0, 0.6);
     }
 
     .login-btn {
