@@ -10,32 +10,85 @@ export const MainHome = styled.main`
     .btn{
         position: absolute;
         z-index: 3;
-        margin-left: 2%;
+        margin-left: 7%;
         margin-top: 2%;
-        width: 110px;
+        width: 220px;
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: none;
+        color:#00C0F9;
+        border: #00C0F9 4px solid;
+        padding: 0.25em 1em;
+        border-radius: 0.25em;
+        text-shadow: 0 0 0.125em rgba(255, 255, 255, 0.55), 0 0 0.5em currentColor;
+        box-shadow: inset 0 0 0.5em 0 #00C0F9, 0 0 0.5em 0 #00C0F9;
     }
 
+    .btn::before {
+	pointer-events: none;
+	content: "";
+	position: absolute;
+	background: #00C0F9;
+	top: 120%;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	transform: perspective(1.2em) rotateX(40deg) scale(1.3, 0.5);
+	filter: blur(1.15em);
+	opacity: 0.7;
+
+	transition: transform 0.5s linear;
+}
+
+.btn::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	box-shadow: 0 0 4em 0.6em #00C0F9, 0 0 1em 0.2em white;
+	opacity: 0;
+	background: #00C0F9;
+	z-index: -1;
+	transition: opacity 0.5s linear;
+}
+
+.btn:hover,
+.btn:focus {
+	color:#00C0F9;
+	text-shadow: none;
+}
+
+.btn:hover::before,
+.btn:focus::before {
+	opacity: 1;
+	transform: perspective(1.10em) rotateX(40deg) scale(1.5, 0.6);
+	transition: transform 0.5s linear;
+}
+
+.btn:hover::after,
+.btn:focus::after {
+	opacity: 1;
+}
+
+
     .game{
+        display: flex;
         background-color: transparent;
         border-style: none;
         cursor: pointer;
         color: #00C0F9;
         font-family: "Rajdhani", sans-serif;
-        font-weight: 700;
-        font-size: large;
+        font-weight: 500;
+        font-size: 40px;
         transition: transform 0.3s ease;
     }
 
-    .game:hover{
-        border-radius: 20px;
-        transform: translateX(10px);
-        background-color: #DC00FE;
-        color: white;
-    }
-
     .game img{
-        width: 35px;
-        margin-right: 5%;
+        width: 45px;
+        margin-right: 8%;
     }
 
     a{
@@ -202,7 +255,7 @@ export const MainHome = styled.main`
        color: white;
     }
     /* breakpoint tablet */
-    @media (max-width: 850px) {
+    @media (max-width: 600px) {
         .txt_car{
             width: 60%;
             margin-left: 10%;
@@ -244,13 +297,25 @@ export const MainHome = styled.main`
         }
     }
     /* breakpoint celular */
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
+        
+        .btn{
+        width: 100px;
+    }
+
+        
         .game{
             font-size: small;
         }
         .game img{
             width: 20px;
         }
+
+        .car img{
+            width: 55%;
+        }
+
+
         .txt_car{
             width: 100%;
             font-size: medium;

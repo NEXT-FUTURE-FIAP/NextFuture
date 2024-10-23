@@ -12,26 +12,60 @@ export const MainGame = styled.main`
     text-align: center;
 }
 
-.game-canvas {
+.game {
+  position: relative; /* O contêiner .game controla a posição do canvas e do botão */
+}
 
+.game-canvas {
     width: 95vw; /* Ocupa toda a largura da viewport */
     height: auto; /* Mantém a proporção da altura */
     max-height: 95vh; /* Limite de altura baseado na viewport */
-    border: 1px solid #000; /* Limite visual */
     display: block;
     margin: 0 auto; /* Centralizar */
   }
-  
+  .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .button{
-    position: absolute;
-    top: 25%;
-    left: 33%;
-    display:inline-block;
-    margin:20px;
-    padding: 10%;
-    overflow: hidden;
+  .change{
+    display: flex;
+  }
+
+  .btns{
+    background-color: #00C0F9;
+    border: none;
+    height: 60%;
+    width: 30%;
+    color: #52035EFF;
+    font-family: "Rajdhani", sans-serif;
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    padding: 10px 25px; 
+    margin: 5px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
+                inset 0 0 5px rgba(255, 255, 255, 0.3); 
+  }
+
+
+  .button {
+  padding: 20px 40px;
+  width: max-content;
+  margin-left: 8%;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
 }
+
+
+
 
 .button a{
   color:white;
@@ -43,7 +77,6 @@ export const MainGame = styled.main`
   text-decoration:none;
   background-color:#DC00FE;
   display:block;
-  position:relative;
   padding:20px 40px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   filter: dropshadow(color=#000, offx=0px, offy=1px);
@@ -85,16 +118,12 @@ export const MainGame = styled.main`
   bottom:-15px;
   left:-4px;
   z-index:-1;
-  background-color:#2B1800;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
 .points-container {
-    position: absolute;
-    top: 6%;
-    left: 7%;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 20px;
@@ -123,6 +152,7 @@ export const MainGame = styled.main`
     border: none;
     border-radius: 10px; 
     color: white; 
+    width: 20%;
     cursor: pointer; 
     font-size: 1.5rem; 
     font-weight: bold; 
@@ -217,23 +247,21 @@ path.two {
     transform: translateX(0%);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
 
     .game-canvas {
     width: 100%;      /* Ajusta para 100% da largura da tela */
     height: auto;     /* Altura automática para manter a proporção */
-    transform: rotate(180deg); /* Roda a imagem em 180 graus */
   }
 
   .button {
-      top: 2%; 
-      left: 24%; 
-      padding: 5%; 
-    }
+    position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
+   top: 100%; /* Altere essa porcentagem para mudar a posição vertical do botão */
+}
   
     .button a {
       font-size: 24px; 
-      padding: 15px 30px; 
+      padding: 6px 21px; 
     }
   
     .button:after {

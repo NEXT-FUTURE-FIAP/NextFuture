@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { MainGame } from './styledGame';
 import BannerGame from "../../assets/bGame.png";
+import Skin from "../../assets/cabide.png"
+import Pista from "../../assets/IconPista.png"
+
 
 const Game = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
@@ -47,12 +50,28 @@ const Game = () => {
    <MainGame> 
           <div className="game-container" >
             <div className='game'>
-              <canvas className="game-canvas" id="game-canvas-id"></canvas>
-              {isGameStarted && (
+            {isGameStarted && (
+            <div className='top'>
+                <div className="points-container">
+                  <p>
+                    <img src="pontos.png" alt="Icone Pontos" className="pointsIcon" />
+                    <span id="points">0</span>
+                  </p>
+                </div>
                 <div className="button" onClick={() => window.power()}>
-                    <a>TURBO</a>
-                </div>)}
-          </div>
+                      <a>TURBO</a>
+                </div>
+                <div className='change'>
+                    <div className="btns" onClick={() => window.changeSkin()}>
+                      <img src={Skin} alt="" />
+                    </div>
+                    <div className="btns" onClick={() => window.changeTrack()}>
+                      <img src={Pista} alt="" />
+                    </div>
+              </div>
+            </div>)}
+              <canvas className="game-canvas" id="game-canvas-id"></canvas>
+            </div>
           <div className="controls">
             {!isGameStarted && (
                 <div className="wrapper" onClick={handleStartGame}>
@@ -72,12 +91,8 @@ const Game = () => {
           )}
           {isGameStarted && (// começou
             <>
-              <div className="points-container">
-                <p>
-                <img src="pontos.png" alt="Icone Pontos" className="pointsIcon" />
-                  <span id="points">0</span>
-                </p>
-              </div>
+             
+             <div className="radial-menu">
               <div className="upgrade-button" onClick={() => upgrade('motor', 'motorPrice')}>
                 <p>Melhorar motor = <span id="motor">10</span></p>
               </div>
@@ -105,12 +120,8 @@ const Game = () => {
               <div className="upgrade-button" onClick={() => upgrade('powerReUpgrade', 'powerReUpgradePrice')}>
                 <p>Melhorar powerReUpgrade = <span id="powerReUpgrade">10</span></p>
               </div>
-              <div className="upgrade-button" onClick={() => window.mudarSkin()}>
-                <p>Mudar aparência</p>
-              </div>
-              <div className="upgrade-button" onClick={() => window.changeTrack()}>
-                <p>Mudar pista</p>
-              </div>
+            </div>
+
             </>
           )}
         </div>

@@ -78,7 +78,7 @@ const Login = () => {
     if (usuarioExistente) {
       localStorage.setItem("usuario", userObject.name);
       localStorage.setItem("id", userObject.sub);
-      navigate("/");
+      navigate("/perfil");
     } else {
       // Caso o usuário não exista, criar um novo
       const novoUsuario = {
@@ -91,7 +91,7 @@ const Login = () => {
       
       setGoogleUser(novoUsuario);
       await salvarUsuarioNoJsonServer(novoUsuario);
-      navigate("/");
+      navigate("/perfil");
     }
   };
 
@@ -145,14 +145,6 @@ const Login = () => {
               <div className="login-btn">
                 <button type="submit" className="login-form-btn">Login</button>
               </div>
-
-              <ul className="uteis">
-                <li>
-                  <span className="texto1">Não possui Conta?</span>
-                  <Link to="/cadastro">Criar</Link>
-                </li>
-              </ul>
-              
               <GoogleOAuthProvider clientId="487635748207-o1g7dm9rts3hm478k7k7u1suaootkgcq.apps.googleusercontent.com">
                 <div className="App">
                   <GoogleLogin
@@ -162,6 +154,13 @@ const Login = () => {
                   />
                 </div>
               </GoogleOAuthProvider>
+              <ul className="uteis">
+                <li>
+                  <span className="texto1">Não possui Conta?</span>
+                  <Link to="/cadastro">Criar</Link>
+                </li>
+              </ul>
+            
             </form>
           </div>
         </div>
