@@ -231,12 +231,12 @@ path.two {
 
   .button {
     position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
-  top: 50%; /* Altere essa porcentagem para mudar a posição vertical do botão */
+   top: 100%; /* Altere essa porcentagem para mudar a posição vertical do botão */
 }
   
     .button a {
       font-size: 24px; 
-      padding: 10px 25px; 
+      padding: 6px 21px; 
     }
   
     .button:after {

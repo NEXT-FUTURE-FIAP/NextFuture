@@ -78,7 +78,7 @@ const Login = () => {
     if (usuarioExistente) {
       localStorage.setItem("usuario", userObject.name);
       localStorage.setItem("id", userObject.sub);
-      navigate("/");
+      navigate("/perfil");
     } else {
       // Caso o usuário não exista, criar um novo
       const novoUsuario = {
@@ -91,7 +91,7 @@ const Login = () => {
       
       setGoogleUser(novoUsuario);
       await salvarUsuarioNoJsonServer(novoUsuario);
-      navigate("/");
+      navigate("/perfil");
     }
   };
 

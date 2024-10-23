@@ -255,7 +255,7 @@ export const MainHome = styled.main`
        color: white;
     }
     /* breakpoint tablet */
-    @media (max-width: 850px) {
+    @media (max-width: 600px) {
         .txt_car{
             width: 60%;
             margin-left: 10%;
@@ -297,7 +297,7 @@ export const MainHome = styled.main`
         }
     }
     /* breakpoint celular */
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
         
         .btn{
         width: 100px;

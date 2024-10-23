@@ -11,7 +11,7 @@ import Game from './routes/Game/index.jsx'
 import Error from './routes/Error/index.jsx'
 import Login from './routes/Login/Login.jsx'
 import CadUsuarios from './routes/Login/CadastroUsuario.jsx'
-
+import User from './routes/User/index.jsx'
 
 
 
@@ -45,6 +45,10 @@ const router = createBrowserRouter([
       {
         path:'/cadastro',
         element:<CadUsuarios/>,
+      },
+      {
+        path:'/perfil',
+        element:<User/>,
       },
     ]
   }

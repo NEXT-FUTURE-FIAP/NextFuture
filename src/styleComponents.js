@@ -50,7 +50,7 @@ export const NavMenu = styled.nav`
         }
     }
     /* breakpoint celular */
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
         .logo{
             height: 50px;
             margin: 10px;
@@ -199,7 +199,7 @@ export const FootFooter = styled.footer`
 
     }
     /* breakpoint celular */
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
         .background{
              height: 6vh;
         }
