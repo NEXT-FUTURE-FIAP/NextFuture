@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { API_BASE_URL } from '../../config'; // Certifique-se de que o config.js esteja correto
+import { MainHome } from '../Home/styleHome';
 
 // Registrar os componentes do Chart.js
 Chart.register(
@@ -117,7 +118,9 @@ function LiveGraph() {
   };
 
   return (
+    
     <div>
+      <MainHome>
       <h1>Gráfico de Temperatura e Umidade ao Vivo</h1>
       {loading ? (
         <p>Carregando gráfico...</p>
@@ -126,6 +129,7 @@ function LiveGraph() {
       ) : (
         <Line data={data} options={options} />
       )}
+      </MainHome>
     </div>
   );
 }
