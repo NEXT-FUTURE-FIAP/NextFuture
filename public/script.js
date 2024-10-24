@@ -3,7 +3,6 @@ if (typeof window.gameInitialized === "undefined") {
 
     const usuarioAtual = localStorage.getItem("usuario");
     const pointsElement = document.getElementById('points');
-    console.log(pointsElement)
     const canvas = document.getElementById('game-canvas-id');
     const ctx = canvas.getContext('2d');
 
