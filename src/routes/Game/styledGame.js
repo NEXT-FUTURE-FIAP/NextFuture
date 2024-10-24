@@ -142,6 +142,25 @@ export const MainGame = styled.main`
     }
   }
 
+.points-upgrade-container {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #000;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    align-content:center;
+    color: white;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: bold;
+
+    img.pointsIcon {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
 .pointsIcon:hover {
     transform: rotate(20deg); 
     overflow: hidden;
@@ -161,6 +180,7 @@ export const MainGame = styled.main`
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
                 inset 0 0 5px rgba(255, 255, 255, 0.3); 
     transition: all 0.3s ease; 
+    
 }
 
 .upgrade-button:hover {
@@ -182,6 +202,13 @@ export const MainGame = styled.main`
 }
 svg { 
   max-width: 100%;  
+}
+
+.radial-menu{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  align-content:center;
 }
 
 .cta {
