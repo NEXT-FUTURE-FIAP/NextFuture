@@ -75,7 +75,7 @@ function LiveTracker() {
       <MainHome>
       <h1>Rastreador ao Vivo</h1>
       {loading ? (
-        <p>Mapa carregando...</p>
+        <p style={{color: "white" }}>Mapa carregando...</p>
       ) : error ? (
         <p style={{ color: "red" }}>{error}</p>
       ) : (

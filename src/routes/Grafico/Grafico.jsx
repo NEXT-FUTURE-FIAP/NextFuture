@@ -123,7 +123,7 @@ function LiveGraph() {
       <MainHome>
       <h1>Gráfico de Temperatura e Umidade ao Vivo</h1>
       {loading ? (
-        <p>Carregando gráfico...</p>
+        <p style={{color: 'white'}}>Carregando gráfico...</p>
       ) : error ? (
         <p style={{ color: 'red' }}>{error}</p>
       ) : (
