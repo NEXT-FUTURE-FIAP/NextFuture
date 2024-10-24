@@ -165,6 +165,7 @@ export const MainGame = styled.main`
     transform: rotate(20deg); 
     overflow: hidden;
 }
+    
 
 .upgrade-button {
     background: linear-gradient(145deg, #07e4a2, #0967e0); 
@@ -177,10 +178,10 @@ export const MainGame = styled.main`
     font-weight: bold; 
     padding: 15px 30px; 
     margin: 15px; 
+    position: relative;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
                 inset 0 0 5px rgba(255, 255, 255, 0.3); 
-    transition: all 0.3s ease; 
-    
+    transition: 'opacity 0.3s ease, transform 0.3s ease'
 }
 
 .upgrade-button:hover {
