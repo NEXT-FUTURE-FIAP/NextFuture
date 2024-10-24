@@ -12,6 +12,10 @@ import Error from './routes/Error/index.jsx'
 import Login from './routes/Login/Login.jsx'
 import CadUsuarios from './routes/Login/CadastroUsuario.jsx'
 import User from './routes/User/index.jsx'
+import Forum from './Forum/forum.jsx'
+import NovoTopico from './Forum/novoTopico.jsx'
+import Topico from './Forum/topico.jsx'
+import Comentario from './Forum/comentario.jsx'
 
 
 
@@ -49,6 +53,22 @@ const router = createBrowserRouter([
       {
         path:'/perfil',
         element:<User/>,
+      },
+      {
+        path:'/forum',
+        element:<Forum/>,
+      },
+      {
+        path:'/novotopico',
+        element:<NovoTopico/>,
+      },
+      {
+        path:'/topico/:id',
+        element:<Topico/>,
+      },
+      {
+        path:'/comentario/:id',
+        element:<Comentario/>,
       },
     ]
   }

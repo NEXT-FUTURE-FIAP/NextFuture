@@ -21,9 +21,15 @@ export default function Header(){
                         ):(
                             <Link to='/login'>PRIXPREDICT</Link>
                         )} */}
+                        {/* {getUsuario ? (
+                            <Link to='/forum'>forum</Link>
+                        ):(
+                            <Link to='/login'>forum</Link>
+                        )} */}
                         <Link to='/palpite'>PRIXPREDICT</Link>                        
 
                         <Link to="/login"><img className="icon" src={iconUser} alt="" /></Link>
+                        <Link to='/forum'>forum</Link>                        
 
                 </div>
             </NavMenu>
