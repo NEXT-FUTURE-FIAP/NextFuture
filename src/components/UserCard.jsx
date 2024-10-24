@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserImg from "../assets/user.png";
 import TV from "../assets/tv.png";
 
@@ -167,11 +167,130 @@ const StyleProfile = styled.section`
 `;
 
 export default function UserCard() {
+  const getUsuario = localStorage.getItem("usuario")
+  const getUsuarioId = localStorage.getItem("id")
+  const [image, setImage] = useState(UserImg);
+  const [loading, setLoading] = useState(true);
+
+
+  function formatNumber(value) {
+    if (value >= 1e9) {
+        return (value / 1e9).toFixed(1) + 'B';  // Bilhões
+    } else if (value >= 1e6) {
+        return (value / 1e6).toFixed(1) + 'M';  // Milhões
+    } else if (value >= 1e3) {
+        return (value / 1e3).toFixed(1) + 'K';  // Milhares
+    } else {
+        return value.toFixed(2);  // Mantém o número como está
+      }
+    }
+    
+
+  function calcularTempoDeConta(username) {
+  fetch('/dados.json')
+  .then((response) => {
+      if (!response.ok) {
+          throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json();
+  })
+  .then((data) => {
+      const usuario = data.usuarios.find(user => user.usuario === getUsuario)
+      const dataAtual = new Date();
+    
+      // Data de criação da conta
+      const dataCriacao = new Date(usuario.createTime);
+  
+      // Diferença em milissegundos
+      const diferencaEmMs = dataAtual - dataCriacao;
+  
+      // Converter para dias, horas, minutos
+      const dias = Math.floor(diferencaEmMs / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencaEmMs / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferencaEmMs / (1000 * 60)) % 60);
+  
+      console.log(`Usuário ${username} possui a conta há: ${dias} dias, ${horas} horas e ${minutos} minutos.`);
+      
+      if(dias){document.getElementById("tempo").innerText = `${dias} d` }
+      if(horas){document.getElementById("tempo").innerText = `${horas} hrs`}
+      if(minutos){document.getElementById("tempo").innerText = `${minutos} min` }
+      else{document.getElementById("tempo").innerText = "..."}
+        
+             
+    })
+
+    // Data atual
+
+  }
+  useEffect(() => {
+    // Faz a requisição para carregar os dados do usuário
+    fetch(`http://localhost:5000/usuarios/${getUsuarioId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Verifica se existe uma imagem salva e a atualiza no estado
+        if (data.imagem) {
+          setImage(data.imagem); // Atualiza a imagem com a versão salva
+        }
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar dados do usuário:", error);
+      })
+      .finally(() => {
+        // Desativa o estado de carregamento após completar o fetch
+        setLoading(false);
+      });
+  }, [getUsuarioId]);
+  
+  fetch('/dados.json')
+  .then((response) => {
+      if (!response.ok) {
+          throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json();
+  })
+  .then((data) => {
+      const usuario = data.usuarios.find(user => user.usuario === getUsuario)
+      const tempo = calcularTempoDeConta(usuario.usuario)
+      document.getElementById("points").innerText = formatNumber(usuario.points)
+      document.getElementById("tempo").innerText = formatNumber(tempo)
+    
+    })
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result;
+        fetch(`http://localhost:5000/usuarios/${getUsuarioId}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imagem: base64Image }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Imagem atualizada com sucesso!", data);
+            setImage(base64Image); // Atualiza a imagem no estado do componente
+          })
+          .catch((error) => {
+            console.error("Erro ao atualizar a imagem:", error);
+          });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+    
+
   const [isCardOn, setIsCardOn] = useState(false);
 
   const toggleCard = () => {
     setIsCardOn(!isCardOn);
   };
+
+  if (loading) {
+    return <div>Carregando...</div>; // Placeholder enquanto a imagem é carregada
+  }
 
   return (
     <StyleProfile>
@@ -179,10 +298,15 @@ export default function UserCard() {
             className={`pCard_card ${isCardOn ? "pCard_on" : ""}`}
             onClick={toggleCard}
         >
-            <div className="pCard_up" style={{ backgroundImage: `url(${UserImg})` }}>
+            <div className="pCard_up" style={{ backgroundImage: `url(${image})` }}>
                 <div className="pCard_text">
-                    <h2>User Name</h2>
+                    <h2>{getUsuario}</h2>
                     <p>RACE LOVER</p>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        placeholder="imagem"/>
                 </div>
                 <div className="pCard_add" onClick={toggleCard}>
                     <i className={`fas ${isCardOn ? "fa-minus" : "fa-plus"}`}></i>
@@ -191,17 +315,18 @@ export default function UserCard() {
             <div className="pCard_down">
                 <div className="detail">
                     <img src="pontos.png" alt="Icone Pontos" className="pointsIcon" />
-                    <p>2.000</p>
+                    <p id= "points">2.000</p>
                 </div>
                 <div className="detail">
                     <img  className="tv" src={TV} alt="" />
-                    <p>5 hrs</p>
+                    <p id="tempo">5 hrs</p>
                 </div>
             </div>
             <div className="pCard_back">
                 <p>See My Latest Work Here</p>
                 <p>Follow Me!</p>
             </div>
+                                                
         </div>
     </StyleProfile>
   );
