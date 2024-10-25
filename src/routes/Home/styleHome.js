@@ -23,6 +23,7 @@ export const MainHome = styled.main`
         text-shadow: 0 0 0.125em rgba(255, 255, 255, 0.55), 0 0 0.5em currentColor;
         box-shadow: inset 0 0 0.5em 0 #00C0F9, 0 0 0.5em 0 #00C0F9;
     }
+    
 
     .btn::before {
 	pointer-events: none;
@@ -169,7 +170,7 @@ export const MainHome = styled.main`
     }
 
     .line{
-        height: 300px;
+        height: 100%;
         width: 5px;
         background-color: #00C0F9;
         margin-left: 8%;
@@ -183,41 +184,12 @@ export const MainHome = styled.main`
         height: 15vh;
         background-color: #312c9f;
         transition: transform 0.3s ease, background-color 0.3s ease;
+        margin-top:2%;
+        border-radius:1rem
     }
-        
-
-    .first:hover{
+    .racer_podio:hover{
         cursor: pointer;
-        transform: translateX(-10px);
-    }
-
-    .second{
-        display: flex;
-        width: 350px;
-        height: 80px;
-        background-color: #312c9f;
-        margin-top: 8%;
-        margin-bottom: 10%;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .second:hover{
-        cursor: pointer;
-        transform: translateX(-10px);
-    }
-
-    .third{
-        display: flex;
-        width: 350px;
-        height: 80px;
-        background-color: #312c9f;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        
-    }
-
-    .third:hover{
-        cursor: pointer;
-        transform: translateX(-10px);
+        transform: translateX(+10px);
     }
 
     .calendar{
@@ -255,8 +227,7 @@ export const MainHome = styled.main`
     .date button a{
        color: white;
     }
-    /* breakpoint tablet */
-    @media (max-width: 800px) {
+    @media (max-width: 600px) {
         .txt_car{
             width: 60%;
             margin-left: 10%;
@@ -273,22 +244,14 @@ export const MainHome = styled.main`
         .podio{
             display: flex;
             justify-content: center;
-            width: 100%;
+            height: 30vh;
+        }
+        .racer_podio{
+            height: 10vh;
         }
         .line{
-            height: 330px;
             width: 5px;
-            background-color: #00C0F9;
             margin-left: 1%;
-        }
-        .first{
-            width: 65vw;
-        }
-        .second{
-            width: 65vw;
-        }
-        .third{
-            width: 65vw;
         }
         .calendar{
             margin-top: 10%;
@@ -297,12 +260,10 @@ export const MainHome = styled.main`
             margin-right: 0%;
         }
     }
-    /* breakpoint celular */
     @media (max-width: 500px) {
-        
         .btn{
-        width: 100px;
-    }
+            width: 100px;
+        }
 
         
         .game{
@@ -347,21 +308,13 @@ export const MainHome = styled.main`
         }
 
         .line{
-            height: 31vh;
             width: 2px;
         }
-        .first{
-            width: 75vw;
-            height: 8vh;
-        }
-        .second{
-            width: 75vw;
-            height: 8vh;
-        }
-        .third{
-            width: 75vw;
-            height: 8vh;
-            margin-bottom: 10%;
+        .racer_podio{
+            height: 30%;
+            p{
+                font-size:100%;
+            }
         }
         .raceInfo{
             display: flex;

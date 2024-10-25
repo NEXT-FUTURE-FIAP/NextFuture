@@ -22,15 +22,15 @@ function errorMensage (text){
 
 const top = [
   { name: 'Joel Lima', pts: '23.481.508' },
-  { name: 'Joel Lima', pts: '22.278.581' },
-  { name: 'Joel Lima', pts: '20.084.551' },
-  { name: 'Joel Lima', pts: '19.945.148' },
-  { name: 'Joel Lima', pts: '19.481.508' },
-  { name: 'Joel Lima', pts: '19.454.748' },
-  { name: 'Joel Lima', pts: '19.081.551' },
-  { name: 'Joel Lima', pts: '18.848.959' },
-  { name: 'Joel Lima', pts: '18.065.454' },
-  { name: 'Joel Lima', pts: '17.764.488' },
+  { name: 'Kenya R. Salinas', pts: '22.278.581' },
+  { name: 'Antônio Pinto Correia', pts: '20.084.551' },
+  { name: 'Evelyn Cardoso Sousa', pts: '19.945.148' },
+  { name: 'Tiago Goncalves Almeida', pts: '19.481.508' },
+  { name: 'Thaís Rodrigues Pinto', pts: '19.454.748' },
+  { name: 'Mariana Rocha Lima', pts: '19.081.551' },
+  { name: 'Kauã Costa Alves', pts: '18.848.959' },
+  { name: 'Kauã Costa Alves', pts: '18.065.454' },
+  { name: 'Mateus Dias Almeida', pts: '17.764.488' },
 ]
 
 const teams_data = [
@@ -58,7 +58,10 @@ const Podio = ({ data }) => {
           <div key={index} className="placement" onClick={()=>{errorMensage('Perfil de usuário')}}>
             <h2>{index + 1}º Lugar</h2>
             <p> {name}</p>
-            <p>Pontuação: {pts} pts</p>
+            <div className="points-container">
+              <span>{pts}</span>
+              <img src="pontos.png" alt="Icone Pontos" className="pointsIcon" />
+            </div>
           </div>
         );
       })}
@@ -182,17 +185,11 @@ export default function PrixPredict() {
       <Banner />
       <MainPrix>
         <h1 className="podio_title">Conheça os melhores Players da Temporada</h1>
-
         <Podio data={top} />
-
         <button className="view-full-list" onClick={()=>{errorMensage('Lista')}}>Ver lista completa</button>
-
         <h2 className="predictions_title" style={{ textAlign: 'center' }}>Faça seus predicts</h2>
-
         <Predicts teams={teams_data} />
-
         <Faq data={faq}/>
-
       </MainPrix>
     </>
   );

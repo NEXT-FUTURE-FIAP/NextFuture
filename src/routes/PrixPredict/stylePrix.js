@@ -10,7 +10,7 @@ export const MainPrix = styled.main`
     margin: 0; 
     padding: 0; 
   }
-
+  
   .como_funciona_titulo {
     padding-bottom: 60px;
     color: #00C0F9; /* Cor do texto */
@@ -121,6 +121,7 @@ export const MainPrix = styled.main`
     margin: 10px;
     font-family: "Rajdhani", sans-serif;
     font-size: 1.5rem;
+    font-weight: bold;
     color: white;
     border-radius: 10px;
     transition: transform 0.3s ease, background-color 0.3s ease;
@@ -128,6 +129,21 @@ export const MainPrix = styled.main`
     text-align: center;
     position: relative;
     overflow: hidden;
+    .points-container {
+      display: flex;
+      flex-direction:row;
+      align-items: center;
+      padding: 5px 10px;
+      font-size: 20px;
+      color: white;
+      font-family: "Rajdhani", sans-serif;
+
+      img.pointsIcon {
+        width: 20px;
+        height: 20px;
+        margin-left:5%
+      }
+    }
   }
 
   .placement:hover {
@@ -141,6 +157,9 @@ export const MainPrix = styled.main`
     color:black;
     background-color: #B9F6F8;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    div.points-container{
+      color:black;
+    }
   }
 
   .view-full-list {

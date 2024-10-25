@@ -21,7 +21,7 @@ const Podio = ({racer_data}) =>{
                 <h1>{index+1}°</h1>
                 <div style={{display:'flex', alignContent:'space-between'}}>
                     <p style={{width:'75%'}}>{name} - {sigil}</p>
-                    <p style={{color:'cyan'}}>{ptn}</p>
+                    <p style={{color:'cyan', width:'100%'}}>{ptn} pts</p>
                 </div>
             </div>
             

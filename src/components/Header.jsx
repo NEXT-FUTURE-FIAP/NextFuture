@@ -1,10 +1,16 @@
-// Links para NAV
 import {Link} from "react-router-dom"
-// CSS
 import { NavMenu } from "../styleComponents"
-// imagens
 import Logo from "../assets/logo.png"
 import iconUser from "../assets/iconUser.png"
+
+const menu_content = [
+    // { path: '', value: 'HOME' },
+    { path: 'game', value: 'GAME' },
+    { path: 'corridas', value: 'CORRIDAS' },
+    { path: 'palpite', value: 'PRIXPREDICT' },
+    { path: 'login', value: <img className="icon" src={iconUser} alt="" /> }
+];
+
 
 export default function Header(){
     const getUsuario = localStorage.getItem("usuario")
@@ -12,19 +18,13 @@ export default function Header(){
     return(
         <>
             <NavMenu>
-                <img className="logo" src={Logo} alt="" />
+                <Link to='/'><img className="logo" src={Logo} alt="" /></Link>
                 <div className="menu">
-                        <Link to='/'>HOME</Link>
-                        <Link to='/corridas'>CORRIDAS</Link>
-                        {/* {getUsuario ? (
-                            <Link to='/palpite'>PRIXPREDICT</Link>
-                        ):(
-                            <Link to='/login'>PRIXPREDICT</Link>
-                        )} */}
-                        <Link to='/palpite'>PRIXPREDICT</Link>                        
-
-                        <Link to="/login"><img className="icon" src={iconUser} alt="" /></Link>
-
+                    {menu_content.map(({path,value},index)=>{
+                        return(
+                            <Link key={index} to={`/${path}`}>{value}</Link>
+                        );
+                    })}
                 </div>
             </NavMenu>
         </>
