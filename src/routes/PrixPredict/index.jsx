@@ -87,14 +87,14 @@ const Predicts = ({ teams }) => {
                 type="number"
                 placeholder="Quantos ePoints?"
                 className="bet-amount"
-                id={`bet-value-${index}`}  // Set unique id for each input field
+                id={`bet-value-${index}`}
               />
               <div className="btns">
                 <button
                   onClick={() => {
-                    const betValue = parseFloat(document.getElementById(`bet-value-${index}`).value);  // Get input value as float
+                    const betValue = parseFloat(document.getElementById(`bet-value-${index}`).value);
                     if (!isNaN(betValue)) {
-                      oddConfirmation((odds[0] * betValue).toFixed(2));  // Multiply odds with input value and limit to 2 decimal places
+                      oddConfirmation((odds[0] * betValue).toFixed(2));
                     }
                   }}
                   className="yes"
