@@ -71,8 +71,13 @@ const Podio = ({ data }) => {
 
 const Predicts = ({ teams }) => {
 
-  function oddConfirmation(value) {
-    alert(`Predict concluído!\n\nSerão descontados ${value} pontos de sua carteira até o resultado!`);
+  function oddConfirmation(value, reward) {
+    alert(`
+      Predict concluído!
+
+      Serão descontados ${value} pontos da sua carteira até o resultado!
+
+      Caso vença, você receberá ${reward} pontos!!!!`);
   }
 
   return (
@@ -85,7 +90,6 @@ const Predicts = ({ teams }) => {
             </div>
             <div className="team-info">
               <h3>PREDICTS {name}</h3>
-              <p>para vencer a corrida:</p>
               <input
                 type="number"
                 placeholder="Quantos ePoints?"
@@ -97,7 +101,7 @@ const Predicts = ({ teams }) => {
                   onClick={() => {
                     const betValue = parseFloat(document.getElementById(`bet-value-${index}`).value);
                     if (!isNaN(betValue)) {
-                      oddConfirmation((odds[0] * betValue).toFixed(2));
+                      oddConfirmation(betValue,((odds[0] * betValue)).toFixed(2));
                     }
                   }}
                   className="yes"
@@ -108,7 +112,7 @@ const Predicts = ({ teams }) => {
                   onClick={() => {
                     const betValue = parseFloat(document.getElementById(`bet-value-${index}`).value);
                     if (!isNaN(betValue)) {
-                      oddConfirmation((odds[1] * betValue).toFixed(2));
+                      oddConfirmation(betValue,((odds[1] * betValue)).toFixed(2));
                     }
                   }}
                   className="no"
@@ -123,8 +127,6 @@ const Predicts = ({ teams }) => {
     </section>
   );
 }
-
-
 
 const Faq = ({ data }) => {
   const [expandedCard, setExpandedCard] = useState(null);
