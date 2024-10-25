@@ -11,6 +11,7 @@ const Login = () => {
   const senha = useRef();
   const [usuarios, setUsuarios] = useState([]);
   const [alertMessage, setAlertMessage] = useState('');
+  const dataAtual = new Date().toISOString();
   
   // Estado para armazenar informações do usuário Google
   const [googleUser, setGoogleUser] = useState({
@@ -18,7 +19,8 @@ const Login = () => {
     usuario: '',
     email: '',
     senha: '',
-    points: ''
+    points: 0,
+    createTime: dataAtual
   });
 
   // Função para validar credenciais manuais
@@ -62,7 +64,7 @@ const Login = () => {
       let token = Math.random().toString(16).substring(2) + Math.random().toString(16).substring(2);
       localStorage.setItem("usuario", usuario.current.value);
       localStorage.setItem("senha", token);
-      navigate("/");
+      navigate("/perfil");
     } else {
       setAlertMessage("Usuário/senha inválidos");
     }
@@ -78,7 +80,7 @@ const Login = () => {
     if (usuarioExistente) {
       localStorage.setItem("usuario", userObject.name);
       localStorage.setItem("id", userObject.sub);
-      navigate("/");
+      navigate("/perfil");
     } else {
       // Caso o usuário não exista, criar um novo
       const novoUsuario = {
@@ -86,12 +88,13 @@ const Login = () => {
         usuario: userObject.name,
         email: userObject.email,
         senha: '',
-        points: googleUser.points || 0
+        points: googleUser.points || 0,
+        createTime: dataAtual
       };
       
       setGoogleUser(novoUsuario);
       await salvarUsuarioNoJsonServer(novoUsuario);
-      navigate("/");
+      navigate("/perfil");
     }
   };
 

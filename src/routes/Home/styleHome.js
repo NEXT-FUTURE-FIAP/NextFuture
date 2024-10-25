@@ -27,6 +27,7 @@ export const MainHome = styled.main`
         text-shadow: 0 0 0.125em rgba(255, 255, 255, 0.55), 0 0 0.5em currentColor;
         box-shadow: inset 0 0 0.5em 0 #00C0F9, 0 0 0.5em 0 #00C0F9;
     }
+    
 
     .btn::before {
 	pointer-events: none;
@@ -119,6 +120,7 @@ export const MainHome = styled.main`
         font-family: "Rajdhani", sans-serif;
         font-weight: bold;
         color: white;
+        font-size:large;
         margin-top: 15px;
         background-color: #00C0F9;
         border-style: none;
@@ -126,10 +128,32 @@ export const MainHome = styled.main`
         display: flex;
         justify-content: center;
     }
-    .btn_sign:hover{
-        cursor: pointer;
-        background-color: #8929a2;
+    .btn_sign:hover {
+    cursor: pointer;
+    animation: moveAcross 1.4s ease forwards;
+}
+
+    @keyframes moveAcross {
+        0% {
+            transform: translateX(0);
+            background-color: #8929a2;
+        }
+        25% {
+            transform: translateX(100%);
+        }
+        26%{
+            opacity:0;
+            transform: translateX(-30%);
+        }
+        74% {
+            opacity:1;
+        }
+        100% {
+            transform: translateX(0);
+            background-color: #8929a2;
+        }
     }
+    
 
     .btn_sign p{
         margin-top: 7%;
@@ -156,6 +180,7 @@ export const MainHome = styled.main`
 
     .podioList{
         flex-direction: column;
+        width:100%;
     }
 
     .podioList h1{
@@ -173,59 +198,45 @@ export const MainHome = styled.main`
     }
 
     .line{
-        height: 300px;
+        height: 100%;
         width: 5px;
         background-color: #00C0F9;
         margin-left: 8%;
         margin-right: 1%;
     }
 
-    .first{
+    .racer_podio{
         display: flex;
         align-content: center;
-        width: 350px;
-        height: 80px;
+        width: 100%;
+        height: 15vh;
         background-color: #312c9f;
         transition: transform 0.3s ease, background-color 0.3s ease;
+        margin-top:2%;
     }
-
-    .first:hover{
+    .racer_podio:hover{
         cursor: pointer;
-        transform: translateX(-10px);
-    }
-
-    .second{
-        display: flex;
-        width: 350px;
-        height: 80px;
-        background-color: #312c9f;
-        margin-top: 8%;
-        margin-bottom: 8%;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .second:hover{
-        cursor: pointer;
-        transform: translateX(-10px);
-    }
-
-    .third{
-        display: flex;
-        width: 350px;
-        height: 80px;
-        background-color: #312c9f;
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        
-    }
-
-    .third:hover{
-        cursor: pointer;
-        transform: translateX(-10px);
+        transform: translateX(+10px);
     }
 
     .calendar{
         display: flex;
         margin-right: 5%;
+    }
+    .calendar:hover{
+        transform: translateY(-10px);
+        transition: transform 0.5s ease;
+        button:hover{
+            transform:scale(1.1);
+        }
+        
+    }
+    .calendar:active{
+        transform: translateY(-10px);
+        transition: transform 0.5s ease;
+        button:hover{
+            transform:scale(0.9);
+        }
     }
 
     .circuito_img{
@@ -258,8 +269,7 @@ export const MainHome = styled.main`
     .date button a{
        color: white;
     }
-    /* breakpoint tablet */
-    @media (max-width: 850px) {
+    @media (max-width: 600px) {
         .txt_car{
             width: 60%;
             margin-left: 10%;
@@ -276,22 +286,14 @@ export const MainHome = styled.main`
         .podio{
             display: flex;
             justify-content: center;
-            width: 100%;
+            height: 30vh;
+        }
+        .racer_podio{
+            height: 10vh;
         }
         .line{
-            height: 330px;
             width: 5px;
-            background-color: #00C0F9;
             margin-left: 1%;
-        }
-        .first{
-            width: 65vw;
-        }
-        .second{
-            width: 65vw;
-        }
-        .third{
-            width: 65vw;
         }
         .calendar{
             margin-top: 10%;
@@ -300,12 +302,10 @@ export const MainHome = styled.main`
             margin-right: 0%;
         }
     }
-    /* breakpoint celular */
-    @media (max-width: 480px) {
-        
+    @media (max-width: 500px) {
         .btn{
-        width: 100px;
-    }
+            width: 100px;
+        }
 
         
         .game{
@@ -350,21 +350,13 @@ export const MainHome = styled.main`
         }
 
         .line{
-            height: 31vh;
             width: 2px;
         }
-        .first{
-            width: 75vw;
-            height: 8vh;
-        }
-        .second{
-            width: 75vw;
-            height: 8vh;
-        }
-        .third{
-            width: 75vw;
-            height: 8vh;
-            margin-bottom: 10%;
+        .racer_podio{
+            height: 30%;
+            p{
+                font-size:100%;
+            }
         }
         .raceInfo{
             display: flex;

@@ -10,21 +10,21 @@ export const MainPrix = styled.main`
     margin: 0; 
     padding: 0; 
   }
-
+  
   .como_funciona_titulo {
     padding-bottom: 60px;
-    color: #00C0F9; /* Cor do texto */
+    color: rgba(220, 0, 254);
     text-align: center;
     font-family: "Rajdhani", sans-serif;
     font-size: 3rem;
     margin-top: 2rem;
     letter-spacing: 2px;
     text-shadow: 
-        0 0 5px rgba(0, 192, 249, 0.2),  
-        0 0 10px rgba(0, 192, 249, 0.2), 
-        0 0 15px rgba(0, 192, 249, 0.2),
-        0 0 20px rgba(0, 192, 249, 0.2), 
-        0 0 25px rgba(0, 192, 249, 0.2); 
+        0 0 5px rgba(220, 0, 254,0.18),  
+        0 0 10px rgba(220, 0, 254,0.18), 
+        0 0 15px rgba(220, 0, 254,0.18),
+        0 0 20px rgba(220, 0, 254,0.18), 
+        0 0 25px rgba(220, 0, 254,0.18); 
   }
 
   .como_funciona_container {
@@ -36,15 +36,17 @@ export const MainPrix = styled.main`
     margin: 0 auto; 
     margin-top: 3rem;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
+                0 0 10px rgba(220, 0, 254, 0.3),
+                0 0 20px rgba(220, 0, 254, 0.3);
     border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); 
   }
 
   .card {
     width: 100%;
     max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid #00C0F9;
     border-radius: 10px;
     margin: 10px 0;
@@ -57,8 +59,9 @@ export const MainPrix = styled.main`
 
   .card:hover {
     transform: scale(1.03);
+    background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
-                0 0 10px rgba(0, 192, 249, 0.5),
+                0 0 10px rgba(0, 192, 249, 0.3),
                 0 0 20px rgba(0, 192, 249, 0.3); 
   }
 
@@ -106,19 +109,22 @@ export const MainPrix = styled.main`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    
     width: 100%;
     margin-top: 2rem;
   }
 
   .placement {
-    width: 20%;
-    height: 100px;
+    width: 25%;
+    height:fit-content;
     display: flex;
+    flex-direction:column;
     align-items: center;
     justify-content: center;
     margin: 10px;
     font-family: "Rajdhani", sans-serif;
     font-size: 1.5rem;
+    font-weight: bold;
     color: white;
     border-radius: 10px;
     transition: transform 0.3s ease, background-color 0.3s ease;
@@ -126,11 +132,37 @@ export const MainPrix = styled.main`
     text-align: center;
     position: relative;
     overflow: hidden;
+    .points-container {
+      display: flex;
+      flex-direction:row;
+      align-items: center;
+      padding: 5px 10px;
+      font-size: 20px;
+      color: white;
+      font-family: "Rajdhani", sans-serif;
+
+      img.pointsIcon {
+        width: 20px;
+        height: 20px;
+        margin-left:5%
+      }
+    }
   }
 
   .placement:hover {
     transform: scale(1.05);
+    background-color: #35B0B4;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .placement:active {
+    transform: scale(1.05);
+    color:black;
+    background-color: #B9F6F8;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    div.points-container{
+      color:black;
+    }
   }
 
   .view-full-list {
@@ -167,6 +199,10 @@ export const MainPrix = styled.main`
     border-radius: 10px;
     padding: 15px;
     width: 250px;
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    align-items:center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
                 0 0 10px rgba(220, 0, 254, 0.5),
                 0 0 20px rgba(220, 0, 254, 0.3); 
@@ -180,9 +216,10 @@ export const MainPrix = styled.main`
     }
 }
 
-.team-logo img {
-    margin: 2%;
-    width: 50%;
+.team-logo{
+  margin: 2%;
+  width: 50%;
+  height:50%
 }
 
 .maserati {

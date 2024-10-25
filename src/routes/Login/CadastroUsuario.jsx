@@ -7,13 +7,14 @@ const CadUsuarios =()=>{
 
     //Hook- useParams- serve para receber da rota ou gerar o codigo
     let {id} =useParams();
-
+    const dataAtual = new Date().toISOString();  // Captura a data atual no formato ISO
     //Hook - useState - Manipula o estado da variavel
      const [usuarios,setUsuarios]= useState({
         id,
         usuario:'',
         senha:'',
-        points:0
+        points:0,
+        createTime: dataAtual
      });
 
 

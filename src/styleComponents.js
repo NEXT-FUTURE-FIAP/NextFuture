@@ -5,15 +5,22 @@ export const NavMenu = styled.nav`
     background-color: #180f57;
     min-height: 10vh;
     display: flex;
+    flex-direction:row;
     align-self: center;
     justify-content: space-between;
     align-content: center;
+
+    #logo-link{
+        padding:2rem
+    }
     
     .logo{
         height: 60px;
     }
 
     .menu{
+        display: flex;
+        flex-direction:row;
         margin-top: 2%;
     }
 
@@ -35,7 +42,6 @@ export const NavMenu = styled.nav`
         width: 20px;
     }
 
-    /* breakpoint tablet */
     @media (max-width: 850px) {
         .logo{
             height: 80px;
@@ -49,8 +55,10 @@ export const NavMenu = styled.nav`
             margin-right: 35px;
         }
     }
-    /* breakpoint celular */
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
+        #logo-link{
+            padding:0rem
+        }
         .logo{
             height: 50px;
             margin: 10px;
@@ -199,7 +207,7 @@ export const FootFooter = styled.footer`
 
     }
     /* breakpoint celular */
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
         .background{
              height: 6vh;
         }

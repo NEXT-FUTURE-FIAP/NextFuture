@@ -7,7 +7,7 @@ export const MainGame = styled.main`
 }
 
 .game-container {
-    margin-top: 100px;
+    margin-top: 50px;
     position: relative;
     text-align: center;
 }
@@ -17,26 +17,54 @@ export const MainGame = styled.main`
 }
 
 .game-canvas {
-
     width: 95vw; /* Ocupa toda a largura da viewport */
     height: auto; /* Mantém a proporção da altura */
     max-height: 95vh; /* Limite de altura baseado na viewport */
     display: block;
     margin: 0 auto; /* Centralizar */
   }
-  
+  .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5%;
+  }
+
+  .change{
+    display: flex;
+  }
+
+  .btns{
+    background-color: #00C0F9;
+    border: none;
+    height: 60%;
+    width: 30%;
+    color: #52035EFF;
+    font-family: "Rajdhani", sans-serif;
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    padding: 10px 25px; 
+    margin: 5px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
+                inset 0 0 5px rgba(255, 255, 255, 0.3); 
+  }
+
 
   .button {
-    position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
-  top: 65%; /* Altere essa porcentagem para mudar a posição vertical do botão */
-  left: 50%; /* Centraliza horizontalmente */
-  transform: translateX(-50%); /* Garante que o botão fique completamente centralizado horizontalmente */
   padding: 20px 40px;
   width: max-content;
   border-radius: 5px;
   align-items: center;
   justify-content: center;
 }
+
+
 
 
 .button a{
@@ -49,7 +77,6 @@ export const MainGame = styled.main`
   text-decoration:none;
   background-color:#DC00FE;
   display:block;
-  position:relative;
   padding:20px 40px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   filter: dropshadow(color=#000, offx=0px, offy=1px);
@@ -97,9 +124,6 @@ export const MainGame = styled.main`
 }
 
 .points-container {
-    position: absolute;
-    top: 6%;
-    left: 7%;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 20px;
@@ -118,38 +142,32 @@ export const MainGame = styled.main`
     }
   }
 
+.points-upgrade-container {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #000;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    align-content:center;
+    color: white;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: bold;
+
+    img.pointsIcon {
+      width: 27px;
+      height: 27px;
+    }
+  }
+
 .pointsIcon:hover {
     transform: rotate(20deg); 
     overflow: hidden;
 }
+    
 
-.upgrade-button {
-    background: linear-gradient(145deg, #07e4a2, #0967e0); 
-    border: none;
-    border-radius: 10px; 
-    color: white; 
-    cursor: pointer; 
-    font-size: 1.5rem; 
-    font-weight: bold; 
-    padding: 15px 30px; 
-    margin: 15px; 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
-                inset 0 0 5px rgba(255, 255, 255, 0.3); 
-    transition: all 0.3s ease; 
-}
 
-.upgrade-button:hover {
-    background: linear-gradient(145deg, #210252, #476ed8); 
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 
-    inset 0 0 15px rgba(255, 255, 255, 0.4);
-    transform: translateY(-4px); 
-}
-
-.upgrade-button:active {
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.5),
-    inset -5px -5px 5px rgba(255, 255, 255, 0.2);
-    transform: translateY(2px); 
-}
 
 .wrapper {
   display: flex;
@@ -158,6 +176,64 @@ export const MainGame = styled.main`
 svg { 
   max-width: 100%;  
 }
+
+.radial-menu {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-button {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #6225E6;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.radial-item {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 1;
+}
+
+.radial-item p {
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.ipg{
+  width: 10px;
+}
+
+.points-upgrade-container {
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.iconsGame{
+  width: 40px;
+}
+
+
 
 .cta {
     display: flex;
@@ -229,19 +305,32 @@ path.two {
     height: auto;     /* Altura automática para manter a proporção */
   }
 
-  .button {
-    position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
-  top: 50%; /* Altere essa porcentagem para mudar a posição vertical do botão */
-}
+  .btns{
+    width: 30%;
+    height: 50%;
+  }
+
+  .btns img{
+    width: 30px;
+  }
   
     .button a {
       font-size: 24px; 
-      padding: 10px 25px; 
+      padding: 6px 21px; 
     }
   
     .button:after {
       bottom: -10px; 
       left: -2px;
+    }
+
+    .center-button {
+      width: 50px;
+      height: 50px;
+    } 
+
+    .center-button img{
+      width: 40px;
     }
   
 }
