@@ -11,14 +11,15 @@ import BateriaReload from "../../assets/upg_btr_rld.png";
 import BateriaTime from "../../assets/upg_btr_drt.png";
 import Motor from "../../assets/upg_car_spd.png";
 import Afk from "../../assets/upg_afk_eff.png";
-
+import Pts from "../../assets/upg_pts.png";
+import BateriaSpeed from "../../assets/upg_btr_eff.png";
 
 const upgrade_data = [
   { name: Motor, label: "motor", priceId: "motorPrice" },
   { name: BateriaTime, label: "battery", priceId: "batteryPrice" },
   { name: BateriaReload, label: "recharge", priceId: "rechargePrice" },
-  { name: "Eficiência bateria", label: "efficiency", priceId: "efficiencyPrice" },
-  { name: "Premiação", label: "track", priceId: "trackPrice" },
+  { name: BateriaSpeed, label: "efficiency", priceId: "efficiencyPrice" },
+  { name: Pts, label: "track", priceId: "trackPrice" },
   { name: Afk, label: "timeOff", priceId: "timeOffPrice" },
   { name: TurboSpeed, label: "powerUpgrade", priceId: "powerUpgradePrice" },
   { name: TurboTime, label: "powerTeUpgrade", priceId: "powerTeUpgradePrice" },
