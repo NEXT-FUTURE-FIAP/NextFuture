@@ -235,7 +235,6 @@ export const MainHome = styled.main`
         }
     }
 
-
     .circuito_img{
         width: 400px;
     }
