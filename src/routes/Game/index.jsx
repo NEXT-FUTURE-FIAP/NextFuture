@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
-import { MainGame } from "./StyledGame";
+import { MainGame } from "./styledGame";
 import BannerGame from "../../assets/bGame.png";
 import Skin from "../../assets/cabide.png";
 import Pista from "../../assets/IconPista.png";
+import Up from "../../assets/upgrade.png";
+import TurboSpeed from "../../assets/upg_trb_spd.png";
+import TurboTime from "../../assets/upg_trb_rld.png";
+import TurboReload from "../../assets/upg_trb_drt.png";
+import BateriaReload from "../../assets/upg_btr_rld.png";
+import BateriaTime from "../../assets/upg_btr_drt.png";
+import Motor from "../../assets/upg_car_spd.png";
+import Afk from "../../assets/upg_afk_eff.png";
+
 
 const upgrade_data = [
-  { name: "Velocidade Motor", label: "motor", priceId: "motorPrice" },
-  { name: "Duração bateria", label: "battery", priceId: "batteryPrice" },
-  { name: "Recarga bateria", label: "recharge", priceId: "rechargePrice" },
+  { name: Motor, label: "motor", priceId: "motorPrice" },
+  { name: BateriaTime, label: "battery", priceId: "batteryPrice" },
+  { name: BateriaReload, label: "recharge", priceId: "rechargePrice" },
   { name: "Eficiência bateria", label: "efficiency", priceId: "efficiencyPrice" },
   { name: "Premiação", label: "track", priceId: "trackPrice" },
-  { name: "Recompensa Offline", label: "timeOff", priceId: "timeOffPrice" },
-  { name: "Força Turbo", label: "powerUpgrade", priceId: "powerUpgradePrice" },
-  { name: "Duração Turbo", label: "powerTeUpgrade", priceId: "powerTeUpgradePrice" },
-  { name: "Recarga Turbo", label: "powerReUpgrade", priceId: "powerReUpgradePrice" },
+  { name: Afk, label: "timeOff", priceId: "timeOffPrice" },
+  { name: TurboSpeed, label: "powerUpgrade", priceId: "powerUpgradePrice" },
+  { name: TurboTime, label: "powerTeUpgrade", priceId: "powerTeUpgradePrice" },
+  { name: TurboReload, label: "powerReUpgrade", priceId: "powerReUpgradePrice" },
 ];
 
 
@@ -21,14 +30,15 @@ const upgrade_data = [
 const RadialMenu = ({ upgrades, isOpen, toggleMenu }) => {
   return (
     <div className="radial-menu" onClick={toggleMenu}>
-      <div className="upgrade-button">
-        <i>UPGRADES</i>
+      <div className="upgrade-button center-button">
+        <i><img src={Up} alt="" /></i>
       </div>
       {upgrades.map(({ name, label, priceId }, index) => {
+        const angle = (index / upgrades.length) * 360;
         return (
           <div
             key={label}
-            className="upgrade-button"
+            className="upgrade-button radial-item"
             id="upgrade-item"
             onClick={(e) => {
               e.stopPropagation();
@@ -36,17 +46,17 @@ const RadialMenu = ({ upgrades, isOpen, toggleMenu }) => {
             }}
             style={{
               opacity: isOpen ? 1 : 0,
-              height: isOpen ? 'auto' : 0,
-              margin: isOpen ? '15px' : '100px',
-              position: isOpen? 'relative' : 'absolute',
-              overflow: isOpen ? 'visible' : 'hidden'
-              
+              transform: isOpen
+                ? `rotate(${angle}deg) translate(100px) rotate(-${angle}deg)`
+                : 'none',
             }}
           >
-            <p>Melhorar {name}</p>
-            <div className="points-upgrade-container">
-              <span id={label}>10</span>
-              <img src="pontos.png" alt="Icone Pontos" className="pointsIcon" />
+            <div className="up">
+                <img className="iconsGame" src={name} alt="" />
+                <div className="points-upgrade-container">
+                <span id={label}>10</span>
+                <img className="ipg" src="pontos.png" alt="" />
+            </div>
             </div>
           </div>
         );
@@ -112,6 +122,13 @@ const Game = () => {
                     <span id="points">0</span>
                   </p>
                 </div>
+                <>
+                <RadialMenu
+                  upgrades={upgrade_data}
+                  isOpen={isOpen}
+                  toggleMenu={toggleMenu}
+                />
+              </>
                 <div className="button" onClick={() => window.power()}>
                   <a>TURBO</a>
                 </div>
@@ -168,15 +185,6 @@ const Game = () => {
                   </span>
                 </a>
               </div>
-            )}
-            {isGameStarted && (
-              <>
-                <RadialMenu
-                  upgrades={upgrade_data}
-                  isOpen={isOpen}
-                  toggleMenu={toggleMenu}
-                />
-              </>
             )}
           </div>
         </div>

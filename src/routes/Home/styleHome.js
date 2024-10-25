@@ -197,7 +197,7 @@ export const MainHome = styled.main`
         height: 80px;
         background-color: #312c9f;
         margin-top: 8%;
-        margin-bottom: 8%;
+        margin-bottom: 10%;
         transition: transform 0.3s ease, background-color 0.3s ease;
     }
 
@@ -256,7 +256,7 @@ export const MainHome = styled.main`
        color: white;
     }
     /* breakpoint tablet */
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
         .txt_car{
             width: 60%;
             margin-left: 10%;

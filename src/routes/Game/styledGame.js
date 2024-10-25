@@ -7,7 +7,7 @@ export const MainGame = styled.main`
 }
 
 .game-container {
-    margin-top: 100px;
+    margin-top: 50px;
     position: relative;
     text-align: center;
 }
@@ -27,6 +27,7 @@ export const MainGame = styled.main`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 5%;
   }
 
   .change{
@@ -58,7 +59,6 @@ export const MainGame = styled.main`
   .button {
   padding: 20px 40px;
   width: max-content;
-  margin-left: 8%;
   border-radius: 5px;
   align-items: center;
   justify-content: center;
@@ -167,35 +167,7 @@ export const MainGame = styled.main`
 }
     
 
-.upgrade-button {
-    background: linear-gradient(145deg, #07e4a2, #0967e0); 
-    border: none;
-    border-radius: 10px; 
-    color: white; 
-    width: 20%;
-    cursor: pointer; 
-    font-size: 1.5rem; 
-    font-weight: bold; 
-    padding: 15px 30px; 
-    margin: 15px; 
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 
-                inset 0 0 5px rgba(255, 255, 255, 0.3); 
-    transition: 'opacity 0.3s ease, transform 0.3s ease'
-}
 
-.upgrade-button:hover {
-    background: linear-gradient(145deg, #210252, #476ed8); 
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 
-    inset 0 0 15px rgba(255, 255, 255, 0.4);
-    transform: translateY(-4px); 
-}
-
-.upgrade-button:active {
-    box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.5),
-    inset -5px -5px 5px rgba(255, 255, 255, 0.2);
-    transform: translateY(2px); 
-}
 
 .wrapper {
   display: flex;
@@ -205,12 +177,63 @@ svg {
   max-width: 100%;  
 }
 
-.radial-menu{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  align-content:center;
+.radial-menu {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.center-button {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #6225E6;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.radial-item {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  z-index: 1;
+}
+
+.radial-item p {
+  margin: 0;
+  font-size: 12px;
+  text-align: center;
+}
+
+.ipg{
+  width: 10px;
+}
+
+.points-upgrade-container {
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.iconsGame{
+  width: 40px;
+}
+
+
 
 .cta {
     display: flex;
@@ -282,10 +305,14 @@ path.two {
     height: auto;     /* Altura automática para manter a proporção */
   }
 
-  .button {
-    position: absolute; /* Posiciona o botão relativo ao contêiner pai (.game) */
-   top: 100%; /* Altere essa porcentagem para mudar a posição vertical do botão */
-}
+  .btns{
+    width: 30%;
+    height: 50%;
+  }
+
+  .btns img{
+    width: 30px;
+  }
   
     .button a {
       font-size: 24px; 
@@ -295,6 +322,15 @@ path.two {
     .button:after {
       bottom: -10px; 
       left: -2px;
+    }
+
+    .center-button {
+      width: 50px;
+      height: 50px;
+    } 
+
+    .center-button img{
+      width: 40px;
     }
   
 }
