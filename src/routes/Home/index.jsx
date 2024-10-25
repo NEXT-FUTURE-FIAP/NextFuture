@@ -1,30 +1,43 @@
-// CSS
 import { MainHome } from "./styleHome";
-// links
 import { Link } from "react-router-dom";
-// imagens
 import Background from "../../assets/bc_img.png"
 import Car from "../../assets/car.png"
 import Controle from "../../assets/controle.png"
 
+
+const racers_podio = [
+    {name: 'Pascal Wehrlein',sigil: 'WEH', ptn:'198'},
+    {name: 'Mitch Evans',sigil: 'EVA', ptn:'192'},
+    {name: 'Nick Cassidy',sigil: 'CAS', ptn:'176'}
+]
+
+const Podio = ({racer_data}) =>{
+    return (
+    <div className="podioList">
+        {racer_data.map(({name, sigil, ptn}, index)=>{
+            console.log(name, sigil, ptn)
+            return (
+            <div key={index} className="racer_podio">
+                <h1>{index+1}°</h1>
+                <div style={{display:'flex', alignContent:'space-between'}}>
+                    <p style={{width:'75%'}}>{name} - {sigil}</p>
+                    <p style={{color:'cyan'}}>{ptn}</p>
+                </div>
+            </div>
+            
+            );
+        })}
+    </div>
+    );
+}
+
 export default function Home() {
-    // const getUsuario = localStorage.getItem("usuario")
     localStorage.removeItem('gameStarted') 
 
     return (
         <>
             <MainHome>
                 <img src={Background} alt="" />
-                {/* {getUsuario ? (
-                <Link className="btn" to="/game">
-                <button className="game"><img src={Controle} alt="" />GAME</button>
-            </Link>
-
-            ):(
-                <Link className="btn" to="/login">
-                <button className="game"><img src={Controle} alt="" />GAME</button>
-            </Link>
-            )} */}
                 <Link className="btn" to="/game">
                 <button className="game"><img src={Controle} alt="" />GAME</button>
                 </Link>
@@ -41,24 +54,11 @@ export default function Home() {
                     </p>
                     <img src={Car} alt="" />
                 </section>
-                <h1 className="titulo">Última Corrida</h1>
+                <h1 className="titulo">Pódio da Última Temporada</h1>
                 <section className="raceInfo">
                     <section className="podio">
                         <div className="line"></div>
-                        <div className="podioList">
-                            <div className="first">
-                                <h1>1°</h1>
-                                <p>FULANO</p>
-                            </div>
-                            <div className="second">
-                                <h1>2°</h1>
-                                <p>SICLANO</p>
-                            </div>
-                            <div className="third">
-                                <h1>3°</h1>
-                                <p>TATARANO</p>
-                            </div>
-                        </div>
+                        <Podio racer_data={racers_podio} />
                     </section>
                     <section className="calendar">
                         <div className="circuito">

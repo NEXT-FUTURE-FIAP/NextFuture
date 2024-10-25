@@ -176,14 +176,15 @@ export const MainHome = styled.main`
         margin-right: 1%;
     }
 
-    .first{
+    .racer_podio{
         display: flex;
         align-content: center;
-        width: 350px;
-        height: 80px;
+        width: 100%;
+        height: 15vh;
         background-color: #312c9f;
         transition: transform 0.3s ease, background-color 0.3s ease;
     }
+        
 
     .first:hover{
         cursor: pointer;

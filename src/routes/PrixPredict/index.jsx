@@ -1,6 +1,6 @@
-import React, { useState } from 'react';  
-import { MainPrix } from './stylePrix';  
-import Banner from '../PrixPredict/Banner';  
+import { useState } from 'react';
+import { MainPrix } from './stylePrix';
+import Banner from '../PrixPredict/Banner';
 import Logo_Jaguar from '../../assets/Logo_da_Jaguar_Racing.png'
 import Logo_Mercedes from '../../assets/Logo_Mercedes.png'
 import Logo_Audi from '../../assets/Logo_da_Audi.png'
@@ -16,313 +16,183 @@ import Logo_Nissan from '../../assets/Logotipo_Nissan.png'
 import Logo_ABT from '../../assets/Logotipo_da_ABT.png'
 import Logo_Envision from '../../assets/Logotipo_Envision.png'
 
-export default function PrixPredict() {
+function errorMensage (text){
+  alert(`Opa! ${text} indisponível no momento!`)
+}
+
+const top = [
+  { name: 'Joel Lima', pts: '23.481.508' },
+  { name: 'Joel Lima', pts: '22.278.581' },
+  { name: 'Joel Lima', pts: '20.084.551' },
+  { name: 'Joel Lima', pts: '19.945.148' },
+  { name: 'Joel Lima', pts: '19.481.508' },
+  { name: 'Joel Lima', pts: '19.454.748' },
+  { name: 'Joel Lima', pts: '19.081.551' },
+  { name: 'Joel Lima', pts: '18.848.959' },
+  { name: 'Joel Lima', pts: '18.065.454' },
+  { name: 'Joel Lima', pts: '17.764.488' },
+]
+
+const teams_data = [
+  { name: 'Jaguar', odds: ['3.5', '0.7'], logo: Logo_Jaguar },
+  { name: 'Mercedes', odds: ['1.5', '2.7'], logo: Logo_Mercedes },
+  { name: 'BMW', odds: ['7.5', '0.2'], logo: Logo_BMW },
+  { name: 'Audi', odds: ['5.5', '4.7'], logo: Logo_Audi },
+  { name: 'Porshe', odds: ['2.6', '9.8'], logo: Logo_Porshe },
+  { name: 'ABT', odds: ['3.5', '8.7'], logo: Logo_ABT },
+  { name: 'Avalanche', odds: ['7.6', '0.7'], logo: Logo_Avalanche },
+  { name: 'DS', odds: ['3.5', '0.2'], logo: Logo_DS },
+  { name: 'Envision', odds: ['3.5', '2.6'], logo: Logo_Envision },
+  { name: 'Mahindra', odds: ['9.8', '0.7'], logo: Logo_Mahindra },
+  { name: 'Maserati', odds: ['3.5', '4.7'], logo: Logo_Maserati },
+  { name: 'McLaren', odds: ['1.5', '2.6'], logo: Logo_McLaren },
+  { name: 'Nio', odds: ['3.5', '0.7'], logo: Logo_Nio },
+  { name: 'Nissan', odds: ['2.6', '0.7'], logo: Logo_Nissan },
+]
+
+const Podio = ({ data }) => {
+  return (
+    <section className="podio">
+      {data.map(({ name, pts }, index) => {
+        return (
+          <div key={index} className="placement" onClick={()=>{errorMensage('Perfil de usuário')}}>
+            <h2>{index + 1}º Lugar</h2>
+            <p> {name}</p>
+            <p>Pontuação: {pts} pts</p>
+          </div>
+        );
+      })}
+    </section>
+  );
+}
+
+const Predicts = ({ teams }) => {
+
+  function oddConfirmation(value) {
+    alert(`Predict concluído!\n\nSerão descontados ${value} pontos de sua carteira até o resultado!`);
+  }
+
+  return (
+    <section className="predictions">
+      {teams.map(({ name, odds, logo }, index) => {
+        return (
+          <div key={index} className="team-card" data-team={name}>
+            <div className="team-logo">
+              <img className="quebra" src={logo} alt="" />
+            </div>
+            <div className="team-info">
+              <h3>PREDICTS {name}</h3>
+              <p>para vencer a corrida:</p>
+              <input
+                type="number"
+                placeholder="Quantos ePoints?"
+                className="bet-amount"
+                id={`bet-value-${index}`}  // Set unique id for each input field
+              />
+              <div className="btns">
+                <button
+                  onClick={() => {
+                    const betValue = parseFloat(document.getElementById(`bet-value-${index}`).value);  // Get input value as float
+                    if (!isNaN(betValue)) {
+                      oddConfirmation((odds[0] * betValue).toFixed(2));  // Multiply odds with input value and limit to 2 decimal places
+                    }
+                  }}
+                  className="yes"
+                >
+                  sim {odds[0]}x
+                </button>
+                <button
+                  onClick={() => {
+                    const betValue = parseFloat(document.getElementById(`bet-value-${index}`).value);
+                    if (!isNaN(betValue)) {
+                      oddConfirmation((odds[1] * betValue).toFixed(2));
+                    }
+                  }}
+                  className="no"
+                >
+                  não {odds[1]}x
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </section>
+  );
+}
+
+
+
+const Faq = ({ data }) => {
   const [expandedCard, setExpandedCard] = useState(null);
-
-
   const toggleCard = (cardIndex) => {
     setExpandedCard(expandedCard === cardIndex ? null : cardIndex);
   };
-  localStorage.removeItem('gameStarted') 
+  return (
+    <section className="como_funciona_container">
+      <h2 className="como_funciona_titulo">FAQ</h2>
 
+      {data.map(({title, content },index) => (
+        <div key={index} className={`card transparent-card ${expandedCard === index ? 'expanded' : ''}`} onClick={() => toggleCard(index)}>
+          <div className="cardTitle"><strong>{title}</strong></div>
+          {expandedCard === index && (
+            <div className="cardContent">{content}</div>
+          )}
+        </div>
+      ))}
+    </section>
+  );
+}
 
+export default function PrixPredict() {
+  localStorage.removeItem('gameStarted')
+
+  const faq = [
+    {
+      title: "Escolha quanto quer apostar",
+      content: "Decida quantos ePoints deseja apostar. Esses pontos funcionam como sua moeda dentro do PrixPredict."
+    },
+    {
+      title: "Selecione uma categoria de aposta",
+      content: (
+        <ul style={{listStyle:'none'}}>
+          <li><strong>Pódio:</strong> Aposte em quem terminará no pódio (top 3).</li>
+          <li><strong>Ultrapassagem:</strong> Tente prever se um piloto específico fará mais ultrapassagens.</li>
+          <li><strong>Vencedor:</strong> Aponte quem você acha que vai vencer a corrida.</li>
+          <li><strong>Pit Stop:</strong> Tente acertar quem fará o pit stop mais rápido ou quantos pit stops um piloto fará.</li>
+        </ul>
+      )
+    },
+    {
+      title: "Entenda as odds",
+      content: "As odds são calculadas com base nas chances de determinado evento acontecer. Quanto maior o risco, maior o possível retorno dos seus ePoints."
+    },
+    {
+      title: "Aposte sem combinações",
+      content: "No PrixPredict, você só pode fazer uma aposta por vez."
+    },
+    {
+      title: "Exemplo",
+      content: "Se você tem 1000 ePoints e aposta 200 ePoints que o piloto 'X' vai vencer, e as odds estão em 2.5, você receberá 500 ePoints se acertar (200 x 2.5)."
+    }
+  ]
 
   return (
     <>
       <Banner />
       <MainPrix>
-       
+        <h1 className="podio_title">Conheça os melhores Players da Temporada</h1>
 
-        <h1 className="podio_title">Conheça os melhores Players da Temporada:</h1>
+        <Podio data={top} />
 
-        <section className="podio">
-          <div className="placement first">1º Lugar: Player A</div>
-          <div className="placement second">2º Lugar: Player B</div>
-          <div className="placement third">3º Lugar: Player C</div>
-          <div className="placement fourth">4º Lugar: Player D</div>
-          <div className="placement fifth">5º Lugar: Player E</div>
-          <div className="placement sixth">6º Lugar: Player F</div>
-          <div className="placement seventh">7º Lugar: Player G</div>
-          <div className="placement eighth">8º Lugar: Player H</div>
-          <div className="placement ninth">9º Lugar: Player I</div>
-          <div className="placement tenth">10º Lugar: Player J</div>
-        </section>
+        <button className="view-full-list" onClick={()=>{errorMensage('Lista')}}>Ver lista completa</button>
 
-        <button className="view-full-list">Ver lista completa</button>
+        <h2 className="predictions_title" style={{ textAlign: 'center' }}>Faça seus predicts</h2>
 
+        <Predicts teams={teams_data} />
 
-          {/* Cards das equipes */}
-          <h1 className="predictions_title">Faça seus predicts:</h1>
-          <section className="predictions">
-            
-  <div className="team-card" data-team="Jaguar">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Jaguar} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Jaguar</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
+        <Faq data={faq}/>
 
-  <div className="team-card" data-team="Mercedes">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Mercedes} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Mercedes</h3>
-      <p> vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-
-  <div className="team-card" data-team="BMW">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_BMW} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS BMW</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-
-  <div className="team-card" data-team="Audi">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Audi} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Audi</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-
-  <div className="team-card" data-team="Porsche">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Porshe} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Porsche</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Abt Cupra">
-    <div className="team-logo">
-      <img src={Logo_ABT} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS ABT CUPRA</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Avalanche Andretti">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Avalanche} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Avalanche Andretti</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Penske">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_DS} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS DS Penske</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Envision Racing">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Envision} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Envision Racing</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Mahindra Racing">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Mahindra} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Mahindra Racing</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Msg Racing">
-    <div className="team-logo">
-    <div className='maserati'>  
-    <img className='quebra' src={Logo_Maserati} alt="" />
-    </div>
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Maserati MSG Racing</h3>
-      <p>para vencer a corrida:</p>
-      <div className="bet-container">
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      </div>
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="McLaren">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_McLaren} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Neom McLaren</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Nio">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Nio} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS NIO 333</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-  <div className="team-card" data-team="Nissan">
-    <div className="team-logo">
-    <img className='quebra' src={Logo_Nissan} alt="" />
-    </div>
-    <div className="team-info">
-      <h3>PREDICTS Nissan</h3>
-      <p>para vencer a corrida:</p>
-      <input type="number" placeholder="Quantos ePoints?" className="bet-amount" />
-      <div className='btns'>
-        <button className="yes">sim 3.90x</button>
-        <button className="no">não 1.80x</button>
-      </div>
-    </div>
-  </div>
-
-
-  
-</section>
-
-        <section className="como_funciona_container">
-
-          <h2 className="como_funciona_titulo">FAQ</h2>
-
-          {/* Card 1 */}
-          <div className={`card transparent-card ${expandedCard === 1 ? 'expanded' : ''}`} onClick={() => toggleCard(1)}>
-            <div className="cardTitle"><strong>Escolha quanto quer apostar:</strong></div>
-            {expandedCard === 1 && (
-              <div className="cardContent">
-                Decida quantos ePoints deseja apostar. Esses pontos funcionam como sua moeda dentro do PrixPredict.
-              </div>
-            )}
-          </div>
-
-          {/* Card 2 */}
-          <div className={`card transparent-card ${expandedCard === 2 ? 'expanded' : ''}`} onClick={() => toggleCard(2)}>
-            <div className="cardTitle"><strong>Selecione uma categoria de aposta:</strong></div>
-            {expandedCard === 2 && (
-              <div className="cardContent">
-                <ul>
-                  <li><strong>Pódio:</strong> Aposte em quem terminará no pódio (top 3).</li>
-                  <li><strong>Ultrapassagem:</strong> Tente prever se um piloto específico fará mais ultrapassagens.</li>
-                  <li><strong>Vencedor:</strong> Aponte quem você acha que vai vencer a corrida.</li>
-                  <li><strong>Pit Stop:</strong> Tente acertar quem fará o pit stop mais rápido ou quantos pit stops um piloto fará.</li>
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* Card 3 */}
-          <div className={`card transparent-card ${expandedCard === 3 ? 'expanded' : ''}`} onClick={() => toggleCard(3)}>
-            <div className="cardTitle"><strong>Entenda as odds:</strong></div>
-            {expandedCard === 3 && (
-              <div className="cardContent">
-                As odds são calculadas com base nas chances de determinado evento acontecer. Quanto maior o risco, maior o possível retorno dos seus ePoints.
-              </div>
-            )}
-          </div>
-
-          {/* Card 4 */}
-          <div className={`card transparent-card ${expandedCard === 4 ? 'expanded' : ''}`} onClick={() => toggleCard(4)}>
-            <div className="cardTitle"><strong>Aposte sem combinações:</strong></div>
-            {expandedCard === 4 && (
-              <div className="cardContent">
-                No PrixPredict, você só pode fazer uma aposta por vez.
-              </div>
-            )}
-          </div>
-
-          {/* Card 5 */}
-          <div className={`card transparent-card ${expandedCard === 5 ? 'expanded' : ''}`} onClick={() => toggleCard(5)}>
-            <div className="cardTitle"><strong>Exemplo:</strong></div>
-            {expandedCard === 5 && (
-              <div className="cardContent">
-                Se você tem 1000 ePoints e aposta 200 ePoints que o piloto "X" vai vencer, e as odds estão em 2.5, você receberá 500 ePoints se acertar (200 x 2.5).
-              </div>
-            )}
-          </div>
-        </section>
       </MainPrix>
     </>
   );

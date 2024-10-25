@@ -106,14 +106,16 @@ export const MainPrix = styled.main`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    
     width: 100%;
     margin-top: 2rem;
   }
 
   .placement {
-    width: 20%;
-    height: 100px;
+    width: 25%;
+    height:fit-content;
     display: flex;
+    flex-direction:column;
     align-items: center;
     justify-content: center;
     margin: 10px;
@@ -130,6 +132,14 @@ export const MainPrix = styled.main`
 
   .placement:hover {
     transform: scale(1.05);
+    background-color: #35B0B4;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .placement:active {
+    transform: scale(1.05);
+    color:black;
+    background-color: #B9F6F8;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   }
 
