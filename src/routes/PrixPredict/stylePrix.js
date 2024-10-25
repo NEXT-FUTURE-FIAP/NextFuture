@@ -13,18 +13,18 @@ export const MainPrix = styled.main`
   
   .como_funciona_titulo {
     padding-bottom: 60px;
-    color: #00C0F9; /* Cor do texto */
+    color: rgba(220, 0, 254);
     text-align: center;
     font-family: "Rajdhani", sans-serif;
     font-size: 3rem;
     margin-top: 2rem;
     letter-spacing: 2px;
     text-shadow: 
-        0 0 5px rgba(0, 192, 249, 0.2),  
-        0 0 10px rgba(0, 192, 249, 0.2), 
-        0 0 15px rgba(0, 192, 249, 0.2),
-        0 0 20px rgba(0, 192, 249, 0.2), 
-        0 0 25px rgba(0, 192, 249, 0.2); 
+        0 0 5px rgba(220, 0, 254,0.18),  
+        0 0 10px rgba(220, 0, 254,0.18), 
+        0 0 15px rgba(220, 0, 254,0.18),
+        0 0 20px rgba(220, 0, 254,0.18), 
+        0 0 25px rgba(220, 0, 254,0.18); 
   }
 
   .como_funciona_container {
@@ -36,15 +36,17 @@ export const MainPrix = styled.main`
     margin: 0 auto; 
     margin-top: 3rem;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
+                0 0 10px rgba(220, 0, 254, 0.3),
+                0 0 20px rgba(220, 0, 254, 0.3);
     border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); 
   }
 
   .card {
     width: 100%;
     max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.5);
     border: 1px solid #00C0F9;
     border-radius: 10px;
     margin: 10px 0;
@@ -57,8 +59,9 @@ export const MainPrix = styled.main`
 
   .card:hover {
     transform: scale(1.03);
+    background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
-                0 0 10px rgba(0, 192, 249, 0.5),
+                0 0 10px rgba(0, 192, 249, 0.3),
                 0 0 20px rgba(0, 192, 249, 0.3); 
   }
 
@@ -196,6 +199,10 @@ export const MainPrix = styled.main`
     border-radius: 10px;
     padding: 15px;
     width: 250px;
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    align-items:center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), 
                 0 0 10px rgba(220, 0, 254, 0.5),
                 0 0 20px rgba(220, 0, 254, 0.3); 
@@ -209,9 +216,10 @@ export const MainPrix = styled.main`
     }
 }
 
-.team-logo img {
-    margin: 2%;
-    width: 50%;
+.team-logo{
+  margin: 2%;
+  width: 50%;
+  height:50%
 }
 
 .maserati {

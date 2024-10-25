@@ -6,22 +6,24 @@ import Controle from "../../assets/controle.png"
 
 
 const racers_podio = [
-    {name: 'Pascal Wehrlein',sigil: 'WEH', ptn:'198'},
-    {name: 'Mitch Evans',sigil: 'EVA', ptn:'192'},
-    {name: 'Nick Cassidy',sigil: 'CAS', ptn:'176'}
+    {name: 'Oliver Rowland',team: 'Nissan', ptn:'25'},
+    {name: 'Pascal Wehrlein',team: 'Porsche', ptn:'18'},
+    {name: 'Mitch Evans',team: 'Jaguar', ptn:'15'},
+    
 ]
 
 const Podio = ({racer_data}) =>{
     return (
     <div className="podioList">
-        {racer_data.map(({name, sigil, ptn}, index)=>{
-            console.log(name, sigil, ptn)
+        {racer_data.map(({name, team, ptn}, index)=>{
+            console.log(name, team, ptn)
             return (
             <div key={index} className="racer_podio">
                 <h1>{index+1}°</h1>
-                <div style={{display:'flex', alignContent:'space-between'}}>
-                    <p style={{width:'75%'}}>{name} - {sigil}</p>
-                    <p style={{color:'cyan', width:'100%'}}>{ptn} pts</p>
+                <div style={{display:'flex'}}>
+                    <p style={{width:'100%'}}>{name}</p>
+                    <p style={{color:'cyan'}}>{team}</p>
+                    <p style={{color:'white',width:'100%'}}>{ptn} pts</p>
                 </div>
             </div>
             
@@ -39,7 +41,7 @@ export default function Home() {
             <MainHome>
                 <img src={Background} alt="" />
                 <Link className="btn" to="/game">
-                <button className="game"><img src={Controle} alt="" />GAME</button>
+                    <button className="game"><img src={Controle} alt="" />GAME</button>
                 </Link>
                 <section className="car">
                     <p className="txt_car">Viva a emoção da Fórmula E: onde a velocidade encontra a paixão!
@@ -58,7 +60,9 @@ export default function Home() {
                 <section className="raceInfo">
                     <section className="podio">
                         <div className="line"></div>
-                        <Podio racer_data={racers_podio} />
+                        <a href="https://www.fiaformulae.com/en/results" target="blank">
+                            <Podio racer_data={racers_podio} />
+                        </a>
                     </section>
                     <section className="calendar">
                         <div className="circuito">
@@ -69,7 +73,9 @@ export default function Home() {
                             <h2>Circuito de Puebla</h2>
                             <p>dd/mm</p>
                             <p>00:00</p>
-                            <button><a href="https://www.fiaformulae.com/en/results?season=84467676-4d5d-4c97-ae07-0b7520bb95ea&race=d1551077-a122-4a70-894c-941345831ec4&tab=qualifying" target="_blank">MAIS INFORMAÇÕES</a></button>
+                            <button>
+                                <a href="https://www.fiaformulae.com/en/results?season=84467676-4d5d-4c97-ae07-0b7520bb95ea&race=d1551077-a122-4a70-894c-941345831ec4&tab=qualifying" target="_blank">MAIS INFORMAÇÕES</a>
+                            </button>
                         </div>
                     </section>
                 </section>

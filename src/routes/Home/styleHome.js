@@ -116,6 +116,7 @@ export const MainHome = styled.main`
         font-family: "Rajdhani", sans-serif;
         font-weight: bold;
         color: white;
+        font-size:large;
         margin-top: 15px;
         background-color: #00C0F9;
         border-style: none;
@@ -123,10 +124,32 @@ export const MainHome = styled.main`
         display: flex;
         justify-content: center;
     }
-    .btn_sign:hover{
-        cursor: pointer;
-        background-color: #8929a2;
+    .btn_sign:hover {
+    cursor: pointer;
+    animation: moveAcross 1.4s ease forwards;
+}
+
+    @keyframes moveAcross {
+        0% {
+            transform: translateX(0);
+            background-color: #8929a2;
+        }
+        25% {
+            transform: translateX(100%);
+        }
+        26%{
+            opacity:0;
+            transform: translateX(-30%);
+        }
+        74% {
+            opacity:1;
+        }
+        100% {
+            transform: translateX(0);
+            background-color: #8929a2;
+        }
     }
+    
 
     .btn_sign p{
         margin-top: 7%;
@@ -153,6 +176,7 @@ export const MainHome = styled.main`
 
     .podioList{
         flex-direction: column;
+        width:100%;
     }
 
     .podioList h1{
@@ -185,7 +209,6 @@ export const MainHome = styled.main`
         background-color: #312c9f;
         transition: transform 0.3s ease, background-color 0.3s ease;
         margin-top:2%;
-        border-radius:1rem
     }
     .racer_podio:hover{
         cursor: pointer;
@@ -196,6 +219,22 @@ export const MainHome = styled.main`
         display: flex;
         margin-right: 5%;
     }
+    .calendar:hover{
+        transform: translateY(-10px);
+        transition: transform 0.5s ease;
+        button:hover{
+            transform:scale(1.1);
+        }
+        
+    }
+    .calendar:active{
+        transform: translateY(-10px);
+        transition: transform 0.5s ease;
+        button:hover{
+            transform:scale(0.9);
+        }
+    }
+
 
     .circuito_img{
         width: 400px;
