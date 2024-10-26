@@ -7,6 +7,10 @@ export const MainHome = styled.main`
     flex-direction: column;
     font-family: "Rajdhani", sans-serif;
 
+    h1{
+        color: white;
+    }
+
     .btn{
         position: absolute;
         z-index: 3;
