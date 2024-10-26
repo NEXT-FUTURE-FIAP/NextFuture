@@ -15,7 +15,7 @@ export const SecLogin = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 80vh;
     }
 
     .container-login {
