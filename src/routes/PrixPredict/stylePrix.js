@@ -328,7 +328,7 @@ export const MainPrix = styled.main`
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     .placement {
       width: 80%; /* Largura maior em telas muito pequenas */
     }

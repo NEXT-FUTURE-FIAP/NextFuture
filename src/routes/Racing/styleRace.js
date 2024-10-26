@@ -120,7 +120,7 @@ export const MainRace = styled.main`
     }
 
 
-    @media (max-width: 480px) {
+    @media (max-width: 500px) {
 
         .logo img{
             width: 50px;

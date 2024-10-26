@@ -303,6 +303,7 @@ path.two {
     .game-canvas {
     width: 100%;      /* Ajusta para 100% da largura da tela */
     height: auto;     /* Altura automática para manter a proporção */
+    margin-bottom: 50%;
   }
 
   .btns{
@@ -332,7 +333,12 @@ path.two {
     .center-button img{
       width: 40px;
     }
-  
+
+    .radial-menu {
+      position: absolute;
+      margin-top: 940px;
+      margin-left: 30%;
+    }
 }
 
 

@@ -265,7 +265,7 @@ export const MainHome = styled.main`
     .date button a{
        color: white;
     }
-    @media (max-width: 600px) {
+    @media (max-width: 850px) {
         .txt_car{
             width: 60%;
             margin-left: 10%;

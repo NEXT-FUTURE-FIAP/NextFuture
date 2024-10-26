@@ -208,7 +208,7 @@ a svg {
     font-size: 24px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
     .usuario {
         width: 90%;
     }
