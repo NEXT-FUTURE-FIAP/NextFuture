@@ -304,7 +304,7 @@ path.two {
     .game-canvas {
     width: 100%;      /* Ajusta para 100% da largura da tela */
     height: auto;     /* Altura automática para manter a proporção */
-    margin-bottom: 50%;
+    margin-bottom: 90%;
   }
 
   .btns{
@@ -337,8 +337,8 @@ path.two {
 
     .radial-menu {
       position: absolute;
-      margin-top: 940px;
-      margin-left: 30%;
+      margin-top: 950px;
+      margin-left: 4%;
     }
 }
 
