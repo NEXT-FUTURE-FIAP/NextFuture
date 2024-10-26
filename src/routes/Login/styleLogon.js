@@ -15,7 +15,7 @@ export const SecLogin = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 80vh;
     }
 
     .container-login {
@@ -208,7 +208,7 @@ a svg {
     font-size: 24px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
     .usuario {
         width: 90%;
     }

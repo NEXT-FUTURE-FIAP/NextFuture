@@ -1,0 +1,1 @@
+export const API_BASE_URL = "http://ip_da_api_aqui:1026";
