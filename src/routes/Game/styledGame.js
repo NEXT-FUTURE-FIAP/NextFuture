@@ -32,7 +32,8 @@ export const MainGame = styled.main`
 
   .change{
     display: flex;
-  }
+    width: 95vw
+    }
 
   .btns{
     background-color: #00C0F9;
@@ -178,7 +179,7 @@ svg {
 }
 
 .radial-menu {
-  width: 180px;
+  width: 95vw;
   height: 180px;
   display: flex;
   justify-content: center;
